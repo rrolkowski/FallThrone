@@ -3,6 +3,8 @@ using UnityEngine.InputSystem;
 
 public class ObjectGrabber : MonoBehaviour
 {
+    public static ObjectGrabber Instance;
+
     [Header("Interaction Settings")]
     [SerializeField] float interactionRange = 2.0f;
     [SerializeField] string interactableTag = "Interactable";
@@ -17,8 +19,13 @@ public class ObjectGrabber : MonoBehaviour
 
     [SerializeField] public GameObject currentlyGrabbedObject = null;
 
-    // Input System Method for the "Grab" action
-    public void OnGrab(InputAction.CallbackContext context)
+	private void Awake()
+	{
+		Instance = this;
+	}
+
+	// Input System Method for the "Grab" action
+	public void OnGrab(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
@@ -57,7 +64,9 @@ public class ObjectGrabber : MonoBehaviour
                     currentlyGrabbedObject.GetComponent<Rigidbody>().isKinematic = true;
                 }
 
-                currentlyGrabbedObject.transform.SetParent(grabPoint);
+                currentlyGrabbedObject.GetComponent<BoxCollider>().isTrigger = true;
+
+				currentlyGrabbedObject.transform.SetParent(grabPoint);
 
                 break;
             }
@@ -74,8 +83,9 @@ public class ObjectGrabber : MonoBehaviour
             }
 
             currentlyGrabbedObject.transform.SetParent(originalParent);
+			currentlyGrabbedObject.GetComponent<BoxCollider>().isTrigger = false;
 
-            Vector3 newPosition = currentlyGrabbedObject.transform.position;
+			Vector3 newPosition = currentlyGrabbedObject.transform.position;
             newPosition.y = transform.position.y;
             currentlyGrabbedObject.transform.position = newPosition;
 
@@ -93,8 +103,9 @@ public class ObjectGrabber : MonoBehaviour
                 rb.isKinematic = false;
 
                 currentlyGrabbedObject.transform.SetParent(originalParent);
+				currentlyGrabbedObject.GetComponent<BoxCollider>().isTrigger = false;
 
-                rb.AddForce(transform.forward * throwForce);
+				rb.AddForce(transform.forward * throwForce);
 
                 currentlyGrabbedObject = null;
             }

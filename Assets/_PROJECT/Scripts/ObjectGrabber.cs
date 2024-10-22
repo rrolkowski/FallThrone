@@ -1,103 +1,111 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class ObjectGrabber : MonoBehaviour
 {
-	public float interactionRange = 2.0f;
-	public string interactableTag = "Interactable";
+    [Header("Interaction Settings")]
+    [SerializeField] float interactionRange = 2.0f;
+    [SerializeField] string interactableTag = "Interactable";
 
-	public Transform grabPoint;
+    [Header("Grab/Throw Settings")]
+    [SerializeField] float throwForce = 500f; // Throw power
 
-	public float throwForce = 500f; // si³a rzutu
 
-	public Transform originalParent;
-	public GameObject currentlyGrabbedObject = null;
+    [Header("Objects")]
+    [SerializeField] Transform grabPoint;
+    [SerializeField] Transform originalParent;
 
-	void Update()
-	{
-		if (Input.GetKeyDown(KeyCode.X))
-		{
-			if (currentlyGrabbedObject == null)
-			{
-				TryGrabObject();
-			}
-			else
-			{
-				ReleaseObject();
-			}
-		}
+    [SerializeField] public GameObject currentlyGrabbedObject = null;
 
-		if (Input.GetKeyDown(KeyCode.C) && currentlyGrabbedObject != null)
-		{
-			ThrowObject();
-		}
-	}
+    // Input System Method for the "Grab" action
+    public void OnGrab(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            if (currentlyGrabbedObject == null)
+            {
+                TryGrabObject();
+            }
+            else
+            {
+                ReleaseObject();
+            }
+        }
+    }
 
-	void TryGrabObject()
-	{
-		Collider[] hitColliders = Physics.OverlapSphere(transform.position, interactionRange);
-		foreach (Collider hitCollider in hitColliders)
-		{
-			if (hitCollider.CompareTag(interactableTag))
-			{
-				//Debug.Log("Podniesiono obiekt: " + hitCollider.gameObject.name);
+    // Input System Method for the "Throww" action
+    public void OnThrow(InputAction.CallbackContext context)
+    {
+        if (context.performed && currentlyGrabbedObject != null)
+        {
+            ThrowObject();
+        }
+    }
 
-				currentlyGrabbedObject = hitCollider.gameObject;
-				currentlyGrabbedObject.transform.position = grabPoint.position;
+    void TryGrabObject()
+    {
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, interactionRange);
+        foreach (Collider hitCollider in hitColliders)
+        {
+            if (hitCollider.CompareTag(interactableTag))
+            {
+                currentlyGrabbedObject = hitCollider.gameObject;
+                currentlyGrabbedObject.transform.position = grabPoint.position;
 
-				if (currentlyGrabbedObject.GetComponent<Rigidbody>())
-				{
-					currentlyGrabbedObject.GetComponent<Rigidbody>().isKinematic = true;
-				}
+                if (currentlyGrabbedObject.GetComponent<Rigidbody>())
+                {
+                    currentlyGrabbedObject.GetComponent<Rigidbody>().isKinematic = true;
+                }
 
-				currentlyGrabbedObject.transform.SetParent(grabPoint);
+                currentlyGrabbedObject.transform.SetParent(grabPoint);
 
-				break;
-			}
-			else
-			{
-				//Debug.Log("Nie znaleziono w pobli¿u obiektu mo¿liwego do podniesienia.");
-			}
-		}
-	}
+                break;
+            }
+        }
+    }
 
-	void ReleaseObject()
-	{
-		if (currentlyGrabbedObject != null)
-		{
-			//Debug.Log("Upuszczono obiekt: " + currentlyGrabbedObject.name);
+    void ReleaseObject()
+    {
+        if (currentlyGrabbedObject != null)
+        {
+            if (currentlyGrabbedObject.GetComponent<Rigidbody>())
+            {
+                currentlyGrabbedObject.GetComponent<Rigidbody>().isKinematic = false;
+            }
 
-			if (currentlyGrabbedObject.GetComponent<Rigidbody>())
-			{
-				currentlyGrabbedObject.GetComponent<Rigidbody>().isKinematic = false;
-			}
+            currentlyGrabbedObject.transform.SetParent(originalParent);
 
-			currentlyGrabbedObject.transform.SetParent(originalParent);
+            Vector3 newPosition = currentlyGrabbedObject.transform.position;
+            newPosition.y = transform.position.y;
+            currentlyGrabbedObject.transform.position = newPosition;
 
-			Vector3 newPosition = currentlyGrabbedObject.transform.position;
-			newPosition.y = transform.position.y;
-			currentlyGrabbedObject.transform.position = newPosition;
+            currentlyGrabbedObject = null;
+        }
+    }
 
-			currentlyGrabbedObject = null;
-		}
-	}
+    void ThrowObject()
+    {
+        if (currentlyGrabbedObject != null)
+        {
+            Rigidbody rb = currentlyGrabbedObject.GetComponent<Rigidbody>();
+            if (rb != null)
+            {
+                rb.isKinematic = false;
 
-	void ThrowObject()
-	{
-		if (currentlyGrabbedObject != null)
-		{
-			//Debug.Log("Rzucono obiekt: " + currentlyGrabbedObject.name);
+                currentlyGrabbedObject.transform.SetParent(originalParent);
 
-			Rigidbody rb = currentlyGrabbedObject.GetComponent<Rigidbody>();
-			if (rb != null)
-			{
-				rb.isKinematic = false;
+                rb.AddForce(transform.forward * throwForce);
 
-				currentlyGrabbedObject.transform.SetParent(originalParent);
+                currentlyGrabbedObject = null;
+            }
+        }
+    }
 
-				rb.AddForce(transform.forward * throwForce);
-
-				currentlyGrabbedObject = null;
-			}
-		}
-	}
+    // Draw interaction range
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, interactionRange);
+    }
 }
+

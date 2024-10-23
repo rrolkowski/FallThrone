@@ -1,112 +1,105 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static UnityEngine.InputManagerEntry;
 
 public class PlayerMovementController : MonoBehaviour
 {
-    private Rigidbody rb;
+	private Rigidbody rb;
 
-    private Vector2 movementInput;
-    private Vector2 mousePosition;
-    private Vector2 lastMousePosition;
-    private Vector3 targetVelocity;
+	private Vector2 movementInput;
+	private Vector2 mousePosition;
+	private Vector2 lastMousePosition;
+	private Vector3 targetVelocity;
 
-    [Header("Movement/Look Settings")]
-    [SerializeField] float rotationSpeed = 20f;
-    [SerializeField] float moveSpeed = 5f;
-    [SerializeField] float acceleration = 20f;
+	[Header("Movement/Look Settings")]
+	[SerializeField] float rotationSpeed = 20f;  // Prędkość rotacji gracza
+	[SerializeField] float moveSpeed = 5f;
+	[SerializeField] float acceleration = 20f;
 
-    [Header("Objects")]
-    [SerializeField] Camera mainCamera;
+	[Header("Objects")]
+	[SerializeField] Camera mainCamera;
+	[SerializeField] Animator anim;
 
+	[Header("Animation Smoothing")]
+	[Range(0, 1f)]
+	public float HorizontalAnimSmoothTime = 0.2f;
+	[Range(0, 1f)]
+	public float VerticalAnimTime = 0.2f;
+	[Range(0, 1f)]
+	public float StartAnimTime = 0.3f;
+	[Range(0, 1f)]
+	public float StopAnimTime = 0.15f;
 
-    void Awake()
-    {
-        rb = GetComponent<Rigidbody>() ?? throw new MissingComponentException("Rigidbody is missing");
-        mainCamera = mainCamera ?? Camera.main ?? throw new MissingReferenceException("Camera is missign");
-    }
+	private float speed;
+	private float allowPlayerRotation = 0.1f;
 
-    void Update()
-    {
-        UpdateTargetVelocity();
-        HandleLook();
-    }
+	void Awake()
+	{
+		rb = GetComponent<Rigidbody>() ?? throw new MissingComponentException("Rigidbody is missing");
+		mainCamera = mainCamera ?? Camera.main ?? throw new MissingReferenceException("Camera is missing");
+		anim = anim ?? GetComponent<Animator>() ?? throw new MissingComponentException("Animator is missing");
+	}
 
-    void FixedUpdate()
-    {
-        HandleMovement();
-    }
+	void Update()
+	{
+		UpdateTargetVelocity();
+		UpdateAnimation();  // Dodana obsługa animacji
+	}
 
-    // Calculates how fast the player should go based on current input e.g from keyboard.
-    void UpdateTargetVelocity()
-    {
-        Vector3 movement = new Vector3(movementInput.x, 0, movementInput.y).normalized;
-        targetVelocity = movement * moveSpeed;
-    }
+	void FixedUpdate()
+	{
+		HandleMovement();
+		HandleRotation();  // Nowa funkcja do rotacji
+	}
 
-    // Changes player speed to make movement smooth
-    void HandleMovement()
-    {
-        //Using AddForce
+	// Calculates how fast the player should go based on current input e.g from keyboard.
+	void UpdateTargetVelocity()
+	{
+		Vector3 movement = new Vector3(movementInput.x, 0, movementInput.y).normalized;
+		targetVelocity = movement * moveSpeed;
+	}
 
-        //Vector3 velocityChange = (targetVelocity - rb.linearVelocity) * acceleration * Time.fixedDeltaTime;
-        //velocityChange.y = 0;
-        //rb.AddForce(velocityChange, ForceMode.VelocityChange);
+	// Changes player speed to make movement smooth
+	void HandleMovement()
+	{
+		// Using Vector3.Lerp
+		rb.linearVelocity = Vector3.Lerp(rb.linearVelocity, targetVelocity, acceleration * Time.fixedDeltaTime);
+	}
 
+	// Rotates the player towards the direction of movement
+	void HandleRotation()
+	{
+		// Sprawdzamy, czy gracz się porusza
+		if (movementInput.sqrMagnitude > 0.01f)
+		{
+			// Wyznaczamy kąt, w którym gracz powinien się obrócić, zgodnie z kierunkiem ruchu
+			Vector3 movementDirection = new Vector3(movementInput.x, 0, movementInput.y);
+			Quaternion targetRotation = Quaternion.LookRotation(movementDirection);
 
-        // Using Vector3.Lerp
-        rb.linearVelocity = Vector3.Lerp(rb.linearVelocity, targetVelocity, acceleration * Time.fixedDeltaTime);
-    }
+			// Interpolujemy rotację gracza w kierunku obliczonego kąta
+			transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+		}
+	}
 
-    void HandleLook()
-    {
-        if (mousePosition == lastMousePosition)
-        {
-            return; // If the mouse did not moved, don't do a raycast
-        }
+	// Input System Method for the "Move" action
+	public void OnMove(InputAction.CallbackContext context)
+	{
+		movementInput = context.ReadValue<Vector2>();
+	}
 
-        // Update the last mouse position
-        lastMousePosition = mousePosition;
+	// Obsługa animacji
+	void UpdateAnimation()
+	{
+		// Oblicz prędkość w oparciu o wektor ruchu
+		speed = new Vector2(movementInput.x, movementInput.y).sqrMagnitude;
 
-        // Create a raycast from the camera to where the mouse is on the screen
-        Ray ray = mainCamera.ScreenPointToRay(mousePosition);
-
-        // Create a flat plane to connect cursor with 3D World
-        Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
-
-        float rayDistance;
-
-        // Check if the ray hits the plane
-        if (groundPlane.Raycast(ray, out rayDistance))
-        {
-            // Get the exact point on the ground where the ray hits and find the directon from plaeyer to that point
-            Vector3 targetPoint = ray.GetPoint(rayDistance);
-
-            //Find the direction from the player to that point
-            Vector3 directionToLook = (targetPoint - transform.position).normalized;
-
-            // Set the rotation so that the player smoothly rotat towards that point
-            Quaternion targetRotation = Quaternion.LookRotation(new Vector3(directionToLook.x, 0f, directionToLook.z));
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
-
-            // Draw a raycast
-            Debug.DrawLine(ray.origin, targetPoint, Color.red);
-        }
-
-    }
-
-
-    // Input System Method for the "Move" action
-    public void OnMove(InputAction.CallbackContext context)
-    {
-        movementInput = context.ReadValue<Vector2>();
-    }
-
-    // Input System Method for the "Look" action
-    public void OnLook(InputAction.CallbackContext context)
-    {
-        mousePosition = context.ReadValue<Vector2>();
-    }
+		// Animacja Blend - kontrola płynności animacji
+		if (speed > allowPlayerRotation)
+		{
+			anim.SetFloat("Blend", speed, StartAnimTime, Time.deltaTime);
+		}
+		else
+		{
+			anim.SetFloat("Blend", speed, StopAnimTime, Time.deltaTime);
+		}
+	}
 }
-
-

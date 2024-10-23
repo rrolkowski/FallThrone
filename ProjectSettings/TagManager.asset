@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 3
   tags:
   - Interactable
+  - PlayerEyes
+  - Enemy
+  - Projectile
   layers:
   - Default
   - TransparentFX

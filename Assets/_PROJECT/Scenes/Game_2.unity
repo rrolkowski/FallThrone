@@ -1870,7 +1870,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1726922415980434321, guid: c743666851c65214aa1e37c6340ea5ab, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2549240325695127742, guid: c743666851c65214aa1e37c6340ea5ab, type: 3}
       propertyPath: m_AnchorMax.x
@@ -1968,12 +1968,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1005281326}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: -0.99, z: 0}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: 0.7071068, w: 0}
+  m_LocalPosition: {x: 4.4, y: 0.00999999, z: -6.6921654}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 886558053}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!212 &1005281328
 SpriteRenderer:
@@ -2049,6 +2049,7 @@ MonoBehaviour:
     m_Bits: 64
   spriteRenderer: {fileID: 1005281328}
   animator: {fileID: 1005281330}
+  playerPosition: {fileID: 886558053}
 --- !u!95 &1005281330
 Animator:
   serializedVersion: 7
@@ -2226,7 +2227,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   throwSpeedXZ: 10
-  maxThrowRange: 8
+  maxThrowRange: 7.99
   grabPoint: {fileID: 1836132959}
   originalParent: {fileID: 1769431831}
   rangeCircleController: {fileID: 1005281329}
@@ -5245,10 +5246,7 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 8387264701451666747, guid: e5fe93f3a1650104a9fd8de3a7b4133e, type: 3}
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 5819210451637028317, guid: e5fe93f3a1650104a9fd8de3a7b4133e, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1005281327}
+    m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 5518868822229205140, guid: e5fe93f3a1650104a9fd8de3a7b4133e, type: 3}
       insertIndex: 7
@@ -5483,5 +5481,6 @@ SceneRoots:
   - {fileID: 1082743633}
   - {fileID: 1520858535}
   - {fileID: 973645867}
+  - {fileID: 1005281327}
   - {fileID: 1823990213}
   - {fileID: 971449765}

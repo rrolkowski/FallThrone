@@ -343,6 +343,7 @@ GameObject:
   - component: {fileID: 3353073603532206250}
   - component: {fileID: 4153113907677554464}
   - component: {fileID: 4503458491919103147}
+  - component: {fileID: 1998854288747511120}
   m_Layer: 0
   m_Name: Tower
   m_TagString: Interactable
@@ -783,6 +784,18 @@ MonoBehaviour:
   maxHealth: 100
   currentHealth: 0
   healthSlider: {fileID: 1940571602004267045}
+--- !u!114 &1998854288747511120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6245134262057179151}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34db516ba1051ed479419932d9076927, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7233460958133507146
 GameObject:
   m_ObjectHideFlags: 0

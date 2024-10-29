@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -8,24 +9,26 @@ public class ObjectGrabber : MonoBehaviour
     public static ObjectGrabber Instance;
 
     [Header("Interaction Settings")]
-    [SerializeField] float horizontalRange = 2.0f;  // Radius range on the horizontal directions (X-Z)
-    [SerializeField] float verticalRange = 10.0f;    // Height range from the player  (Y)
-    [SerializeField] string interactableTag = "Interactable";
-    [SerializeField] LayerMask groundLayer;
+    [SerializeField] float _horizontalRange = 2.0f;  // Radius range on the horizontal directions (X-Z)
+    [SerializeField] float _verticalRange = 10.0f;    // Height range from the player  (Y)
+    [SerializeField] string _interactableTag = "Interactable";
+    [SerializeField] string _enemyInteractableTag = "Enemy";
+    [SerializeField] LayerMask _groundLayer;
 
     [Header("Grab/Throw Settings")]
-    [SerializeField] float throwSpeedXZ = 10.0f; // Throw Speed
-    [SerializeField] float maxThrowRange = 10f; // Throw Range
+    [SerializeField] float _throwSpeedXZ = 10.0f; // Throw Speed
+    [SerializeField] float _maxThrowRange = 10f; // Throw Range
 
     [Header("Objects")]
-    [SerializeField] Transform grabPoint;
-    [SerializeField] Transform originalParent;
+    [SerializeField] Transform _grabPoint;
+    [SerializeField] Transform _originalParent;
 
     [Header("Scripts")]
-    [SerializeField] RangeCircleController rangeCircleController;
+    [SerializeField] RangeCircleController _rangeCircleController;
 
     [Header("")]
     [SerializeField] public GameObject currentlyGrabbedObject = null;
+
 
     private void Awake()
     {
@@ -33,9 +36,9 @@ public class ObjectGrabber : MonoBehaviour
     }
     void Start()
     {
-        if (rangeCircleController != null)
+        if (_rangeCircleController != null)
         {
-            rangeCircleController.DeactivateRangeCircle();
+            _rangeCircleController.DeactivateRangeCircle();
         }
     }
 
@@ -67,16 +70,16 @@ public class ObjectGrabber : MonoBehaviour
     void TryGrabObject()
     {
         Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
-        RaycastHit hit;
+        RaycastHit[] hits = Physics.RaycastAll(ray, 1000.0f);
 
         //Draw a Raycast
         Debug.DrawLine(ray.origin, ray.origin + ray.direction * 1000.0f, Color.red, 2.0f);
 
-        if (Physics.Raycast(ray, out hit))
+        foreach (RaycastHit hit in hits)
         {
             Debug.Log("Raycast hit the object: " + hit.collider.name);
 
-            if (hit.collider.CompareTag(interactableTag))
+            if (hit.collider.CompareTag(_interactableTag) || hit.collider.CompareTag(_enemyInteractableTag))
             {
                 Vector3 closestPoint = hit.collider.ClosestPoint(transform.position);
 
@@ -87,17 +90,29 @@ public class ObjectGrabber : MonoBehaviour
                     new Vector2(closestPoint.x, closestPoint.z)
                 );
 
-                if (horizontalDistance <= horizontalRange)
+                if (horizontalDistance <= _horizontalRange)
                 {
                     // We check that the object is in the right height range
                     float verticalDistance = Mathf.Abs(closestPoint.y - playerPosition.y);
 
-                    if (verticalDistance <= verticalRange)
+                    if (verticalDistance <= _verticalRange)
                     {
                         Debug.Log("The object is in the range: " + hit.collider.name);
 
                         currentlyGrabbedObject = hit.collider.gameObject;
-                        currentlyGrabbedObject.transform.position = grabPoint.position;
+
+                        // If grabbing an enemy, stop its movement temporarily
+                        if (currentlyGrabbedObject.TryGetComponent(out EnemyMovement enemy))
+                        {
+                            Vector3 enemyPosition = enemy.transform.position;
+                            Vector3Int tilePosition = enemy.pathfindingManager.gridManager.tilemap.WorldToCell(enemyPosition);
+
+                            enemy.isMovable = false;
+                            Debug.Log("Enemy movement halted during grabbing");
+                        }
+
+                        currentlyGrabbedObject.transform.position = _grabPoint.position;
+
 
                         if (currentlyGrabbedObject.TryGetComponent(out Rigidbody rb))
                         {
@@ -109,16 +124,17 @@ public class ObjectGrabber : MonoBehaviour
                             boxCollider.isTrigger = true;
                         }
 
-                        currentlyGrabbedObject.transform.SetParent(grabPoint);
-                        if (rangeCircleController != null)
+                        currentlyGrabbedObject.transform.SetParent(_grabPoint);
+                        if (_rangeCircleController != null)
                         {
-                            rangeCircleController.ActivateRangeCircle();
+                            _rangeCircleController.ActivateRangeCircle();
                         }
 
                         if (currentlyGrabbedObject.TryGetComponent(out ThrowableObject throwable))
                         {
                             throwable.SetObjectAlpha(0.5f);
                         }
+                        break;
                     }
                     else
                     {
@@ -135,9 +151,9 @@ public class ObjectGrabber : MonoBehaviour
                 Debug.Log("Raycast hit object, but no 'Interactable' tag");
             }
         }
-        else
+        if (currentlyGrabbedObject == null)
         {
-            Debug.Log("Raycast did not hit any objects");
+            Debug.Log("Brak obiektów w zasiêgu chwycenia");
         }
     }
 
@@ -145,12 +161,13 @@ public class ObjectGrabber : MonoBehaviour
     {
         if (currentlyGrabbedObject != null)
         {
+
             if (currentlyGrabbedObject.TryGetComponent(out Rigidbody rb))
             {
                 rb.isKinematic = false;
             }
 
-            currentlyGrabbedObject.transform.SetParent(originalParent);
+            currentlyGrabbedObject.transform.SetParent(_originalParent);
 
             if (currentlyGrabbedObject.TryGetComponent(out BoxCollider boxCollider))
             {
@@ -167,9 +184,9 @@ public class ObjectGrabber : MonoBehaviour
             }
 
             currentlyGrabbedObject = null;
-            if (rangeCircleController != null)
+            if (_rangeCircleController != null)
             {
-                rangeCircleController.DeactivateRangeCircle();
+                _rangeCircleController.DeactivateRangeCircle();
             }
         }
     }
@@ -185,22 +202,22 @@ public class ObjectGrabber : MonoBehaviour
 
                 float maxThrowDistance = 250.0f;
 
-                if (Physics.Raycast(ray, out hit, maxThrowDistance, groundLayer))
+                if (Physics.Raycast(ray, out hit, maxThrowDistance, _groundLayer))
                 {
                     Vector3 targetPoint = hit.point;
 
                     // Calculate the direction and distance to the target point
-                    Vector3 direction = targetPoint - grabPoint.position;
+                    Vector3 direction = targetPoint - _grabPoint.position;
                     float distance = direction.magnitude;
 
-                    if (distance > maxThrowRange)
+                    if (distance > _maxThrowRange)
                     {
                         Debug.Log("Target point out of range - throw canceled");
                         return;
                     }
 
                     GameObject thrownObject = currentlyGrabbedObject;
-                    thrownObject.transform.SetParent(originalParent);
+                    thrownObject.transform.SetParent(_originalParent);
 
                     if (thrownObject.TryGetComponent(out BoxCollider boxCollider))
                     {
@@ -210,7 +227,7 @@ public class ObjectGrabber : MonoBehaviour
                     rb.isKinematic = false;
 
                     // calculate the time to reach the point.
-                    float time = distance / throwSpeedXZ;
+                    float time = distance / _throwSpeedXZ;
 
                     // Set the raycast speed in the XZ direction
                     Vector3 throwVelocity = new Vector3(direction.x / time, 0, direction.z / time);
@@ -229,9 +246,9 @@ public class ObjectGrabber : MonoBehaviour
                     }
 
                     currentlyGrabbedObject = null;
-                    if (rangeCircleController != null)
+                    if (_rangeCircleController != null)
                     {
-                        rangeCircleController.DeactivateRangeCircle();
+                        _rangeCircleController.DeactivateRangeCircle();
                     }
                 }
                 else
@@ -241,7 +258,7 @@ public class ObjectGrabber : MonoBehaviour
             }
         }
     }
-
+   
     //Draw yellow cylinder
     private void OnDrawGizmosSelected()
     {
@@ -263,7 +280,7 @@ public class ObjectGrabber : MonoBehaviour
 
         // Draw Red disk
         Handles.color = Color.red;
-        Handles.DrawWireDisc(transform.position, Vector3.up, maxThrowRange);
+        Handles.DrawWireDisc(transform.position, Vector3.up, _maxThrowRange);
 
     }
 

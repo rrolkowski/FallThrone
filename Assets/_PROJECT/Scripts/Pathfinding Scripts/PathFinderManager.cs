@@ -8,24 +8,34 @@ using UnityEngine;
 /// </summary>
 public class PathFinderManager : MonoBehaviour
 {
-    public GridManager gridManager;
+	public GridManager gridManager;
 
-    // Zamiast Transform, przechowujemy wspó³rzêdne kafelków
-    public Vector3Int startPoint;  // The grid position of the starting point
-    public Vector3Int endPoint;    // The grid position of the endpoint
+	public Vector3Int endPoint; // Punkt koñcowy na siatce
 
-    // Retrieves a path from the start point to the end point using PathFinder
-    public List<TileNode> GetPath()
-    {
-        PathFinder pathfinding = GetComponent<PathFinder>();
-        return pathfinding.FindPath(startPoint, endPoint);
-    }
+	/// <summary>
+	/// Metoda do pobrania œcie¿ki od konkretnego punktu startowego do punktu koñcowego.
+	/// </summary>
+	public List<TileNode> GetPathFromSpawnPoint(Vector3Int spawnPoint)
+	{
+		PathFinder pathfinding = GetComponent<PathFinder>();
+		return pathfinding.FindPath(spawnPoint, endPoint);
+	}
 
-    // Retrieves a path from a specified start position to a specified end position
-    public List<TileNode> GetPathFromTo(Vector3Int start, Vector3Int end)
-    {
-        Debug.Log("GetPathFromTo wywo³ane od punktu " + start + " do " + end);
-        PathFinder pathfinding = GetComponent<PathFinder>();
-        return pathfinding.FindPath(start, end);
-    }
+	/// <summary>
+	/// Pobiera wszystkie spawn tile positions
+	/// </summary>
+	public List<Vector3Int> GetSpawnPositions()
+	{
+		return gridManager.GetSpawnTilePositions();
+	}
+
+	/// <summary>
+	/// Metoda do pobrania œcie¿ki od dowolnego punktu startowego do koñcowego
+	/// </summary>
+	public List<TileNode> GetPathFromTo(Vector3Int start, Vector3Int end)
+	{
+		Debug.Log("GetPathFromTo wywo³ane od punktu " + start + " do " + end);
+		PathFinder pathfinding = GetComponent<PathFinder>();
+		return pathfinding.FindPath(start, end);
+	}
 }

@@ -1,98 +1,108 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
 
 public class UnitSpawner : MonoBehaviour
 {
-    private ObjectPool<Unit> _enemyPool;
+	private ObjectPool<Unit> _enemyPool;
 
-    [SerializeField] PathFinderManager pathfindingManager;
+	[SerializeField] private PathFinderManager pathfindingManager;
 
-    [SerializeField] Unit _unitEnemyPrefab;
+	[SerializeField] private Unit _unitEnemyPrefab;
 
-    [SerializeField] Transform _unitParent;
+	[SerializeField] private Transform _unitParent;
 
-    [SerializeField] int _maxEnemyUnits;
+	[SerializeField] private int _maxEnemyUnits;
 
-    [SerializeField] bool _usePool;
+	[SerializeField] private bool _usePool;
 
-    [SerializeField] float _minSpawnDelay = 1f;
-    [SerializeField] float _maxSpawnDelay = 3f;
+	[SerializeField] private float _minSpawnDelay = 1f;
+	[SerializeField] private float _maxSpawnDelay = 3f;
 
-    private int _spawnedUnits = 0;
-    private int _currentSpawnedUnits = 0;
-    
+	private int _spawnedUnits = 0;
+	private int _currentSpawnedUnits = 0;
 
-    private void Start()
-    {
-        _enemyPool = new ObjectPool<Unit>(() =>
-        {
-            Debug.Log("Create POOL");
-            var unit = Instantiate(_unitEnemyPrefab);
-            unit.transform.SetParent(_unitParent);
-            return unit;
-        }, unit =>
-        {
-            unit.gameObject.SetActive(true);
-            unit.ResetValues();
-            Debug.Log("Get POOL");
-        }, unit =>
-        {
-            unit.gameObject.SetActive(false);
-            Debug.Log("Release POOL");
-        }, unit =>
-        {
-            Destroy(unit.gameObject);
-        }, false, 1, _maxEnemyUnits); StartCoroutine(SpawnUnitLoop());
+	private void Start()
+	{
+		_enemyPool = new ObjectPool<Unit>(() =>
+		{
+			var unit = Instantiate(_unitEnemyPrefab);
+			unit.transform.SetParent(_unitParent);
+			return unit;
+		}, unit =>
+		{
+			unit.gameObject.SetActive(true);
+			unit.ResetValues();
+		}, unit =>
+		{
+			unit.gameObject.SetActive(false);
+		}, unit =>
+		{
+			Destroy(unit.gameObject);
+		}, false, 1, _maxEnemyUnits);
 
-    }
+		StartCoroutine(SpawnUnitLoop());
+	}
 
-    private IEnumerator SpawnUnitLoop()
-    {
-        while (_currentSpawnedUnits < _maxEnemyUnits && _spawnedUnits <= _maxEnemyUnits)
-        {
-            SpawnUnit();
+	private IEnumerator SpawnUnitLoop()
+	{
+		while (_currentSpawnedUnits < _maxEnemyUnits && _spawnedUnits <= _maxEnemyUnits)
+		{
+			SpawnUnit();
+			yield return new WaitForSeconds(Random.Range(_minSpawnDelay, _maxSpawnDelay));
+		}
+	}
 
-            yield return new WaitForSeconds(Random.Range(_minSpawnDelay, _maxSpawnDelay));
-        }
+	private void SpawnUnit()
+	{
+		if (_spawnedUnits < _maxEnemyUnits)
+		{
+			var unit = _usePool ? _enemyPool.Get() : Instantiate(_unitEnemyPrefab);
 
-    }
-    private void SpawnUnit()
-    {
-        if (_spawnedUnits < _maxEnemyUnits)
-        {
-            var unit = _usePool ? _enemyPool.Get() : Instantiate(_unitEnemyPrefab);
+			// Pobierz pozycje spawnTile z PathFinderManager
+			var spawnPositions = pathfindingManager.GetSpawnPositions();
+			if (spawnPositions.Count == 0)
+			{
+				Debug.LogError("Brak kafelków spawnTile! Dodaj co najmniej jeden spawnTile.");
+				return;
+			}
 
-            Vector3 spawnPosition = pathfindingManager.gridManager.tilemap.GetCellCenterWorld(pathfindingManager.startPoint);
-            float yOffset = transform.localScale.y;
-            unit.transform.position = new Vector3(spawnPosition.x, spawnPosition.y + yOffset, spawnPosition.z);
+			Vector3Int spawnPoint = spawnPositions[Random.Range(0, spawnPositions.Count)];
+			Vector3 spawnPosition = pathfindingManager.gridManager.tilemap.GetCellCenterWorld(spawnPoint);
+			float yOffset = transform.localScale.y;
+			unit.transform.position = new Vector3(spawnPosition.x, spawnPosition.y + yOffset, spawnPosition.z);
 
-            unit.Init(ReturnUnitToPool);
+			// Pobierz œcie¿kê od wybranego punktu spawnu
+			List<TileNode> path = pathfindingManager.GetPathFromSpawnPoint(spawnPoint);
 
-            if (unit.TryGetComponent<HealthController>(out var healthController))
-            {
-                healthController.Init(ReturnUnitToPool);
-            }
-            _currentSpawnedUnits++;
-            _spawnedUnits++;
-        }
-    }
+			// Przeka¿ punkt spawnu i œcie¿kê do EnemyMovement
+			unit.Init(ReturnUnitToPool);
+			if (unit.TryGetComponent<EnemyMovement>(out var movement))
+			{
+				movement.SetPath(path);
+			}
 
-    private void ReturnUnitToPool(Unit unit)
-    {
-        Debug.Log("Returning unit: " + unit.name);
+			if (unit.TryGetComponent<HealthController>(out var healthController))
+			{
+				healthController.Init(ReturnUnitToPool);
+			}
 
-        if (_usePool)
-        {
-            Debug.Log($"Returning unit to pool: {unit.name}");
-            _enemyPool.Release(unit);
-            _currentSpawnedUnits--;
-        }
-        else
-        {
-            Destroy(unit.gameObject);
-        }
-    }
+			_currentSpawnedUnits++;
+			_spawnedUnits++;
+		}
+	}
 
+	private void ReturnUnitToPool(Unit unit)
+	{
+		if (_usePool)
+		{
+			_enemyPool.Release(unit);
+			_currentSpawnedUnits--;
+		}
+		else
+		{
+			Destroy(unit.gameObject);
+		}
+	}
 }
-

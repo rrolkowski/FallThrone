@@ -10,7 +10,7 @@ public class EnemyMovement : MonoBehaviour
 {
     public PathFinderManager pathfindingManager;
 
-    [SerializeField] float _movmentSpeed = 4f;
+    [SerializeField] float _movementSpeed;
 
     [HideInInspector] public Vector3Int closestPathPosition;
 
@@ -18,7 +18,7 @@ public class EnemyMovement : MonoBehaviour
 
     void Start()
     {
-        TeleportToStart();
+        // TeleportToStart();
         List<TileNode> path = pathfindingManager.GetPath(); // Retrieves the path to follow
         StartCoroutine(MoveAlongPath(path)); // Starts moving along the path
     }
@@ -33,6 +33,12 @@ public class EnemyMovement : MonoBehaviour
         transform.position = new Vector3(startPosition.x, startPosition.y + yOffset, startPosition.z);
     }
 
+    public void RestartMovement()
+    {
+            StopAllCoroutines(); // Stop coroutines
+            List<TileNode> path = pathfindingManager.GetPath();
+            StartCoroutine(MoveAlongPath(path));
+    }
 
     // Coroutine to move the enemy along a path node by node
     public IEnumerator MoveAlongPath(List<TileNode> path)
@@ -58,7 +64,7 @@ public class EnemyMovement : MonoBehaviour
             while (Vector3.Distance(transform.position, targetPosition) > 0.1f)
             {
                 if (!isMovable) yield break; // Check if movement is allowed
-                transform.position = Vector3.MoveTowards(transform.position, targetPosition, _movmentSpeed * Time.deltaTime);
+                transform.position = Vector3.MoveTowards(transform.position, targetPosition, _movementSpeed * Time.deltaTime);
 
                 yield return null;
             }

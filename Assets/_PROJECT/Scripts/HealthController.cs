@@ -5,8 +5,9 @@ using UnityEngine.UI;
 
 public class HealthController : MonoBehaviour
 {
-	// Definicja typu obiektu
-	public enum ObjectType
+    private System.Action<Unit> _returnToPool;
+    // Definicja typu obiektu
+    public enum ObjectType
 	{
 		NotAssigned,
 		Player,
@@ -26,8 +27,12 @@ public class HealthController : MonoBehaviour
 	// Slider do wyœwietlania stanu zdrowia
 	[SerializeField] private Slider healthSlider;
 
-	// Start is called before the first frame update
-	void Start()
+    public void Init(System.Action<Unit> returnToPool)
+    {
+        _returnToPool = returnToPool;
+    }
+    // Start is called before the first frame update
+    void Start()
 	{
 		// Na pocz¹tku ustawiamy zdrowie na maksymalne
 		currentHealth = maxHealth;
@@ -79,9 +84,18 @@ public class HealthController : MonoBehaviour
 			Die();
 		}
 	}
-
-	// Funkcja obs³uguj¹ca œmieræ obiektu
-	void Die()
+    public void ResetHealth()
+    {
+        currentHealth = maxHealth;
+        if (healthSlider != null)
+        {
+            healthSlider.value = currentHealth;
+            healthSlider.gameObject.SetActive(currentHealth < maxHealth);
+        }
+        Debug.Log($"Reset health for {name}. Current health: {currentHealth}");
+    }
+    // Funkcja obs³uguj¹ca œmieræ obiektu
+    void Die()
 	{
 		// Specjalna logika œmierci dla ró¿nych typów obiektów
 		switch (objectType)
@@ -94,9 +108,17 @@ public class HealthController : MonoBehaviour
 
 			// Logika dla Enemy
 			case ObjectType.Enemy:
-				Destroy(gameObject);
-				EconomyManager.Instance.points += 2137;
-
+                if (TryGetComponent<Unit>(out var unit))
+                {
+                    Debug.Log("Invoking ReturnToPool for: " + unit.name);
+                    _returnToPool?.Invoke(unit);
+                }
+                else
+                {
+                    Debug.LogWarning("Unit component not found, destroying object.");
+                    Destroy(gameObject);
+                }
+                EconomyManager.Instance.points += 2137;
 				break;
 
 			// Logika dla Tower

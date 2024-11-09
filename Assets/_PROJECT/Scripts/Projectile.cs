@@ -11,7 +11,7 @@ public class Projectile : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		if (target != null)
+		if (target != null && target.gameObject.activeInHierarchy)
 		{
 			// Ruch pocisku w stronê celu
 			Vector3 direction = (target.position - transform.position).normalized;
@@ -63,7 +63,7 @@ public class Projectile : MonoBehaviour
 		HealthController healthController = other.GetComponent<HealthController>();
 
 		// Jeœli obiekt posiada skrypt i jego typ to Enemy, zadajemy mu obra¿enia
-		if (healthController != null && healthController.objectType == HealthController.ObjectType.Enemy)
+		if (healthController != null && healthController.objectType == HealthController.ObjectType.Enemy && other.gameObject.activeInHierarchy)
 		{
 			healthController.TakeDamage(damage); // Zadajemy obra¿enia
 			Destroy(gameObject); // Zniszczenie pocisku po kolizji

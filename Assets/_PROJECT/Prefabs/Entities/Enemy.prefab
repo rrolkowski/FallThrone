@@ -91,6 +91,7 @@ GameObject:
   - component: {fileID: 3419500165831751562}
   - component: {fileID: 7152667056050282786}
   - component: {fileID: 1290997555225439011}
+  - component: {fileID: 8968255654805321680}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -203,7 +204,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pathfindingManager: {fileID: 0}
-  _movmentSpeed: 4
+  _movementSpeed: 4
   closestPathPosition: {x: 0, y: 0, z: 0}
   isMovable: 1
 --- !u!54 &3419500165831751562
@@ -259,6 +260,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 34db516ba1051ed479419932d9076927, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8968255654805321680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1726922415980434321}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a10ecd01719039449299d948fa6bf62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2023318029009620947

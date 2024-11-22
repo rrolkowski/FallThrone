@@ -203,8 +203,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e413b99e2e29e847ab3d4bd79877249, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pathfindingManager: {fileID: 0}
-  _movementSpeed: 4
+  _movementSpeed: 3
   closestPathPosition: {x: 0, y: 0, z: 0}
   isMovable: 1
 --- !u!54 &3419500165831751562

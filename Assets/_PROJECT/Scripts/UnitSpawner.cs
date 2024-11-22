@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Search;
 using UnityEngine;
 using UnityEngine.Pool;
 
@@ -7,7 +8,7 @@ public class UnitSpawner : MonoBehaviour
 {
 	private ObjectPool<Unit> _enemyPool;
 
-	[SerializeField] private PathFinderManager pathfindingManager;
+	//[SerializeField] private PathFinderManager pathfindingManager;
 
 	[SerializeField] private Unit _unitEnemyPrefab;
 
@@ -61,7 +62,7 @@ public class UnitSpawner : MonoBehaviour
 			var unit = _usePool ? _enemyPool.Get() : Instantiate(_unitEnemyPrefab);
 
 			// Pobierz pozycje spawnTile z PathFinderManager
-			var spawnPositions = pathfindingManager.GetSpawnPositions();
+			var spawnPositions = PathFinderManager.Instance.GetSpawnPositions();
 			if (spawnPositions.Count == 0)
 			{
 				Debug.LogError("Brak kafelków spawnTile! Dodaj co najmniej jeden spawnTile.");
@@ -69,19 +70,26 @@ public class UnitSpawner : MonoBehaviour
 			}
 
 			Vector3Int spawnPoint = spawnPositions[Random.Range(0, spawnPositions.Count)];
-			Vector3 spawnPosition = pathfindingManager.gridManager.tilemap.GetCellCenterWorld(spawnPoint);
+			Vector3 spawnPosition = PathFinderManager.Instance.gridManager.tilemap.GetCellCenterWorld(spawnPoint);
 			float yOffset = transform.localScale.y;
-			unit.transform.position = new Vector3(spawnPosition.x, spawnPosition.y + yOffset, spawnPosition.z);
+			unit.transform.position = new Vector3(spawnPosition.x, spawnPosition.y + yOffset, spawnPosition.z);	
 
 			// Pobierz œcie¿kê od wybranego punktu spawnu
-			List<TileNode> path = pathfindingManager.GetPathFromSpawnPoint(spawnPoint);
+			List<TileNode> path = PathFinderManager.Instance.GetPathFromSpawnPoint(spawnPoint);
 
 			// Przeka¿ punkt spawnu i œcie¿kê do EnemyMovement
 			unit.Init(ReturnUnitToPool);
 			if (unit.TryGetComponent<EnemyMovement>(out var movement))
 			{
-				movement.SetPath(path);
-			}
+                if (path == null || path.Count == 0)
+                {
+                    Debug.LogError($"Nie uda³o siê znaleŸæ œcie¿ki od punktu spawn {spawnPoint}");
+                }
+                else
+                {
+                    movement.SetPath(path);
+                }
+            }
 
 			if (unit.TryGetComponent<HealthController>(out var healthController))
 			{

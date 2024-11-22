@@ -7,15 +7,35 @@ using UnityEngine;
 /// as Vector3Int coordinates on the grid and provides methods to retrieve and debug paths.
 /// </summary>
 public class PathFinderManager : MonoBehaviour
-{
-	public GridManager gridManager;
+{	
+    public static PathFinderManager Instance { get; private set; }
 
-	public Vector3Int endPoint; // Punkt koñcowy na siatce
+    public GridManager gridManager;
 
-	/// <summary>
-	/// Metoda do pobrania œcie¿ki od konkretnego punktu startowego do punktu koñcowego.
-	/// </summary>
-	public List<TileNode> GetPathFromSpawnPoint(Vector3Int spawnPoint)
+    [HideInInspector]
+    public Vector3Int endPoint; // Punkt koñcowy na siatce
+
+    void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject); // Zapewniamy, ¿e jest tylko jeden
+        }
+    }
+
+    private void Start()
+    {
+		endPoint = gridManager.GetEndTilePosition();
+    }
+
+    /// <summary>
+    /// Metoda do pobrania œcie¿ki od konkretnego punktu startowego do punktu koñcowego.
+    /// </summary>
+    public List<TileNode> GetPathFromSpawnPoint(Vector3Int spawnPoint)
 	{
 		PathFinder pathfinding = GetComponent<PathFinder>();
 		return pathfinding.FindPath(spawnPoint, endPoint);

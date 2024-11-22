@@ -24,6 +24,7 @@ public class Unit : MonoBehaviour
             if (TryGetComponent<EnemyMovement>(out var enemyMovement))
             {
                 enemyMovement.RestartMovement();
+                enemyMovement.isMovable = true;
             }
         }
         else

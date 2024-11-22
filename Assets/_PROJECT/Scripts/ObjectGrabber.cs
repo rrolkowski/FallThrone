@@ -105,7 +105,7 @@ public class ObjectGrabber : MonoBehaviour
                         if (currentlyGrabbedObject.TryGetComponent(out EnemyMovement enemy))
                         {
                             Vector3 enemyPosition = enemy.transform.position;
-                            Vector3Int tilePosition = enemy.pathfindingManager.gridManager.tilemap.WorldToCell(enemyPosition);
+                            Vector3Int tilePosition = PathFinderManager.Instance.gridManager.tilemap.WorldToCell(enemyPosition);
 
                             enemy.isMovable = false;
                             Debug.Log("Enemy movement halted during grabbing");

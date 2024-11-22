@@ -32,7 +32,8 @@ public class PlayerMovementController : MonoBehaviour
 	private float speed;
 	private float allowPlayerRotation = 0.1f;
 
-	void Awake()
+    private bool _isGrounded;
+    void Awake()
 	{
 		rb = GetComponent<Rigidbody>() ?? throw new MissingComponentException("Rigidbody is missing");
 		mainCamera = mainCamera ?? Camera.main ?? throw new MissingReferenceException("Camera is missing");
@@ -56,14 +57,25 @@ public class PlayerMovementController : MonoBehaviour
 	{
 		Vector3 movement = new Vector3(movementInput.x, 0, movementInput.y).normalized;
 		targetVelocity = movement * moveSpeed;
+
+		//With Gravity v0.01
+		if (!_isGrounded)
+		{
+			rb.linearVelocity += Physics.gravity * Time.fixedDeltaTime;
+		}
 	}
 
 	// Changes player speed to make movement smooth
 	void HandleMovement()
 	{
-		// Using Vector3.Lerp
-		rb.linearVelocity = Vector3.Lerp(rb.linearVelocity, targetVelocity, acceleration * Time.fixedDeltaTime);
-	}
+        // Using Vector3.Lerp
+        //rb.linearVelocity = Vector3.Lerp(rb.linearVelocity, targetVelocity, acceleration * Time.fixedDeltaTime);
+
+        // Movment with Gravity v0.01
+        float currentYVelocity = rb.linearVelocity.y;
+        Vector3 horizontalVelocity = Vector3.Lerp(new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z), targetVelocity, acceleration * Time.fixedDeltaTime);
+        rb.linearVelocity = new Vector3(horizontalVelocity.x, currentYVelocity, horizontalVelocity.z);
+    }
 
 	// Rotates the player towards the direction of movement
 	void HandleRotation()
@@ -102,4 +114,22 @@ public class PlayerMovementController : MonoBehaviour
 			anim.SetFloat("Blend", speed, StopAnimTime, Time.deltaTime);
 		}
 	}
+	
+	//Gravity v0.01
+    void OnCollisionStay(Collision collision)
+    {
+        // Sprawdza, czy gracz dotyka ziemi
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            _isGrounded = true;
+        }
+    }
+
+    void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            _isGrounded = false;
+        }
+    }
 }

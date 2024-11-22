@@ -16,92 +16,117 @@ public class GridManager : MonoBehaviour
 	[Header("Tilemap")]
 	public Tilemap tilemap;
 
-	[Header("Tiles")]
-	public TileBase pathTile;       // Path tile (brown) with lowest movement cost
-	public TileBase terrainTile;    // Terrain tile (black) with a higher movement cost
-	public TileBase obstacleTile;   // Obstacle tile (red), blocking movement
-	public TileBase spawnTile;      // Special spawn tile
-
 	private Dictionary<Vector3Int, TileNode> _nodes; // Stores each tile’s node data (position, cost, and obstacle status)
-	private List<Vector3Int> _spawnTilePositions = new List<Vector3Int>(); // Stores positions of spawn tiles
-
-	void Awake()
+	private List<Vector3Int> _spawnTilePositions = new List<Vector3Int>(); // Stores positions of spawn tiles  
+    private Vector3Int _endTilePosition;
+    void Awake()
 	{
 		InitializeGrid();
-	}
+  //      Color tilemapColor = tilemap.color;
+  //      tilemapColor.a = 0;
+		//tilemap.color = tilemapColor;
+    }
 
 	// Initializes the grid by creating nodes for each tile
 	public void InitializeGrid()
 	{
-		_nodes = new Dictionary<Vector3Int, TileNode>();
-		_spawnTilePositions.Clear(); // Reset spawn positions on re-initialization
+        _nodes = new Dictionary<Vector3Int, TileNode>();
+        _spawnTilePositions.Clear();
+        _endTilePosition = Vector3Int.zero;
 
-		foreach (Vector3Int pos in tilemap.cellBounds.allPositionsWithin) // Iterates through each tile position in the tilemap
-		{
-			TileBase tile = tilemap.GetTile(pos);
-			if (tile != null)
+        // Iteracja przez wszystkie dzieci Tilemapy
+        foreach (Transform child in tilemap.transform)
+        {
+            // Pobierz pozycjê w gridzie Tilemapy
+            Vector3Int gridPosition = tilemap.WorldToCell(child.position);
+
+            // Rozpoznaj typ obiektu na podstawie tagu
+            int movementCost = int.MaxValue;
+            bool isObstacle = true;
+
+            if (child.CompareTag("Path"))
+            {
+                movementCost = 1;
+                isObstacle = false;
+            }
+            else if (child.CompareTag("Terrain"))
+            {
+                movementCost = 50;
+                isObstacle = false;
+            }
+            else if (child.CompareTag("Obstacle"))
+            {
+                movementCost = int.MaxValue;
+                isObstacle = true;
+            }
+            else if (child.CompareTag("Spawn"))
+            {
+                movementCost = 1;
+                isObstacle = false;
+                _spawnTilePositions.Add(gridPosition);
+            }
+			else if (child.CompareTag("End"))
 			{
-				bool isObstacle = false;
-				int movementCost;
-
-				// Assigns movement cost and obstacle status based on tile type
-				if (tile == pathTile)
-				{
-					movementCost = 1;  // Path tile has the lowest cost
-				}
-				else if (tile == terrainTile)
-				{
-					movementCost = 100; // Terrain tile has a higher cost
-				}
-				else if (tile == obstacleTile)
-				{
-					movementCost = int.MaxValue;  // Obstacle tile blocks movement
-					isObstacle = true;
-				}
-				else if (tile == spawnTile)
-				{
-					movementCost = 1;  // Spawn tiles are also walkable
-					_spawnTilePositions.Add(pos); // Store position of each spawn tile
-				}
-				else
-				{
-					movementCost = int.MaxValue;  // Defaults to obstacle if tile type is unknown
-					isObstacle = true;
-				}
-
-				_nodes[pos] = new TileNode(pos, isObstacle, movementCost); // Creates and stores a TileNode for each tile
+				movementCost = 1;
+				isObstacle = false;
+				_endTilePosition = gridPosition;
 			}
-		}
-	}
+
+            // Tworzymy wêze³ TileNode
+            _nodes[gridPosition] = new TileNode(gridPosition, isObstacle, movementCost);
+        }
+
+        Debug.Log($"Grid initialized with {_nodes.Values} nodes.");
+    }
 
 	// Provides the list of spawn tile positions
 	public List<Vector3Int> GetSpawnTilePositions()
 	{
 		return _spawnTilePositions;
 	}
-
-	// Resets movement costs for each node to default based on tile type
-	public void ResetNodes()
+	public Vector3Int GetEndTilePosition()
 	{
-		foreach (var node in _nodes.Values)
-		{
-			if (node.isObstacle)
-			{
-				node.movementCost = int.MaxValue;
-			}
-			else if (tilemap.GetTile(node.position) == pathTile)
-			{
-				node.movementCost = 1; // Domyœlny koszt dla kafelków œcie¿ki
-			}
-			else if (tilemap.GetTile(node.position) == terrainTile)
-			{
-				node.movementCost = 100; // Wy¿szy koszt dla kafelków terenu
-			}
-		}
+		return _endTilePosition;
 	}
 
-	// Returns the node at a specific position if it exists in the grid
-	public TileNode GetNode(Vector3Int position)
+    // Resets movement costs for each node to default based on tile type
+    public void ResetNodes()
+	{
+        foreach (var node in _nodes.Values)
+        {
+            // Reset kosztu w zale¿noœci od tagu GameObjectu w gridzie
+            Transform child = GetChildAtGridPosition(node.position);
+            if (child == null) continue;
+
+            if (child.CompareTag("Path"))
+            {
+                node.movementCost = 1;
+                node.isObstacle = false;
+            }
+            else if (child.CompareTag("Terrain"))
+            {
+                node.movementCost = 50;
+                node.isObstacle = false;
+            }
+            else if (child.CompareTag("Obstacle"))
+            {
+                node.movementCost = int.MaxValue;
+                node.isObstacle = true;
+            }
+        }
+    }
+    public Transform GetChildAtGridPosition(Vector3Int gridPosition)
+    {
+        foreach (Transform child in tilemap.transform)
+        {
+            if (tilemap.WorldToCell(child.position) == gridPosition)
+                return child;
+        }
+        return null;
+    }
+
+    // Returns the node at a specific position if it exists in the grid
+    public TileNode GetNode(Vector3Int position)
 	{
 		_nodes.TryGetValue(position, out TileNode node);
 		return node;
@@ -168,7 +193,7 @@ public class GridManager : MonoBehaviour
 		return null; // No walkable node found within the search area
 	}
 
-	// Finds the closest path tile node from the given start position
+	//Finds the closest path tile node from the given start position
 	public TileNode GetClosestPathTileNode(Vector3Int startPosition)
 	{
 		TileNode startNode = GetNode(startPosition);
@@ -189,8 +214,9 @@ public class GridManager : MonoBehaviour
 		{
 			TileNode current = queue.Dequeue();
 
+            Transform childAtPosition = GetChildAtGridPosition(current.position);
 			// Calculate the heuristic distance from the starting position to the current node’s position to help prioritize closer nodes.
-			if (tilemap.GetTile(current.position) == pathTile && !current.isObstacle)
+			if (childAtPosition != null && childAtPosition.CompareTag("Path") && !current.isObstacle)
 			{
 				float distance = _pathFinder.Heuristic(startPosition, current.position);
 

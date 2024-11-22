@@ -9,6 +9,11 @@ TagManager:
   - Enemy
   - Projectile
   - Ground
+  - Path
+  - Terrain
+  - Obstacle
+  - Spawn
+  - End
   layers:
   - Default
   - TransparentFX

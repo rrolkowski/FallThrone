@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Net;
 using UnityEngine;
 
 /// <summary>
@@ -12,13 +13,13 @@ public class ThrowableObject : MonoBehaviour
     void OnCollisionEnter(Collision collision)
     {
         // Checks if the object collides with the ground
-        if (collision.gameObject.CompareTag("Ground"))
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
             Debug.Log("Collision with the ground");
 
             if (TryGetComponent(out Rigidbody rb))
             {
-                rb.isKinematic = true;
+               rb.isKinematic = true;
             }
 
             SetObjectAlpha(1.0f); // Resets the object's visibility to full opacity
@@ -30,38 +31,44 @@ public class ThrowableObject : MonoBehaviour
 
                 if (TryGetComponent(out EnemyMovement enemy))
                 {
+                    enemy.OnPathEndReached = null; // Zapobiega nieoczekiwanym wywo³aniom
+                    enemy.isMovable = false;
+
                     enemy.isMovable = true; // Reactivates enemy movement
 
                     // Determines the grid position where the object landed, and searching the closest wakable nodes
-                    Vector3Int landingPosition = enemy.pathfindingManager.gridManager.tilemap.WorldToCell(transform.position);
-                    TileNode closestNode = enemy.pathfindingManager.gridManager.GetClosestWalkableNode(landingPosition);
+                    Vector3Int landingPosition = PathFinderManager.Instance.gridManager.tilemap.WorldToCell(transform.position);
+                    TileNode closestNode = PathFinderManager.Instance.gridManager.GetClosestWalkableNode(landingPosition);
 
                     // If a walkable node is found, checks if it's on the path and initiates enemy movement along the path
                     if (closestNode != null)
                     {
                         //Debug.Log("Nearest walkable tile after landing: " + closestNode.position);
 
-
-                        // Checks if the enemy landed on a path tile
-                        if (enemy.pathfindingManager.gridManager.tilemap.GetTile(closestNode.position) == enemy.pathfindingManager.gridManager.pathTile)
+                        Transform childAtPosition = PathFinderManager.Instance.gridManager.GetChildAtGridPosition(closestNode.position);
+                        //Checks if the enemy landed on a path tile
+                        if (childAtPosition != null && childAtPosition.CompareTag("Path"))
                         {
-
                             //enemy.closestPathPosition = closestNode.position; // Sets the closest path position, so the enemy resumes its movement from here
 
                             // Retrieves the path from the current position to the end goal
-                            List<TileNode> path = enemy.pathfindingManager.GetPathFromTo(closestNode.position, enemy.pathfindingManager.endPoint); 
-                            enemy.StartCoroutine(enemy.MoveAlongPath(path));
+                            List<TileNode> path = PathFinderManager.Instance.GetPathFromTo(closestNode.position, PathFinderManager.Instance.endPoint);
+                            enemy.OnPathEndReached = null;
+                            enemy.SetPath(path);
                         }
                         else
                         {
-                            // Finds the nearest path tile to continue the enemy’s path movement
-                            TileNode closestPathNode = enemy.pathfindingManager.gridManager.GetClosestPathTileNode(closestNode.position);
-                            //Debug.Log("Value of closestPathTile: " + closestPathNode.position);
+                            TileNode closestPathNode = PathFinderManager.Instance.gridManager.GetClosestPathTileNode(closestNode.position);
+                            List<TileNode> pathToPathTile = PathFinderManager.Instance.GetPathFromTo(closestNode.position, closestPathNode.position);
+                            enemy.OnPathEndReached = null;
+                            enemy.SetPath(pathToPathTile);
 
-                            // Updates the closest path position and recalculates the path from the landing point to the closest path tile
-                            enemy.closestPathPosition = closestPathNode.position;
-                            List<TileNode> path = enemy.pathfindingManager.GetPathFromTo(closestNode.position, closestPathNode.position);
-                            enemy.StartCoroutine(enemy.MoveAlongPath(path));
+                            // Gdy dotrze do kafelka œcie¿ki, ustaw œcie¿kê do punktu koñcowego
+                            enemy.OnPathEndReached = () =>
+                            {
+                                List<TileNode> pathToEnd = PathFinderManager.Instance.GetPathFromTo(closestPathNode.position, PathFinderManager.Instance.endPoint);
+                                enemy.SetPath(pathToEnd);
+                            };
                         }
                     }
                 }

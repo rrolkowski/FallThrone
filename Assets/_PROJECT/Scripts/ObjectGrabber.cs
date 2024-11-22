@@ -28,9 +28,9 @@ public class ObjectGrabber : MonoBehaviour
 
     [Header("")]
     [SerializeField] public GameObject currentlyGrabbedObject = null;
+	public bool isHoldingObject => currentlyGrabbedObject != null;
 
-
-    private void Awake()
+	private void Awake()
     {
         Instance = this;
     }
@@ -191,7 +191,7 @@ public class ObjectGrabber : MonoBehaviour
         }
     }
 
-    void ThrowObject()
+    public void ThrowObject()
     {
         if (currentlyGrabbedObject != null)
         {

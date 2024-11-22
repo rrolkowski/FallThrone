@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class HealthBar_Billboard : MonoBehaviour
+public class Billboard : MonoBehaviour
 {
 	public Camera cam;
 

@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 9d5edf715a453f9499936596a54aa7cc
+timeCreated: 1504286502
+licenseType: Store
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 100100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 99370
+  packageName: Simple low poly village buildings
+  packageVersion: 1.0
+  assetPath: Assets/simple_low_poly_village_buildings/models/grass2.prefab
+  uploadId: 199091

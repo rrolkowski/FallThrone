@@ -11,8 +11,9 @@ public class ObjectGrabber : MonoBehaviour
     [Header("Interaction Settings")]
     [SerializeField] float _horizontalRange = 2.0f;  // Radius range on the horizontal directions (X-Z)
     [SerializeField] float _verticalRange = 10.0f;    // Height range from the player  (Y)
-    [SerializeField] string _interactableTag = "Interactable";
-    [SerializeField] string _enemyInteractableTag = "Enemy";
+	//[SerializeField] string _interactableTag = "Interactable";
+	[SerializeField] string _towerInteractableTag = "Tower";
+	[SerializeField] string _enemyInteractableTag = "Enemy";
     [SerializeField] LayerMask _groundLayer;
 
     [Header("Grab/Throw Settings")]
@@ -20,11 +21,11 @@ public class ObjectGrabber : MonoBehaviour
     [SerializeField] float _maxThrowRange = 10f; // Throw Range
 
     [Header("Objects")]
-    [SerializeField] Transform _grabPoint;
+    public Transform _grabPoint;
     [SerializeField] Transform _originalParent;
 
     [Header("Scripts")]
-    [SerializeField] RangeCircleController _rangeCircleController;
+    public RangeCircleController _rangeCircleController;
 
     [Header("")]
     [SerializeField] public GameObject currentlyGrabbedObject = null;
@@ -34,6 +35,7 @@ public class ObjectGrabber : MonoBehaviour
     {
         Instance = this;
     }
+
     void Start()
     {
         if (_rangeCircleController != null)
@@ -69,7 +71,15 @@ public class ObjectGrabber : MonoBehaviour
 
     void TryGrabObject()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
+		// Sprawdzenie stanï¿½w gry
+		if (GameState.STATE_Lost || GameState.STATE_Won || GameState.STATE_LoadingLevel ||
+			GameState.STATE_Shop || GameState.STATE_Paused)
+		{
+			Debug.Log("Zablokowane ze wzglï¿½du na stan gry.");
+			return;
+		}
+
+		Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
         RaycastHit[] hits = Physics.RaycastAll(ray, 1000.0f);
 
         //Draw a Raycast
@@ -77,9 +87,9 @@ public class ObjectGrabber : MonoBehaviour
 
         foreach (RaycastHit hit in hits)
         {
-            Debug.Log("Raycast hit the object: " + hit.collider.name);
+            //Debug.Log("Raycast hit the object: " + hit.collider.name);
 
-            if (hit.collider.CompareTag(_interactableTag) || hit.collider.CompareTag(_enemyInteractableTag))
+            if (hit.collider.CompareTag(_towerInteractableTag) || hit.collider.CompareTag(_enemyInteractableTag))
             {
                 Vector3 closestPoint = hit.collider.ClosestPoint(transform.position);
 
@@ -97,7 +107,7 @@ public class ObjectGrabber : MonoBehaviour
 
                     if (verticalDistance <= _verticalRange)
                     {
-                        Debug.Log("The object is in the range: " + hit.collider.name);
+                        //Debug.Log("The object is in the range: " + hit.collider.name);
 
                         currentlyGrabbedObject = hit.collider.gameObject;
 
@@ -108,7 +118,7 @@ public class ObjectGrabber : MonoBehaviour
                             Vector3Int tilePosition = PathFinderManager.Instance.gridManager.tilemap.WorldToCell(enemyPosition);
 
                             enemy.isMovable = false;
-                            Debug.Log("Enemy movement halted during grabbing");
+                            //Debug.Log("Enemy movement halted during grabbing");
                         }
 
                         currentlyGrabbedObject.transform.position = _grabPoint.position;
@@ -134,32 +144,47 @@ public class ObjectGrabber : MonoBehaviour
                         {
                             throwable.SetObjectAlpha(0.5f);
                         }
-                        break;
+
+                        // AUDIO
+                        if(currentlyGrabbedObject.tag == "Enemy")
+						    AudioManager.PlaySound(SoundType.GAME_Enemy_Grab);
+						if (currentlyGrabbedObject.tag == "Tower")
+							AudioManager.PlaySound(SoundType.GAME_Turret_Grab);
+
+						break;
                     }
                     else
                     {
-                        Debug.Log("The object is outside the vertical range");
+                        //Debug.Log("The object is outside the vertical range");
                     }
                 }
                 else
                 {
-                    Debug.Log("The object is outside the horizontal range");
+                    //Debug.Log("The object is outside the horizontal range");
                 }
             }
             else
             {
-                Debug.Log("Raycast hit object, but no 'Interactable' tag");
+                //Debug.Log("Raycast hit object, but no 'Interactable' tag");
             }
         }
         if (currentlyGrabbedObject == null)
         {
-            Debug.Log("Brak obiektów w zasiêgu chwycenia");
+            //Debug.Log("Brak obiektï¿½w w zasiï¿½gu chwycenia");
         }
     }
 
     void ReleaseObject()
     {
-        if (currentlyGrabbedObject != null)
+		// Sprawdzenie stanï¿½w gry
+		if (GameState.STATE_Lost || GameState.STATE_Won || GameState.STATE_LoadingLevel ||
+			GameState.STATE_Shop || GameState.STATE_Paused)
+		{
+			Debug.Log("Zablokowane ze wzglï¿½du na stan gry.");
+			return;
+		}
+
+		if (currentlyGrabbedObject != null)
         {
 
             if (currentlyGrabbedObject.TryGetComponent(out Rigidbody rb))
@@ -191,76 +216,88 @@ public class ObjectGrabber : MonoBehaviour
         }
     }
 
-    public void ThrowObject()
-    {
-        if (currentlyGrabbedObject != null)
-        {
-            if (currentlyGrabbedObject.TryGetComponent(out Rigidbody rb))
-            {
-                Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
-                RaycastHit hit;
+	public void ThrowObject()
+	{
+		// Sprawdzenie stanï¿½w gry
+		if (GameState.STATE_Lost || GameState.STATE_Won || GameState.STATE_LoadingLevel ||
+			GameState.STATE_Shop || GameState.STATE_Paused)
+		{
+			Debug.Log("Zablokowane ze wzglï¿½du na stan gry.");
+			return;
+		}
 
-                float maxThrowDistance = 250.0f;
+		if (currentlyGrabbedObject != null)
+		{
+			if (currentlyGrabbedObject.TryGetComponent(out Rigidbody rb))
+			{
+				Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
+				RaycastHit hit;
 
-                if (Physics.Raycast(ray, out hit, maxThrowDistance, _groundLayer))
-                {
-                    Vector3 targetPoint = hit.point;
+				float maxThrowDistance = 250.0f;
 
-                    // Calculate the direction and distance to the target point
-                    Vector3 direction = targetPoint - _grabPoint.position;
-                    float distance = direction.magnitude;
+				if (Physics.Raycast(ray, out hit, maxThrowDistance, _groundLayer))
+				{
+					Vector3 targetPoint = hit.point;
 
-                    if (distance > _maxThrowRange)
-                    {
-                        Debug.Log("Target point out of range - throw canceled");
-                        return;
-                    }
+					// Calculate the direction and distance to the target point
+					Vector3 direction = targetPoint - _grabPoint.position;
+					float distance = direction.magnitude;
 
-                    GameObject thrownObject = currentlyGrabbedObject;
-                    thrownObject.transform.SetParent(_originalParent);
+					if (distance > _maxThrowRange)
+					{
+						Debug.Log("Target point out of range - throw canceled");
+						return;
+					}
 
-                    if (thrownObject.TryGetComponent(out BoxCollider boxCollider))
-                    {
-                        boxCollider.isTrigger = false;
-                    }
+					GameObject thrownObject = currentlyGrabbedObject;
+					thrownObject.transform.SetParent(_originalParent);
 
-                    rb.isKinematic = false;
+					if (thrownObject.TryGetComponent(out BoxCollider boxCollider))
+					{
+						boxCollider.isTrigger = false;
+					}
 
-                    // calculate the time to reach the point.
-                    float time = distance / _throwSpeedXZ;
+					rb.isKinematic = false;
 
-                    // Set the raycast speed in the XZ direction
-                    Vector3 throwVelocity = new Vector3(direction.x / time, 0, direction.z / time);
+					// Calculate the time to reach the point.
+					float time = distance / _throwSpeedXZ;
 
-                    // kinematic equation for motion with acceleration, with gravity
-                    float gravity = Mathf.Abs(Physics.gravity.y);
-                    throwVelocity.y = (direction.y + 0.5f * gravity * Mathf.Pow(time, 2)) / time;
+					// Set the raycast speed in the XZ direction
+					Vector3 throwVelocity = new Vector3(direction.x / time, 0, direction.z / time);
 
-                    Debug.Log("Throw velocity: " + throwVelocity);
+					// Adjust height (Y component) based on distance
+					float gravity = Mathf.Abs(Physics.gravity.y);
 
-                    rb.linearVelocity = throwVelocity;
+					// If the throw distance is short, reduce the height
+					float heightMultiplier = Mathf.Clamp(distance / _maxThrowRange, 0.3f, 1.0f); // Minimum height factor is 0.3
+					throwVelocity.y = (direction.y * heightMultiplier + 0.5f * gravity * Mathf.Pow(time, 2)) / time;
 
-                    if (thrownObject.TryGetComponent(out ThrowableObject throwable))
-                    {
-                        throwable.SetObjectAlpha(0.5f);
-                    }
+					Debug.Log($"Throw velocity: {throwVelocity} (distance: {distance}, height multiplier: {heightMultiplier})");
 
-                    currentlyGrabbedObject = null;
-                    if (_rangeCircleController != null)
-                    {
-                        _rangeCircleController.DeactivateRangeCircle();
-                    }
-                }
-                else
-                {
-                    Debug.Log("Raycast nie trafi³ w ¿adn¹ powierzchniê ziemi w zasiêgu");
-                }
-            }
-        }
-    }
-   
-    //Draw yellow cylinder
-    private void OnDrawGizmosSelected()
+					rb.linearVelocity = throwVelocity;
+
+					if (thrownObject.TryGetComponent(out ThrowableObject throwable))
+					{
+						throwable.SetObjectAlpha(0.5f);
+					}
+
+					currentlyGrabbedObject = null;
+					if (_rangeCircleController != null)
+					{
+						_rangeCircleController.DeactivateRangeCircle();
+					}
+				}
+				else
+				{
+					Debug.Log("Raycast nie trafiï¿½ w ï¿½adnï¿½ powierzchniï¿½ ziemi w zasiï¿½gu");
+				}
+			}
+		}
+	}
+
+
+	//Draw yellow cylinder
+	private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
         float radius = 2.0f;
@@ -278,11 +315,14 @@ public class ObjectGrabber : MonoBehaviour
             Gizmos.DrawLine(basePosition + offset, topPosition + offset);
         }
 
-        // Draw Red disk
-        Handles.color = Color.red;
-        Handles.DrawWireDisc(transform.position, Vector3.up, _maxThrowRange);
+		// Draw Red disk
+		// Kod zwiï¿½zany z `Handles` dziaï¿½a tylko w edytorze
+#if UNITY_EDITOR
+		Handles.color = Color.red;
+		Handles.DrawWireDisc(transform.position, Vector3.up, _maxThrowRange);
+#endif
 
-    }
+	}
 
 }
 

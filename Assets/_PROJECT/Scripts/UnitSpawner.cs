@@ -1,28 +1,35 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Search;
 using UnityEngine;
 using UnityEngine.Pool;
+using Unity.Cinemachine;
 
 public class UnitSpawner : MonoBehaviour
 {
-	private ObjectPool<Unit> _enemyPool;
+	public static UnitSpawner Instance;
 
-	//[SerializeField] private PathFinderManager pathfindingManager;
+	private ObjectPool<Unit> _enemyPool;
 
 	[SerializeField] private Unit _unitEnemyPrefab;
 
 	[SerializeField] private Transform _unitParent;
 
-	[SerializeField] private int _maxEnemyUnits;
+	[SerializeField] public int _maxEnemyUnits;
 
 	[SerializeField] private bool _usePool;
 
 	[SerializeField] private float _minSpawnDelay = 1f;
 	[SerializeField] private float _maxSpawnDelay = 3f;
 
-	private int _spawnedUnits = 0;
+	[SerializeField] private CinemachineTargetGroup _targetGroup; // Dodano Cinemachine Target Group
+
+	public int _spawnedUnits = 0;
 	private int _currentSpawnedUnits = 0;
+
+	private void Awake()
+	{
+		Instance = this;
+	}
 
 	private void Start()
 	{
@@ -35,9 +42,11 @@ public class UnitSpawner : MonoBehaviour
 		{
 			unit.gameObject.SetActive(true);
 			unit.ResetValues();
+			AddToTargetGroup(unit); // Dodaj do Cinemachine Target Group
 		}, unit =>
 		{
 			unit.gameObject.SetActive(false);
+			RemoveFromTargetGroup(unit); // Usuñ z Cinemachine Target Group
 		}, unit =>
 		{
 			Destroy(unit.gameObject);
@@ -50,8 +59,8 @@ public class UnitSpawner : MonoBehaviour
 	{
 		while (_currentSpawnedUnits < _maxEnemyUnits && _spawnedUnits <= _maxEnemyUnits)
 		{
-			SpawnUnit();
 			yield return new WaitForSeconds(Random.Range(_minSpawnDelay, _maxSpawnDelay));
+			SpawnUnit();
 		}
 	}
 
@@ -61,7 +70,6 @@ public class UnitSpawner : MonoBehaviour
 		{
 			var unit = _usePool ? _enemyPool.Get() : Instantiate(_unitEnemyPrefab);
 
-			// Pobierz pozycje spawnTile z PathFinderManager
 			var spawnPositions = PathFinderManager.Instance.GetSpawnPositions();
 			if (spawnPositions.Count == 0)
 			{
@@ -72,24 +80,22 @@ public class UnitSpawner : MonoBehaviour
 			Vector3Int spawnPoint = spawnPositions[Random.Range(0, spawnPositions.Count)];
 			Vector3 spawnPosition = PathFinderManager.Instance.gridManager.tilemap.GetCellCenterWorld(spawnPoint);
 			float yOffset = transform.localScale.y;
-			unit.transform.position = new Vector3(spawnPosition.x, spawnPosition.y + yOffset, spawnPosition.z);	
+			unit.transform.position = new Vector3(spawnPosition.x, spawnPosition.y + yOffset, spawnPosition.z);
 
-			// Pobierz œcie¿kê od wybranego punktu spawnu
 			List<TileNode> path = PathFinderManager.Instance.GetPathFromSpawnPoint(spawnPoint);
 
-			// Przeka¿ punkt spawnu i œcie¿kê do EnemyMovement
 			unit.Init(ReturnUnitToPool);
 			if (unit.TryGetComponent<EnemyMovement>(out var movement))
 			{
-                if (path == null || path.Count == 0)
-                {
-                    Debug.LogError($"Nie uda³o siê znaleŸæ œcie¿ki od punktu spawn {spawnPoint}");
-                }
-                else
-                {
-                    movement.SetPath(path);
-                }
-            }
+				if (path == null || path.Count == 0)
+				{
+					Debug.LogError($"Nie uda³o siê znaleŸæ œcie¿ki od punktu spawn {spawnPoint}");
+				}
+				else
+				{
+					movement.SetPath(path);
+				}
+			}
 
 			if (unit.TryGetComponent<HealthController>(out var healthController))
 			{
@@ -99,6 +105,7 @@ public class UnitSpawner : MonoBehaviour
 			_currentSpawnedUnits++;
 			_spawnedUnits++;
 		}
+		GameController.Instance.CheckForWinCondition();
 	}
 
 	private void ReturnUnitToPool(Unit unit)
@@ -110,7 +117,24 @@ public class UnitSpawner : MonoBehaviour
 		}
 		else
 		{
+			RemoveFromTargetGroup(unit); // Usuñ z Cinemachine Target Group
 			Destroy(unit.gameObject);
+		}
+	}
+
+	private void AddToTargetGroup(Unit unit)
+	{
+		if (_targetGroup != null)
+		{
+			_targetGroup.AddMember(unit.transform, 1f, 0.5f); // Waga i promieñ mo¿na dostosowaæ
+		}
+	}
+
+	private void RemoveFromTargetGroup(Unit unit)
+	{
+		if (_targetGroup != null)
+		{
+			_targetGroup.RemoveMember(unit.transform);
 		}
 	}
 }

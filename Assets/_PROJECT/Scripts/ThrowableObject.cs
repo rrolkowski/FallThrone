@@ -17,7 +17,13 @@ public class ThrowableObject : MonoBehaviour
         {
             Debug.Log("Collision with the ground");
 
-            if (TryGetComponent(out Rigidbody rb))
+            //AUDIO
+            if (this.gameObject.tag == "Enemy")
+				AudioManager.PlaySound(SoundType.GAME_Enemy_Throw);
+			if (this.gameObject.tag == "Tower")
+				AudioManager.PlaySound(SoundType.GAME_Turret_Throw);
+
+			if (TryGetComponent(out Rigidbody rb))
             {
                rb.isKinematic = true;
             }

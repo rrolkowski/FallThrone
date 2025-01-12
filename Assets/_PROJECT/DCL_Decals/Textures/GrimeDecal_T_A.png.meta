@@ -1,0 +1,2873 @@
+fileFormatVersion: 2
+guid: bda1281e86aa0214c8d21ae23fd956f6
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 8476165133977326766
+    second: GrimeDecal_T_A_0
+  - first:
+      213: 236911770410656092
+    second: GrimeDecal_T_A_1
+  - first:
+      213: -8989083223602467754
+    second: GrimeDecal_T_A_2
+  - first:
+      213: 284156899849291434
+    second: GrimeDecal_T_A_3
+  - first:
+      213: -2932054016999623631
+    second: GrimeDecal_T_A_4
+  - first:
+      213: 4778630312013808792
+    second: GrimeDecal_T_A_5
+  - first:
+      213: 2697286231076121399
+    second: GrimeDecal_T_A_6
+  - first:
+      213: -3288063904746975405
+    second: GrimeDecal_T_A_7
+  - first:
+      213: 8328385307919678027
+    second: GrimeDecal_T_A_8
+  - first:
+      213: 30506392962556157
+    second: GrimeDecal_T_A_9
+  - first:
+      213: 3122366864478198058
+    second: GrimeDecal_T_A_10
+  - first:
+      213: -3796947872864731425
+    second: GrimeDecal_T_A_11
+  - first:
+      213: 8373817236233391542
+    second: GrimeDecal_T_A_12
+  - first:
+      213: 3185599005581510193
+    second: GrimeDecal_T_A_13
+  - first:
+      213: -6506542603962292591
+    second: GrimeDecal_T_A_14
+  - first:
+      213: 4546947662766616604
+    second: GrimeDecal_T_A_15
+  - first:
+      213: -5607321365090145615
+    second: GrimeDecal_T_A_16
+  - first:
+      213: 4842780710210109733
+    second: GrimeDecal_T_A_17
+  - first:
+      213: 5370415729188966437
+    second: GrimeDecal_T_A_18
+  - first:
+      213: 1503864023558751932
+    second: GrimeDecal_T_A_19
+  - first:
+      213: -9119952351522869650
+    second: GrimeDecal_T_A_20
+  - first:
+      213: -1735577134972268158
+    second: GrimeDecal_T_A_21
+  - first:
+      213: 7664628238990119253
+    second: GrimeDecal_T_A_22
+  - first:
+      213: 8986100809588705083
+    second: GrimeDecal_T_A_23
+  - first:
+      213: 9094596435478074405
+    second: GrimeDecal_T_A_24
+  - first:
+      213: -4164738581457925957
+    second: GrimeDecal_T_A_25
+  - first:
+      213: 2767750061032032759
+    second: GrimeDecal_T_A_26
+  - first:
+      213: 8563652197905814156
+    second: GrimeDecal_T_A_27
+  - first:
+      213: -1472009983622187413
+    second: GrimeDecal_T_A_28
+  - first:
+      213: -69258284187709645
+    second: GrimeDecal_T_A_29
+  - first:
+      213: -8258819423627154519
+    second: GrimeDecal_T_A_30
+  - first:
+      213: 4909480517535465569
+    second: GrimeDecal_T_A_31
+  - first:
+      213: 1109933699340529653
+    second: GrimeDecal_T_A_32
+  - first:
+      213: 5469686461140974645
+    second: GrimeDecal_T_A_33
+  - first:
+      213: -292974683977587465
+    second: GrimeDecal_T_A_34
+  - first:
+      213: 7027338390182692203
+    second: GrimeDecal_T_A_35
+  - first:
+      213: -5350720113275394707
+    second: GrimeDecal_T_A_36
+  - first:
+      213: -4593774337910543459
+    second: GrimeDecal_T_A_37
+  - first:
+      213: -4106383738340442590
+    second: GrimeDecal_T_A_38
+  - first:
+      213: -1386698338792671334
+    second: GrimeDecal_T_A_39
+  - first:
+      213: 3186457852123033639
+    second: GrimeDecal_T_A_40
+  - first:
+      213: -2500140880924456319
+    second: GrimeDecal_T_A_41
+  - first:
+      213: -5819779076240576113
+    second: GrimeDecal_T_A_42
+  - first:
+      213: -2913919328199947799
+    second: GrimeDecal_T_A_43
+  - first:
+      213: -268269717499885846
+    second: GrimeDecal_T_A_44
+  - first:
+      213: -6905386818393708626
+    second: GrimeDecal_T_A_45
+  - first:
+      213: -1333258146000271454
+    second: GrimeDecal_T_A_46
+  - first:
+      213: 1645951798416299525
+    second: GrimeDecal_T_A_47
+  - first:
+      213: -8761650195605257820
+    second: GrimeDecal_T_A_48
+  - first:
+      213: -5405210839320153878
+    second: GrimeDecal_T_A_49
+  - first:
+      213: -7327622475122316227
+    second: GrimeDecal_T_A_50
+  - first:
+      213: 6283172702356358659
+    second: GrimeDecal_T_A_51
+  - first:
+      213: 3122497674480206516
+    second: GrimeDecal_T_A_52
+  - first:
+      213: 4623988076296605786
+    second: GrimeDecal_T_A_53
+  - first:
+      213: 6577558192103841233
+    second: GrimeDecal_T_A_54
+  - first:
+      213: -2665646261469818985
+    second: GrimeDecal_T_A_55
+  - first:
+      213: 2735330007007960296
+    second: GrimeDecal_T_A_56
+  - first:
+      213: -6985851551218125912
+    second: GrimeDecal_T_A_57
+  - first:
+      213: 7915016620072376882
+    second: GrimeDecal_T_A_58
+  - first:
+      213: 806994429432063593
+    second: GrimeDecal_T_A_59
+  - first:
+      213: -3580025953963700767
+    second: GrimeDecal_T_A_60
+  - first:
+      213: -6292437250186402795
+    second: GrimeDecal_T_A_61
+  - first:
+      213: 71062474025199814
+    second: GrimeDecal_T_A_62
+  - first:
+      213: -5216929375348289348
+    second: GrimeDecal_T_A_63
+  - first:
+      213: 7197176119014656314
+    second: GrimeDecal_T_A_64
+  - first:
+      213: -5935371915833742227
+    second: GrimeDecal_T_A_65
+  - first:
+      213: 5075897791444473984
+    second: GrimeDecal_T_A_66
+  - first:
+      213: -6910179857325923196
+    second: GrimeDecal_T_A_67
+  - first:
+      213: -7464513398883331821
+    second: GrimeDecal_T_A_68
+  - first:
+      213: -1931223910738932417
+    second: GrimeDecal_T_A_69
+  - first:
+      213: 2243335610727229931
+    second: GrimeDecal_T_A_70
+  - first:
+      213: 7802505954482835930
+    second: GrimeDecal_T_A_71
+  - first:
+      213: -2307230138981558180
+    second: GrimeDecal_T_A_72
+  - first:
+      213: 1100134969831080865
+    second: GrimeDecal_T_A_73
+  - first:
+      213: -2148159410113857809
+    second: GrimeDecal_T_A_74
+  - first:
+      213: -2900658485019295088
+    second: GrimeDecal_T_A_75
+  - first:
+      213: -3856170113265943229
+    second: GrimeDecal_T_A_76
+  - first:
+      213: -5574186233461945498
+    second: GrimeDecal_T_A_77
+  - first:
+      213: -2548397206610712317
+    second: GrimeDecal_T_A_78
+  - first:
+      213: 2349191427988417029
+    second: GrimeDecal_T_A_79
+  - first:
+      213: -6810827838219221429
+    second: GrimeDecal_T_A_80
+  - first:
+      213: 8648243870949470509
+    second: GrimeDecal_T_A_81
+  - first:
+      213: 309557833446423641
+    second: GrimeDecal_T_A_82
+  - first:
+      213: 288888133758767684
+    second: GrimeDecal_T_A_83
+  - first:
+      213: 57173077153216537
+    second: GrimeDecal_T_A_84
+  - first:
+      213: 9087971856632516245
+    second: GrimeDecal_T_A_85
+  - first:
+      213: 5455335216801955276
+    second: GrimeDecal_T_A_86
+  - first:
+      213: 7878597713738705988
+    second: GrimeDecal_T_A_87
+  - first:
+      213: 8516417134971035947
+    second: GrimeDecal_T_A_88
+  - first:
+      213: -4453282040386504132
+    second: GrimeDecal_T_A_89
+  - first:
+      213: 3256710773544654585
+    second: GrimeDecal_T_A_90
+  - first:
+      213: -3424511220595278419
+    second: GrimeDecal_T_A_91
+  - first:
+      213: 1773625633346414785
+    second: GrimeDecal_T_A_92
+  - first:
+      213: -1997290713686933581
+    second: GrimeDecal_T_A_93
+  - first:
+      213: -2008436511073162543
+    second: GrimeDecal_T_A_94
+  - first:
+      213: 1939871474640732136
+    second: GrimeDecal_T_A_95
+  - first:
+      213: -2524196673257047879
+    second: GrimeDecal_T_A_96
+  - first:
+      213: -3733670498959311046
+    second: GrimeDecal_T_A_97
+  - first:
+      213: 6662193200380582792
+    second: GrimeDecal_T_A_98
+  - first:
+      213: -7853143923969996311
+    second: GrimeDecal_T_A_99
+  - first:
+      213: 1916012797975313692
+    second: GrimeDecal_T_A_100
+  - first:
+      213: 7380217388530521178
+    second: GrimeDecal_T_A_101
+  - first:
+      213: 438091484829752686
+    second: GrimeDecal_T_A_102
+  - first:
+      213: -936843193218215458
+    second: GrimeDecal_T_A_103
+  - first:
+      213: -8171528749768428769
+    second: GrimeDecal_T_A_104
+  - first:
+      213: -1876341553975144168
+    second: GrimeDecal_T_A_105
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_0
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 362
+        width: 1010
+        height: 662
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ea4154cd74361a570800000000000000
+      internalID: 8476165133977326766
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_1
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 878
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c51af6efffda94300800000000000000
+      internalID: 236911770410656092
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_2
+      rect:
+        serializedVersion: 2
+        x: 530
+        y: 584
+        width: 488
+        height: 377
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 65c60c03f6c504380800000000000000
+      internalID: -8989083223602467754
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_3
+      rect:
+        serializedVersion: 2
+        x: 517
+        y: 826
+        width: 11
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aa64ef3e13781f300800000000000000
+      internalID: 284156899849291434
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_4
+      rect:
+        serializedVersion: 2
+        x: 521
+        y: 823
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 134fa7ef7604f47d0800000000000000
+      internalID: -2932054016999623631
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_5
+      rect:
+        serializedVersion: 2
+        x: 523
+        y: 797
+        width: 14
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8944f7453fa115240800000000000000
+      internalID: 4778630312013808792
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_6
+      rect:
+        serializedVersion: 2
+        x: 529
+        y: 760
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 73b28dc498fae6520800000000000000
+      internalID: 2697286231076121399
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_7
+      rect:
+        serializedVersion: 2
+        x: 473
+        y: 718
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 35fc5ceac437e52d0800000000000000
+      internalID: -3288063904746975405
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_8
+      rect:
+        serializedVersion: 2
+        x: 471
+        y: 695
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b4a7227df4e549370800000000000000
+      internalID: 8328385307919678027
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_9
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 671
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: df069eb17616c6000800000000000000
+      internalID: 30506392962556157
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_10
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 678
+        width: 13
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a295ca7ce10e45b20800000000000000
+      internalID: 3122366864478198058
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_11
+      rect:
+        serializedVersion: 2
+        x: 28
+        y: 638
+        width: 13
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fdef837d6088e4bc0800000000000000
+      internalID: -3796947872864731425
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_12
+      rect:
+        serializedVersion: 2
+        x: 693
+        y: 577
+        width: 8
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6bd0cb3f866c53470800000000000000
+      internalID: 8373817236233391542
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_13
+      rect:
+        serializedVersion: 2
+        x: 713
+        y: 582
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1360684ea65853c20800000000000000
+      internalID: 3185599005581510193
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_14
+      rect:
+        serializedVersion: 2
+        x: 718
+        y: 572
+        width: 15
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 196e1ee89fd14b5a0800000000000000
+      internalID: -6506542603962292591
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_15
+      rect:
+        serializedVersion: 2
+        x: 739
+        y: 569
+        width: 12
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c103f7bfec00a1f30800000000000000
+      internalID: 4546947662766616604
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_16
+      rect:
+        serializedVersion: 2
+        x: 364
+        y: 558
+        width: 11
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1bae7546deace22b0800000000000000
+      internalID: -5607321365090145615
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_17
+      rect:
+        serializedVersion: 2
+        x: 387
+        y: 537
+        width: 9
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5210035d563053340800000000000000
+      internalID: 4842780710210109733
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_18
+      rect:
+        serializedVersion: 2
+        x: 394
+        y: 542
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5209a7ae6ac878a40800000000000000
+      internalID: 5370415729188966437
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_19
+      rect:
+        serializedVersion: 2
+        x: 402
+        y: 539
+        width: 10
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cb685b29c5cced410800000000000000
+      internalID: 1503864023558751932
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_20
+      rect:
+        serializedVersion: 2
+        x: 411
+        y: 537
+        width: 13
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e6eadf6e7ab6f6180800000000000000
+      internalID: -9119952351522869650
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_21
+      rect:
+        serializedVersion: 2
+        x: 443
+        y: 540
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 28110bd8acdf9e7e0800000000000000
+      internalID: -1735577134972268158
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_22
+      rect:
+        serializedVersion: 2
+        x: 152
+        y: 486
+        width: 13
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5511f6046ca3e5a60800000000000000
+      internalID: 7664628238990119253
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_23
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 478
+        width: 14
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b37826f631b05bc70800000000000000
+      internalID: 8986100809588705083
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_24
+      rect:
+        serializedVersion: 2
+        x: 180
+        y: 472
+        width: 11
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5245438d54f763e70800000000000000
+      internalID: 9094596435478074405
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_25
+      rect:
+        serializedVersion: 2
+        x: 193
+        y: 448
+        width: 7
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb806dd6350e336c0800000000000000
+      internalID: -4164738581457925957
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_26
+      rect:
+        serializedVersion: 2
+        x: 298
+        y: 468
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7f941ee2406096620800000000000000
+      internalID: 2767750061032032759
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_27
+      rect:
+        serializedVersion: 2
+        x: 350
+        y: 477
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c825b244d4438d670800000000000000
+      internalID: 8563652197905814156
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_28
+      rect:
+        serializedVersion: 2
+        x: 158
+        y: 464
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b66fe5c08be529be0800000000000000
+      internalID: -1472009983622187413
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_29
+      rect:
+        serializedVersion: 2
+        x: 221
+        y: 466
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 33f0d3d15f1f90ff0800000000000000
+      internalID: -69258284187709645
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_30
+      rect:
+        serializedVersion: 2
+        x: 297
+        y: 462
+        width: 10
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9ab6b96cd77c26d80800000000000000
+      internalID: -8258819423627154519
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_31
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 468
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1600767e48af12440800000000000000
+      internalID: 4909480517535465569
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_32
+      rect:
+        serializedVersion: 2
+        x: 353
+        y: 468
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5ff6d61a1d6476f00800000000000000
+      internalID: 1109933699340529653
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_33
+      rect:
+        serializedVersion: 2
+        x: 187
+        y: 455
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 53c32155bda38eb40800000000000000
+      internalID: 5469686461140974645
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_34
+      rect:
+        serializedVersion: 2
+        x: 348
+        y: 449
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7f46551c3152febf0800000000000000
+      internalID: -292974683977587465
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_35
+      rect:
+        serializedVersion: 2
+        x: 380
+        y: 454
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b650e4f880f168160800000000000000
+      internalID: 7027338390182692203
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_36
+      rect:
+        serializedVersion: 2
+        x: 399
+        y: 449
+        width: 10
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d65aea3086c6eb5b0800000000000000
+      internalID: -5350720113275394707
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_37
+      rect:
+        serializedVersion: 2
+        x: 420
+        y: 447
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d9b698a1492af30c0800000000000000
+      internalID: -4593774337910543459
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_38
+      rect:
+        serializedVersion: 2
+        x: 157
+        y: 448
+        width: 9
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 22ef6cc1fb13307c0800000000000000
+      internalID: -4106383738340442590
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_39
+      rect:
+        serializedVersion: 2
+        x: 182
+        y: 441
+        width: 6
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a9773a9353571cce0800000000000000
+      internalID: -1386698338792671334
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_40
+      rect:
+        serializedVersion: 2
+        x: 189
+        y: 436
+        width: 12
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7203c8fa882983c20800000000000000
+      internalID: 3186457852123033639
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_41
+      rect:
+        serializedVersion: 2
+        x: 203
+        y: 426
+        width: 13
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 18ac0187d17bd4dd0800000000000000
+      internalID: -2500140880924456319
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_42
+      rect:
+        serializedVersion: 2
+        x: 213
+        y: 444
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f81fd61c3cdfb3fa0800000000000000
+      internalID: -5819779076240576113
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_43
+      rect:
+        serializedVersion: 2
+        x: 372
+        y: 442
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9e94f724fcdaf87d0800000000000000
+      internalID: -2913919328199947799
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_44
+      rect:
+        serializedVersion: 2
+        x: 409
+        y: 442
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ae6cc600d1ae64cf0800000000000000
+      internalID: -268269717499885846
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_45
+      rect:
+        serializedVersion: 2
+        x: 150
+        y: 439
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ea76af466432b20a0800000000000000
+      internalID: -6905386818393708626
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_46
+      rect:
+        serializedVersion: 2
+        x: 151
+        y: 435
+        width: 14
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2a702c5b7c05f7de0800000000000000
+      internalID: -1333258146000271454
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_47
+      rect:
+        serializedVersion: 2
+        x: 326
+        y: 434
+        width: 21
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 506d406a07897d610800000000000000
+      internalID: 1645951798416299525
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_48
+      rect:
+        serializedVersion: 2
+        x: 343
+        y: 431
+        width: 13
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4a187bc719d586680800000000000000
+      internalID: -8761650195605257820
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_49
+      rect:
+        serializedVersion: 2
+        x: 349
+        y: 438
+        width: 15
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ae03b323165dcf4b0800000000000000
+      internalID: -5405210839320153878
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_50
+      rect:
+        serializedVersion: 2
+        x: 365
+        y: 438
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d3c6a2aae2e0f4a90800000000000000
+      internalID: -7327622475122316227
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_51
+      rect:
+        serializedVersion: 2
+        x: 369
+        y: 435
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 306c16a7840523750800000000000000
+      internalID: 6283172702356358659
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_52
+      rect:
+        serializedVersion: 2
+        x: 376
+        y: 435
+        width: 18
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4b2406b5717555b20800000000000000
+      internalID: 3122497674480206516
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_53
+      rect:
+        serializedVersion: 2
+        x: 394
+        y: 436
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a501d4d08a4bb2040800000000000000
+      internalID: 4623988076296605786
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_54
+      rect:
+        serializedVersion: 2
+        x: 155
+        y: 423
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1dd5fc9835e284b50800000000000000
+      internalID: 6577558192103841233
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_55
+      rect:
+        serializedVersion: 2
+        x: 174
+        y: 428
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 79f4e3039d8b10bd0800000000000000
+      internalID: -2665646261469818985
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_56
+      rect:
+        serializedVersion: 2
+        x: 325
+        y: 431
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8ec1d232628d5f520800000000000000
+      internalID: 2735330007007960296
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_57
+      rect:
+        serializedVersion: 2
+        x: 344
+        y: 425
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8a3380cd6054d0f90800000000000000
+      internalID: -6985851551218125912
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_58
+      rect:
+        serializedVersion: 2
+        x: 370
+        y: 424
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 23a1abe2ea9c7dd60800000000000000
+      internalID: 7915016620072376882
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_59
+      rect:
+        serializedVersion: 2
+        x: 547
+        y: 76
+        width: 455
+        height: 358
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 966640e6825033b00800000000000000
+      internalID: 806994429432063593
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_60
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 408
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1ed8057dc51315ec0800000000000000
+      internalID: -3580025953963700767
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_61
+      rect:
+        serializedVersion: 2
+        x: 159
+        y: 408
+        width: 14
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5142433e8a5cca8a0800000000000000
+      internalID: -6292437250186402795
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_62
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 417
+        width: 11
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6c8e12191f67cf000800000000000000
+      internalID: 71062474025199814
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_63
+      rect:
+        serializedVersion: 2
+        x: 218
+        y: 411
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cb09014af5eb997b0800000000000000
+      internalID: -5216929375348289348
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_64
+      rect:
+        serializedVersion: 2
+        x: 343
+        y: 413
+        width: 10
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a390bc74c8181e360800000000000000
+      internalID: 7197176119014656314
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_65
+      rect:
+        serializedVersion: 2
+        x: 412
+        y: 412
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d6c66e280b251ada0800000000000000
+      internalID: -5935371915833742227
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_66
+      rect:
+        serializedVersion: 2
+        x: 418
+        y: 412
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 088dc37e526317640800000000000000
+      internalID: 5075897791444473984
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_67
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 404
+        width: 13
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 484670e080c1a10a0800000000000000
+      internalID: -6910179857325923196
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_68
+      rect:
+        serializedVersion: 2
+        x: 79
+        y: 393
+        width: 24
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3115a66cc98b86890800000000000000
+      internalID: -7464513398883331821
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_69
+      rect:
+        serializedVersion: 2
+        x: 279
+        y: 406
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f3d4aa2d51ae235e0800000000000000
+      internalID: -1931223910738932417
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_70
+      rect:
+        serializedVersion: 2
+        x: 326
+        y: 399
+        width: 11
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: be9616d2adde12f10800000000000000
+      internalID: 2243335610727229931
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_71
+      rect:
+        serializedVersion: 2
+        x: 349
+        y: 405
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ad1d1de73d1184c60800000000000000
+      internalID: 7802505954482835930
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_72
+      rect:
+        serializedVersion: 2
+        x: 359
+        y: 406
+        width: 12
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c58ddeea9621bffd0800000000000000
+      internalID: -2307230138981558180
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_73
+      rect:
+        serializedVersion: 2
+        x: 475
+        y: 409
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1a344c12de6744f00800000000000000
+      internalID: 1100134969831080865
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_74
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 357
+        width: 72
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fe6304fd5643032e0800000000000000
+      internalID: -2148159410113857809
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_75
+      rect:
+        serializedVersion: 2
+        x: 101
+        y: 393
+        width: 14
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 092c3b9e97aceb7d0800000000000000
+      internalID: -2900658485019295088
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_76
+      rect:
+        serializedVersion: 2
+        x: 149
+        y: 391
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 34d3e4d76b12c7ac0800000000000000
+      internalID: -3856170113265943229
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_77
+      rect:
+        serializedVersion: 2
+        x: 336
+        y: 400
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 66bc0aa672384a2b0800000000000000
+      internalID: -5574186233461945498
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_78
+      rect:
+        serializedVersion: 2
+        x: 359
+        y: 395
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 309ee591e3642acd0800000000000000
+      internalID: -2548397206610712317
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_79
+      rect:
+        serializedVersion: 2
+        x: 106
+        y: 370
+        width: 22
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 50a64ae38210a9020800000000000000
+      internalID: 2349191427988417029
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_80
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 384
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b460a9c9a241b71a0800000000000000
+      internalID: -6810827838219221429
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_81
+      rect:
+        serializedVersion: 2
+        x: 350
+        y: 385
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d2174e2fafbb40870800000000000000
+      internalID: 8648243870949470509
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_82
+      rect:
+        serializedVersion: 2
+        x: 357
+        y: 382
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 95c730c9535cb4400800000000000000
+      internalID: 309557833446423641
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_83
+      rect:
+        serializedVersion: 2
+        x: 372
+        y: 385
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 44254802a36520400800000000000000
+      internalID: 288888133758767684
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_84
+      rect:
+        serializedVersion: 2
+        x: 376
+        y: 391
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 918fe6a5c9e1bc000800000000000000
+      internalID: 57173077153216537
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_85
+      rect:
+        serializedVersion: 2
+        x: 378
+        y: 380
+        width: 16
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 59e0453e046fe1e70800000000000000
+      internalID: 9087971856632516245
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_86
+      rect:
+        serializedVersion: 2
+        x: 394
+        y: 386
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ccdb820e97e35bb40800000000000000
+      internalID: 5455335216801955276
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_87
+      rect:
+        serializedVersion: 2
+        x: 403
+        y: 391
+        width: 11
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 44ca997c0e6665d60800000000000000
+      internalID: 7878597713738705988
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_88
+      rect:
+        serializedVersion: 2
+        x: 118
+        y: 374
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b21aff82344603670800000000000000
+      internalID: 8516417134971035947
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_89
+      rect:
+        serializedVersion: 2
+        x: 404
+        y: 361
+        width: 25
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c3ab22a2493c232c0800000000000000
+      internalID: -4453282040386504132
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_90
+      rect:
+        serializedVersion: 2
+        x: 406
+        y: 378
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9f611599139223d20800000000000000
+      internalID: 3256710773544654585
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_91
+      rect:
+        serializedVersion: 2
+        x: 110
+        y: 365
+        width: 9
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dad341f4031b970d0800000000000000
+      internalID: -3424511220595278419
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_92
+      rect:
+        serializedVersion: 2
+        x: 125
+        y: 358
+        width: 24
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1c8e320dd1f2d9810800000000000000
+      internalID: 1773625633346414785
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_93
+      rect:
+        serializedVersion: 2
+        x: 155
+        y: 367
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3bff0819da23844e0800000000000000
+      internalID: -1997290713686933581
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_94
+      rect:
+        serializedVersion: 2
+        x: 349
+        y: 345
+        width: 29
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1da2f8362a99024e0800000000000000
+      internalID: -2008436511073162543
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_95
+      rect:
+        serializedVersion: 2
+        x: 389
+        y: 362
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8efbfdb04decbea10800000000000000
+      internalID: 1939871474640732136
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_96
+      rect:
+        serializedVersion: 2
+        x: 403
+        y: 369
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9b87a4bdf7048fcd0800000000000000
+      internalID: -2524196673257047879
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_97
+      rect:
+        serializedVersion: 2
+        x: 507
+        y: 364
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a3fbc2986765f2cc0800000000000000
+      internalID: -3733670498959311046
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_98
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 198
+        width: 512
+        height: 167
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 88b15bdfa6dd47c50800000000000000
+      internalID: 6662193200380582792
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_99
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 355
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9e940c97537040390800000000000000
+      internalID: -7853143923969996311
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_100
+      rect:
+        serializedVersion: 2
+        x: 174
+        y: 355
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c1dbb600d7b079a10800000000000000
+      internalID: 1916012797975313692
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_101
+      rect:
+        serializedVersion: 2
+        x: 339
+        y: 361
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a54d580ec9ccb6660800000000000000
+      internalID: 7380217388530521178
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_102
+      rect:
+        serializedVersion: 2
+        x: 436
+        y: 361
+        width: 11
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e6d966462e9641600800000000000000
+      internalID: 438091484829752686
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_103
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 0
+        width: 1022
+        height: 83
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ed15cf1541aaff2f0800000000000000
+      internalID: -936843193218215458
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_104
+      rect:
+        serializedVersion: 2
+        x: 794
+        y: 69
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f13392e85e5e89e80800000000000000
+      internalID: -8171528749768428769
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GrimeDecal_T_A_105
+      rect:
+        serializedVersion: 2
+        x: 853
+        y: 72
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 811d1064c45e5f5e0800000000000000
+      internalID: -1876341553975144168
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      GrimeDecal_T_A_0: 8476165133977326766
+      GrimeDecal_T_A_1: 236911770410656092
+      GrimeDecal_T_A_10: 3122366864478198058
+      GrimeDecal_T_A_100: 1916012797975313692
+      GrimeDecal_T_A_101: 7380217388530521178
+      GrimeDecal_T_A_102: 438091484829752686
+      GrimeDecal_T_A_103: -936843193218215458
+      GrimeDecal_T_A_104: -8171528749768428769
+      GrimeDecal_T_A_105: -1876341553975144168
+      GrimeDecal_T_A_11: -3796947872864731425
+      GrimeDecal_T_A_12: 8373817236233391542
+      GrimeDecal_T_A_13: 3185599005581510193
+      GrimeDecal_T_A_14: -6506542603962292591
+      GrimeDecal_T_A_15: 4546947662766616604
+      GrimeDecal_T_A_16: -5607321365090145615
+      GrimeDecal_T_A_17: 4842780710210109733
+      GrimeDecal_T_A_18: 5370415729188966437
+      GrimeDecal_T_A_19: 1503864023558751932
+      GrimeDecal_T_A_2: -8989083223602467754
+      GrimeDecal_T_A_20: -9119952351522869650
+      GrimeDecal_T_A_21: -1735577134972268158
+      GrimeDecal_T_A_22: 7664628238990119253
+      GrimeDecal_T_A_23: 8986100809588705083
+      GrimeDecal_T_A_24: 9094596435478074405
+      GrimeDecal_T_A_25: -4164738581457925957
+      GrimeDecal_T_A_26: 2767750061032032759
+      GrimeDecal_T_A_27: 8563652197905814156
+      GrimeDecal_T_A_28: -1472009983622187413
+      GrimeDecal_T_A_29: -69258284187709645
+      GrimeDecal_T_A_3: 284156899849291434
+      GrimeDecal_T_A_30: -8258819423627154519
+      GrimeDecal_T_A_31: 4909480517535465569
+      GrimeDecal_T_A_32: 1109933699340529653
+      GrimeDecal_T_A_33: 5469686461140974645
+      GrimeDecal_T_A_34: -292974683977587465
+      GrimeDecal_T_A_35: 7027338390182692203
+      GrimeDecal_T_A_36: -5350720113275394707
+      GrimeDecal_T_A_37: -4593774337910543459
+      GrimeDecal_T_A_38: -4106383738340442590
+      GrimeDecal_T_A_39: -1386698338792671334
+      GrimeDecal_T_A_4: -2932054016999623631
+      GrimeDecal_T_A_40: 3186457852123033639
+      GrimeDecal_T_A_41: -2500140880924456319
+      GrimeDecal_T_A_42: -5819779076240576113
+      GrimeDecal_T_A_43: -2913919328199947799
+      GrimeDecal_T_A_44: -268269717499885846
+      GrimeDecal_T_A_45: -6905386818393708626
+      GrimeDecal_T_A_46: -1333258146000271454
+      GrimeDecal_T_A_47: 1645951798416299525
+      GrimeDecal_T_A_48: -8761650195605257820
+      GrimeDecal_T_A_49: -5405210839320153878
+      GrimeDecal_T_A_5: 4778630312013808792
+      GrimeDecal_T_A_50: -7327622475122316227
+      GrimeDecal_T_A_51: 6283172702356358659
+      GrimeDecal_T_A_52: 3122497674480206516
+      GrimeDecal_T_A_53: 4623988076296605786
+      GrimeDecal_T_A_54: 6577558192103841233
+      GrimeDecal_T_A_55: -2665646261469818985
+      GrimeDecal_T_A_56: 2735330007007960296
+      GrimeDecal_T_A_57: -6985851551218125912
+      GrimeDecal_T_A_58: 7915016620072376882
+      GrimeDecal_T_A_59: 806994429432063593
+      GrimeDecal_T_A_6: 2697286231076121399
+      GrimeDecal_T_A_60: -3580025953963700767
+      GrimeDecal_T_A_61: -6292437250186402795
+      GrimeDecal_T_A_62: 71062474025199814
+      GrimeDecal_T_A_63: -5216929375348289348
+      GrimeDecal_T_A_64: 7197176119014656314
+      GrimeDecal_T_A_65: -5935371915833742227
+      GrimeDecal_T_A_66: 5075897791444473984
+      GrimeDecal_T_A_67: -6910179857325923196
+      GrimeDecal_T_A_68: -7464513398883331821
+      GrimeDecal_T_A_69: -1931223910738932417
+      GrimeDecal_T_A_7: -3288063904746975405
+      GrimeDecal_T_A_70: 2243335610727229931
+      GrimeDecal_T_A_71: 7802505954482835930
+      GrimeDecal_T_A_72: -2307230138981558180
+      GrimeDecal_T_A_73: 1100134969831080865
+      GrimeDecal_T_A_74: -2148159410113857809
+      GrimeDecal_T_A_75: -2900658485019295088
+      GrimeDecal_T_A_76: -3856170113265943229
+      GrimeDecal_T_A_77: -5574186233461945498
+      GrimeDecal_T_A_78: -2548397206610712317
+      GrimeDecal_T_A_79: 2349191427988417029
+      GrimeDecal_T_A_8: 8328385307919678027
+      GrimeDecal_T_A_80: -6810827838219221429
+      GrimeDecal_T_A_81: 8648243870949470509
+      GrimeDecal_T_A_82: 309557833446423641
+      GrimeDecal_T_A_83: 288888133758767684
+      GrimeDecal_T_A_84: 57173077153216537
+      GrimeDecal_T_A_85: 9087971856632516245
+      GrimeDecal_T_A_86: 5455335216801955276
+      GrimeDecal_T_A_87: 7878597713738705988
+      GrimeDecal_T_A_88: 8516417134971035947
+      GrimeDecal_T_A_89: -4453282040386504132
+      GrimeDecal_T_A_9: 30506392962556157
+      GrimeDecal_T_A_90: 3256710773544654585
+      GrimeDecal_T_A_91: -3424511220595278419
+      GrimeDecal_T_A_92: 1773625633346414785
+      GrimeDecal_T_A_93: -1997290713686933581
+      GrimeDecal_T_A_94: -2008436511073162543
+      GrimeDecal_T_A_95: 1939871474640732136
+      GrimeDecal_T_A_96: -2524196673257047879
+      GrimeDecal_T_A_97: -3733670498959311046
+      GrimeDecal_T_A_98: 6662193200380582792
+      GrimeDecal_T_A_99: -7853143923969996311
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

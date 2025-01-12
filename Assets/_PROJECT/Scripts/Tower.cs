@@ -51,6 +51,9 @@ public class Tower : MonoBehaviour
 	{
 		if (spawnPoint != null)
 		{
+			//AUDIO
+			AudioManager.PlaySound(SoundType.GAME_Turret_Fireball);
+
 			// Respawn pocisku w pozycji i rotacji punktu spawn
 			GameObject projectile = Instantiate(projectilePrefab, spawnPoint.position, spawnPoint.rotation);
 

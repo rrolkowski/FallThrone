@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 2326f38909488524883fc5a10538a49c
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 255729
+  packageName: Simple Cartoon Water URP
+  packageVersion: 1.2
+  assetPath: Assets/WaterURP/SimpleCartoonWater/Materials/SceneMaterials/Pool.mat
+  uploadId: 639830

@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 1ffd983d41367184a9b6cd4d2f45861d
+timeCreated: 1504286093
+licenseType: Store
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 99370
+  packageName: Simple low poly village buildings
+  packageVersion: 1.0
+  assetPath: Assets/simple_low_poly_village_buildings/materials/towers.mat
+  uploadId: 199091

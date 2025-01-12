@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 70a1d25cf2c8f554a8834daff6ea3aa3
+timeCreated: 1504286458
+licenseType: Store
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 100100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 99370
+  packageName: Simple low poly village buildings
+  packageVersion: 1.0
+  assetPath: Assets/simple_low_poly_village_buildings/models/farm_lvl6.prefab
+  uploadId: 199091

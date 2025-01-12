@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: e3fdc4200313b5e43973175595f50a82
+timeCreated: 1504286601
+licenseType: Store
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 100100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 99370
+  packageName: Simple low poly village buildings
+  packageVersion: 1.0
+  assetPath: Assets/simple_low_poly_village_buildings/models/house_lvl7.prefab
+  uploadId: 199091

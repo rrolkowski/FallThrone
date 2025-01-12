@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 21d42ff46295d4a4da6da6d0d1b33631
+timeCreated: 1504286321
+licenseType: Store
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 100100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 99370
+  packageName: Simple low poly village buildings
+  packageVersion: 1.0
+  assetPath: Assets/simple_low_poly_village_buildings/models/farm_house_lvl1.prefab
+  uploadId: 199091

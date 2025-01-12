@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 94ad0811b82df0e44a78eadcefaf183b
+timeCreated: 1504286093
+licenseType: Store
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 99370
+  packageName: Simple low poly village buildings
+  packageVersion: 1.0
+  assetPath: Assets/simple_low_poly_village_buildings/materials/farms.mat
+  uploadId: 199091

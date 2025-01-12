@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 331d71b41546cac4882040d57f3dd3d1
+timeCreated: 1504286287
+licenseType: Store
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 100100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 99370
+  packageName: Simple low poly village buildings
+  packageVersion: 1.0
+  assetPath: Assets/simple_low_poly_village_buildings/models/carrot2.prefab
+  uploadId: 199091

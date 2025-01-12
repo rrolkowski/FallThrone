@@ -71,6 +71,9 @@ public class HealthController : MonoBehaviour
 		currentHealth -= damage;
 		Debug.Log($"{objectType} otrzyma³ {damage} obra¿eñ. Aktualne zdrowie: {currentHealth}");
 
+		//AUDIO
+		AudioManager.PlaySound(SoundType.GAME_Enemy_Hit);
+
 		// Aktualizacja slidera po otrzymaniu obra¿eñ
 		if (healthSlider != null)
 		{
@@ -108,7 +111,13 @@ public class HealthController : MonoBehaviour
 
 			// Logika dla Enemy
 			case ObjectType.Enemy:
-                if (TryGetComponent<Unit>(out var unit))
+
+				//AUDIO
+				AudioManager.PlaySound(SoundType.GAME_Enemy_Death);
+
+				GameController.Instance.AddPoints(25);
+
+				if (TryGetComponent<Unit>(out var unit))
                 {
                     Debug.Log("Invoking ReturnToPool for: " + unit.name);
                     _returnToPool?.Invoke(unit);
@@ -118,7 +127,6 @@ public class HealthController : MonoBehaviour
                     Debug.LogWarning("Unit component not found, destroying object.");
                     Destroy(gameObject);
                 }
-                EconomyManager.Instance.points += 2137;
 				break;
 
 			// Logika dla Tower

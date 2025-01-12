@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 6fd64ca8439abd14d91ad354ea33d426
+timeCreated: 1504286691
+licenseType: Store
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 100100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 99370
+  packageName: Simple low poly village buildings
+  packageVersion: 1.0
+  assetPath: Assets/simple_low_poly_village_buildings/models/tomato2.prefab
+  uploadId: 199091

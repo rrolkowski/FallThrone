@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 47d6e56e834839a4fa359551f439edec
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 60072b568d64c40a485e0fc55012dc9f, type: 3}
+AssetOrigin:
+  serializedVersion: 1
+  productId: 255729
+  packageName: Simple Cartoon Water URP
+  packageVersion: 1.2
+  assetPath: Assets/WaterURP/SimpleCartoonWater/SubShaders/Distortion.shadersubgraph
+  uploadId: 639830

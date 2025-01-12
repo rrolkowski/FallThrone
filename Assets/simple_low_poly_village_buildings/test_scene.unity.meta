@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 1ba348d932b728f4f9418333da428f1c
+timeCreated: 1504288200
+licenseType: Store
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 99370
+  packageName: Simple low poly village buildings
+  packageVersion: 1.0
+  assetPath: Assets/simple_low_poly_village_buildings/test_scene.unity
+  uploadId: 199091

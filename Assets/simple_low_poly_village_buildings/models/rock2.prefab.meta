@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: e4430ef488b0c654c93c3e7102ddd17f
+timeCreated: 1504286635
+licenseType: Store
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 100100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 99370
+  packageName: Simple low poly village buildings
+  packageVersion: 1.0
+  assetPath: Assets/simple_low_poly_village_buildings/models/rock2.prefab
+  uploadId: 199091

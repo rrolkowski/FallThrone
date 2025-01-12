@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-	public float speed = 5f; // Prêdkoœæ poruszania siê pocisku
+	public float speed = 10f; // Prêdkoœæ poruszania siê pocisku
 	private Transform target; // Cel - wróg
 	private Vector3 lastKnownPosition; // Ostatnia znana pozycja celu
 	private bool targetLost = false; // Flaga sprawdzaj¹ca, czy cel zosta³ utracony

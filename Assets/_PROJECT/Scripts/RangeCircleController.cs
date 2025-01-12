@@ -67,7 +67,7 @@ public class RangeCircleController : MonoBehaviour
             }
             else // If in range, turn green
             {
-                spriteRenderer.color = Color.green;
+                spriteRenderer.color = Color.white;
             }
         }
     }

@@ -14,6 +14,7 @@ TagManager:
   - Obstacle
   - Spawn
   - End
+  - Tower
   layers:
   - Default
   - TransparentFX

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 565e0078e2b5f094a9f7fc2bff0daf40
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 255729
+  packageName: Simple Cartoon Water URP
+  packageVersion: 1.2
+  assetPath: Assets/WaterURP/SimpleCartoonWater/Materials/SceneMaterials/Cube.mat
+  uploadId: 639830

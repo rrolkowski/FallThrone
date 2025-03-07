@@ -54,12 +54,12 @@ public class ShopManager : MonoBehaviour
 
 	public void BuyTower2()
 	{
-		HandlePurchase(250, buildingPrefab2);
+		HandlePurchase(150, buildingPrefab2);
 	}
 
 	public void BuyTower3()
 	{
-		HandlePurchase(400, buildingPrefab3);
+		HandlePurchase(200, buildingPrefab3);
 	}
 
 	private void HandlePurchase(int cost, GameObject prefab)

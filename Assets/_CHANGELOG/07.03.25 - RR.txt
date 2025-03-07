@@ -1,0 +1,30 @@
+
+1. Obiekty/Skrypty
+- Stworzenie 2 rodzajów wież
+	- Minigun Tower
+		Prefab > Prefabs/Minigun Tower
+		Script > Scripts/MinigunTower.cs
+	- AOE Tower
+		Prefab > Prefabs/AOE Tower
+		Script > Scripts/AoeTower.cs
+
+2. Scena
+- Dodano nowe wieże do sklepu, by możan było je kupować
+	oraz dostosowano ich koszt 
+	// Do dostosowania wygląd sklepu (grafika wieży)
+
+- Dodano do Canvas Shop/Holder odpowiednie komponenty w celu poprawnego działania sklepu
+
+- Wyłączono Debug Text w Cinemachine, by nie pokazywało tekstu w lewym górnym rogu
+	(W Scenie Level_1 oraz Menu)
+
+3. Assets
+- Dodano 2 foldery (VFX, DEMO)
+	- __Project/VFX, __Changelog/DEMO
+
+- Dodano Minigun Projectile oraz nowy Materiał do niego
+	- Prefabs>Objects>Other>Minigun Projectile // - MAT_Materials>Other>Glow>Blue
+
+4.Other
+- Inne pomniejsze zmiany w niektórych skryptach czy na scenie
+

@@ -1,0 +1,28 @@
+
+1. Zmieniłem logikę Tilemapy, teraz działa na GameObject'ach 
+	>> By zmienić układ mapy: Window > 2D > Tile Pallete > Wybrać Pallete (lewy górny) > 
+	> pod graphem wybrać GamObject Brush > wybrać gameobiekt i ustawić Offset Y -1 by układać obiekty na wysokości mapy.
+	//  Ogólnie ustawiania offsetu się nie zapisują, więc trzeba za każdym razem jak się odkliknie obiekt, ustawiać na nowo offset
+	      
+
+2. Dodano PNG jako textury do obiektów
+	- Stworzono folder Textures/Temp_Textures i wrzucono tam pliki .png
+
+3. Stwrzono Prefaby GameObject'ów, które zastąpiły tile
+	>> Prefabs/Objects 
+	 - Co za tym idzie stworzyłem Tagi do tych obiektów / Path, Terrain itd...
+	   Oraz materiały w Materials/Lit
+	 - Stworzono Slope, jako obiekt rampy
+	 // Na razie pobawiłem się tym, lecz coś się zadziało z fizyką, oraz heurastyka źlę obliczała kafelki nawet po dodaniu kolejnych wektorów w Y. 
+	 // Efekt jakiś był, ale nie zadowoliłem się na tyle by go teraz wprowadzać, zostawiam obiekt na przyszłość. Kwestia ramp i wysokości ścieżek/mapy do obgadania w sumie.
+	 - Dodano model Emerald w Prefabs do użytku według woli
+	 // zamieniłem na capsułe, bo sprawdzałem fizyke ramp
+
+4. Dodałem grawitację do movementu gracza w skrypcie PlayerMovementController.cs
+	// Dodałem na przyszłość tak jak wcześniej opisywałem Slope
+	
+	
+5. Dodałen GameObject EndPoint, jako końcowy obiekt
+	- Teraz nie trzeba wpisywać ręcznie pozycji ostatniego obiektu, wystarczy ułożyć go na tilemapie
+
+6. Pozmieniałem resztę kodów głownie do naprawiania bugów np. bug związany z róźną szybkością wrogów

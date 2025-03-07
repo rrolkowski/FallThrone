@@ -70,4 +70,10 @@ public class Tower : MonoBehaviour
 			Debug.LogWarning("SpawnPoint nie jest przypisany!");
 		}
 	}
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, detectionRange);
+    }
 }

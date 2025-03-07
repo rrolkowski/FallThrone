@@ -1,0 +1,5 @@
+- Dodano StaminaSystem.cs w _PROJECT/Scripts
+- Zmieniono nazwę skryptu HPBar_Billboard.cs na Billboard.cs
+- Dodano StaminaBar do prefabu gracza
+- Dodano skrypt StaminaSystem.cs do prefabu gracza
+- Wprowadzono inne mniejsze poprawki

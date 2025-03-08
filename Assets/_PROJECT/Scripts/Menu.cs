@@ -18,10 +18,10 @@ public class Menu : MonoBehaviour
 	}
 
 	// Metoda przypisana do przycisku Start
-	public void StartGame()
+	public void StartGame(int loadLevel)
 	{
 		// Uruchamiamy coroutine, aby wykonaæ fade-out i zmieniæ scenê po zakoñczeniu
-		StartCoroutine(StartGameWithFade(0));
+		StartCoroutine(StartGameWithFade(loadLevel));
 	}
 
 	private IEnumerator StartGameWithFade(int level)

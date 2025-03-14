@@ -48,8 +48,8 @@ public class AoeTower : MonoBehaviour
     {
         Vector3 spawn_position = _shockwaveSpawnPoint != null ? _shockwaveSpawnPoint.position : transform.position;
         GameObject shockwave = Instantiate(_shockwaveEffect, spawn_position, Quaternion.identity);
-        //AUDIO -- New audio needed for Minigun Projectiles
-        //AudioManager.PlaySound(SoundType.GAME_Turret_Shockwave);
+        //AUDIO -- New audio needed for AOE Projectiles
+        AudioManager.PlaySound(SoundType.GAME_Turret_AOE);
 
         _hitEnemies.Clear();
 

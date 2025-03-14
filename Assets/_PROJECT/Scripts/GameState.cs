@@ -17,13 +17,13 @@ public class GameState : MonoBehaviour
 		}
 	}
 
-	private bool stateMainMenu;
-	private bool stateGame;
-	private bool statePaused;
-	private bool stateShop;
-	private bool stateLoadingLevel;
-	private bool stateWon;
-	private bool stateLost;
+	public bool stateMainMenu;
+	public bool stateGame;
+	public bool statePaused;
+	public bool stateShop;
+	public bool stateLoadingLevel;
+	public bool stateWon;
+	public bool stateLost;
 
 	public static bool STATE_MainMenu
 	{

@@ -2,25 +2,57 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-/// <summary>
-/// The EnemyMovement class controls the movement of enemy objects along a predefined path and manages its animation.
-/// </summary>
 public class EnemyMovement : MonoBehaviour
 {
 	[SerializeField] private float _movementSpeed;
-	[SerializeField] private Transform enemyModel; // Referencja do modelu wroga, który ma byæ rotowany.
-	[SerializeField] private float rotationSpeed = 5f; // Szybkoœæ rotacji
-	[SerializeField] private Animator animator; // Referencja do Animatora
+	[SerializeField] private Transform enemyModel;
+	[SerializeField] private float rotationSpeed = 5f;
+	[SerializeField] private Animator animator;
 
 	[HideInInspector] public Vector3Int closestPathPosition;
 	[HideInInspector] public bool isMovable = true;
 
 	private Coroutine currentPathCoroutine;
-	private List<TileNode> _currentPath; // Przechowuje œcie¿kê dla tego konkretnego punktu startowego
+	private List<TileNode> _currentPath;
 	private bool isMoving = false;
+
+	private float originalSpeed; // Oryginalna prêdkoœæ
+	private float slowTimer = 0f; // Licznik czasu spowolnienia
+	private bool isSlowed = false; // Flaga sprawdzaj¹ca, czy wróg jest spowolniony
+
 	public System.Action OnPathEndReached;
 
-	// Ustawia œcie¿kê na podstawie punktu startowego
+	private void Start()
+	{
+		originalSpeed = _movementSpeed; // Zapamiêtanie oryginalnej prêdkoœci
+	}
+
+	private void Update()
+	{
+		// Jeœli wróg jest spowolniony, zmniejszamy licznik czasu spowolnienia
+		if (isSlowed)
+		{
+			slowTimer -= Time.deltaTime;
+			if (slowTimer <= 0f)
+			{
+				RemoveSlow();
+			}
+		}
+	}
+
+	public void ApplySlow(float duration, float slowPercentage)
+	{
+		_movementSpeed = originalSpeed * (1f - slowPercentage); // Zastosowanie efektu slow
+		slowTimer = duration; // Ustawienie czasu trwania
+		isSlowed = true; // Ustawienie flagi, ¿e wróg jest spowolniony
+	}
+
+	private void RemoveSlow()
+	{
+		_movementSpeed = originalSpeed; // Przywrócenie prêdkoœci
+		isSlowed = false; // Usuniêcie efektu slow
+	}
+
 	public void SetPath(List<TileNode> path)
 	{
 		if (path == null || path.Count == 0)
@@ -28,10 +60,9 @@ public class EnemyMovement : MonoBehaviour
 			Debug.LogError($"Enemy {gameObject.name} received an empty or null path.");
 			return;
 		}
-		StopAllCoroutines(); // Zatrzymuje bie¿¹ce ruchy
+		StopAllCoroutines();
 		isMoving = false;
 		_currentPath = path;
-
 		StartCoroutine(MoveAlongPath(_currentPath));
 	}
 
@@ -45,7 +76,6 @@ public class EnemyMovement : MonoBehaviour
 		}
 	}
 
-	// Coroutine to move the enemy along a path node by node
 	public IEnumerator MoveAlongPath(List<TileNode> path)
 	{
 		if (path == null || path.Count == 0)
@@ -56,27 +86,23 @@ public class EnemyMovement : MonoBehaviour
 		if (isMoving) yield break;
 		isMoving = true;
 
-		// Aktywuj animacjê chodzenia
 		if (animator != null)
 		{
 			animator.SetBool("walk", true);
 		}
 
-		// Loop through each node in the path list
 		foreach (TileNode node in path)
 		{
 			Vector3 targetPosition = PathFinderManager.Instance.gridManager.tilemap.GetCellCenterWorld(node.position);
 			Vector3 startPosition = transform.position;
 			targetPosition.y = startPosition.y;
 
-			// Przemieszczanie wroga do kolejnego punktu
 			while (Vector3.Distance(transform.position, targetPosition) > 0.1f)
 			{
 				if (!isMovable)
 				{
 					isMoving = false;
 
-					// Dezaktywuj animacjê chodzenia
 					if (animator != null)
 					{
 						animator.SetBool("walk", false);
@@ -84,7 +110,6 @@ public class EnemyMovement : MonoBehaviour
 					yield break;
 				}
 
-				// Oblicz kierunek i p³ynn¹ rotacjê modelu
 				Vector3 direction = (targetPosition - transform.position).normalized;
 				if (enemyModel != null && direction != Vector3.zero)
 				{
@@ -96,9 +121,7 @@ public class EnemyMovement : MonoBehaviour
 					);
 				}
 
-				// Przesuñ wroga w kierunku celu
 				transform.position = Vector3.MoveTowards(transform.position, targetPosition, _movementSpeed * Time.deltaTime);
-
 				yield return null;
 			}
 
@@ -111,7 +134,6 @@ public class EnemyMovement : MonoBehaviour
 
 			if (node.position == PathFinderManager.Instance.endPoint)
 			{
-				// Dezaktywuj animacjê chodzenia
 				if (animator != null)
 				{
 					animator.SetBool("walk", false);
@@ -119,13 +141,12 @@ public class EnemyMovement : MonoBehaviour
 
 				GameController.Instance.TakeDamage();
 				this.gameObject.SetActive(false);
-				yield break; // Przerywa korutynê
+				yield break;
 			}
 		}
 
 		isMoving = false;
 
-		// Dezaktywuj animacjê chodzenia, wróæ do Idle
 		if (animator != null)
 		{
 			animator.SetBool("walk", false);

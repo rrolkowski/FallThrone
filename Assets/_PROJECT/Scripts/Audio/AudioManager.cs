@@ -19,6 +19,8 @@ public enum SoundType
 	GAME_Health,
 	GAME_Lost,
 	GAME_Win,
+	GAME_Turret_Ice,
+	GAME_Turret_AOE,
 }
 
 [RequireComponent(typeof(AudioSource)), ExecuteInEditMode]

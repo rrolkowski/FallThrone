@@ -10,7 +10,9 @@ public class MusicManager : MonoBehaviour
 
 	[Header("Music Clips")]
 	[SerializeField] private AudioClip menuMusic;
-	[SerializeField] private AudioClip gameMusic;
+	[SerializeField] private AudioClip gameMusic_level1;
+	[SerializeField] private AudioClip gameMusic_level2;
+	[SerializeField] private AudioClip gameMusic_level3;
 
 	[Header("Volume Settings")]
 	[Range(0, 1)]
@@ -55,7 +57,15 @@ public class MusicManager : MonoBehaviour
 		}
 		else if (scene.name == "Level_1")
 		{
-			PlayGameMusic();
+			PlayGameMusic(1);
+		}
+		else if (scene.name == "Level_2")
+		{
+			PlayGameMusic(2);
+		}
+		else if (scene.name == "Level_3")
+		{
+			PlayGameMusic(3);
 		}
 	}
 
@@ -66,11 +76,16 @@ public class MusicManager : MonoBehaviour
 		Instance.StartCoroutine(Instance.PlayMusicWithFade(Instance.menuMusic, Instance.menuMusicVolume, 1));
 	}
 
-	public static void PlayGameMusic()
+	public static void PlayGameMusic(int level)
 	{
-		if (Instance == null || Instance.gameMusic == null) return;
+		if (Instance == null) return;
 
-		Instance.StartCoroutine(Instance.PlayMusicWithFade(Instance.gameMusic, Instance.gameMusicVolume, 3));
+		if (level == 1)
+			Instance.StartCoroutine(Instance.PlayMusicWithFade(Instance.gameMusic_level1, Instance.gameMusicVolume, 3));
+		else if (level == 2)
+			Instance.StartCoroutine(Instance.PlayMusicWithFade(Instance.gameMusic_level2, Instance.gameMusicVolume, 3));
+		else if (level == 3)
+			Instance.StartCoroutine(Instance.PlayMusicWithFade(Instance.gameMusic_level3, Instance.gameMusicVolume, 3));
 	}
 
 	public static void StopMusic()
@@ -116,7 +131,11 @@ public class MusicManager : MonoBehaviour
 		{
 			if (musicSource.clip == menuMusic)
 				musicSource.volume = menuMusicVolume;
-			else if (musicSource.clip == gameMusic)
+			else if (musicSource.clip == gameMusic_level1)
+				musicSource.volume = gameMusicVolume;
+			else if (musicSource.clip == gameMusic_level2)
+				musicSource.volume = gameMusicVolume;
+			else if (musicSource.clip == gameMusic_level3)
 				musicSource.volume = gameMusicVolume;
 		}
 	}

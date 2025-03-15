@@ -151,6 +151,7 @@ public class EnemyMovement : MonoBehaviour
 		{
 			animator.SetBool("walk", false);
 		}
+		//
 
 		OnPathEndReached?.Invoke();
 		OnPathEndReached = null;

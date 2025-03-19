@@ -1,0 +1,35 @@
+
+1. Skrypty (Scripts/PowerUp>)
+NOWE:
+- BasePowerUp.cs - Klasa abstrakcyjna służąca do przekazwyania metody ApplyEffect()
+- PowerUpSpawner.cs - Klasa służąca do spawnowania power-upów
+- RangeBoost.cs - Powerup odpowiadający za zwiekszoną szybkość ruchu postaci
+- SpeedBoost.cs - Powerup odpowiadający za zwiększony zasięg do rzucania obiektów
+- PlayerController.cs - Klasa odpowiadająca za używanie power-upów (Scripts>)
+ISTNIEJĄCE:
+- GameController.cs - Dodano logikę aktywacji power-upów oraz UI
+- ObjectGrabber.cs - Dodano możliwość zmiany wartości do power-up (maxThrowSize)
+- RangeCircleController.cs - Dodano możliwość zmiany wartości do power-up (maxThrowSize/localscale)
+- PlayerMovementController.cs - Dodano możliwość zmiany wartości do power-up (maxSpeed)
+
+2. Scena
+- Dodano nowy element - PowerUp (UI>Canvas UI>PowerUP) - Opdowiadający za UI systemu PowerUP
+	Dzieci obiektu - PowerUpName(text), IconTimer(Image)
+- Dodano nowy element - # PowerUp Controller - Odpowiadający za Spawner Power-upów oraz za spawnPointy
+- Dodano - PlayerController.cs - dla Player
+
+3. Assets
+- Dodano 2 foldery (PowerUp, PowerUp)
+	- __Project/Scripts/PowerUp - __Project/Prefabs/PowerUp
+
+- Stworzono 3 Prefaby
+	-RangeBoostPowerUp/SpeedBoostPowerUp/(testowy - SpeedBoostPowerUp 1)
+	- __Project/Prefabs/PowerUp>
+
+- Dodano Place Holdery do Sprites
+(Image, Powerup_speed, Powerup_speed2, powerup_range_icon)
+
+4.Other
+- Dodano nowy Action w InputSystem_Action (UsePowerUp) Na przycisk "E"
+- Dodano SpawnPointy dla (Level_1/Level_2/Level_3)
+- Przeniesiono większość folderów znajdujących się w "Assets" do "_OTHERS"

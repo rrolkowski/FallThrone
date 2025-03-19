@@ -68,6 +68,15 @@ public class ObjectGrabber : MonoBehaviour
             ThrowObject();
         }
     }
+    public float GetRawThrowRange()
+    {
+        return _maxThrowRange;
+    }
+
+    public void SetThrowRange(float newRange)
+    {
+        _maxThrowRange = newRange;
+    }
 
     void TryGrabObject()
     {

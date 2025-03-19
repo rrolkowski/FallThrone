@@ -12,7 +12,7 @@ public class PlayerMovementController : MonoBehaviour
 
 	[Header("Movement/Look Settings")]
 	[SerializeField] float rotationSpeed = 20f;  // Prędkość rotacji gracza
-	[SerializeField] float moveSpeed = 5f;
+	public float moveSpeed = 5f;
 	[SerializeField] float acceleration = 20f;
 
 	[Header("Objects")]
@@ -52,8 +52,18 @@ public class PlayerMovementController : MonoBehaviour
 		HandleRotation();  // Nowa funkcja do rotacji
 	}
 
-	// Calculates how fast the player should go based on current input e.g from keyboard.
-	void UpdateTargetVelocity()
+    public float GetRawMoveSpeed()
+    {
+        return moveSpeed;
+    }
+
+    public void SetMoveSpeed(float newSpeed)
+    {
+        moveSpeed = newSpeed;
+    }
+
+    // Calculates how fast the player should go based on current input e.g from keyboard.
+    void UpdateTargetVelocity()
 	{
 		Vector3 movement = new Vector3(movementInput.x, 0, movementInput.y).normalized;
 		targetVelocity = movement * moveSpeed;
@@ -114,8 +124,8 @@ public class PlayerMovementController : MonoBehaviour
 			anim.SetFloat("Blend", speed, StopAnimTime, Time.deltaTime);
 		}
 	}
-	
-	//Gravity v0.01
+
+    //Gravity v0.01
     void OnCollisionStay(Collision collision)
     {
         // Sprawdza, czy gracz dotyka ziemi

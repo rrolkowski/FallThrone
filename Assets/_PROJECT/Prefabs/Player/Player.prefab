@@ -1116,7 +1116,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sound: 3
-  volume: 1
 --- !u!1 &1804854615711784059
 GameObject:
   m_ObjectHideFlags: 0
@@ -2753,7 +2752,7 @@ GameObject:
   m_Layer: 0
   m_Name: grabPoint
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -3220,6 +3219,7 @@ GameObject:
   - component: {fileID: 8062616480985624164}
   - component: {fileID: 98217504252442200}
   - component: {fileID: 8827817912107513775}
+  - component: {fileID: 6190719901495174649}
   - component: {fileID: 6111209847411930013}
   m_Layer: 0
   m_Name: Player
@@ -3301,7 +3301,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 116
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!114 &8062616480985624164
 MonoBehaviour:
@@ -3317,13 +3317,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _horizontalRange: 2
   _verticalRange: 10
-  _interactableTag: Interactable
+  _towerInteractableTag: Tower
   _enemyInteractableTag: Enemy
   _groundLayer:
     serializedVersion: 2
     m_Bits: 64
-  _throwSpeedXZ: 7.5
-  _maxThrowRange: 7.99
+  _throwSpeedXZ: 10
+  _maxThrowRange: 8
   _grabPoint: {fileID: 5814168273248035253}
   _originalParent: {fileID: 0}
   _rangeCircleController: {fileID: 0}
@@ -3367,6 +3367,18 @@ MonoBehaviour:
   VerticalAnimTime: 0.2
   StartAnimTime: 0.3
   StopAnimTime: 0.15
+--- !u!114 &6190719901495174649
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5518868822229205140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 012e2fa4abf0d16479fe91b60f5b6842, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &6111209847411930013
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3524,6 +3536,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 16b211a3-08e3-4289-aae3-11e76ad50f35
     m_ActionName: 'Player/Throw[/Mouse/rightButton]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6190719901495174649}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnUsePowerUp
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: ba0a2349-8e45-4652-957d-b402bcf34ab9
+    m_ActionName: 'Player/UsePowerUp[/Keyboard/e]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

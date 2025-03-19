@@ -69,7 +69,7 @@ public class HealthController : MonoBehaviour
 	public void TakeDamage(float damage)
 	{
 		currentHealth -= damage;
-		Debug.Log($"{objectType} otrzyma³ {damage} obra¿eñ. Aktualne zdrowie: {currentHealth}");
+		//Debug.Log($"{objectType} otrzyma³ {damage} obra¿eñ. Aktualne zdrowie: {currentHealth}");
 
 		//AUDIO
 		AudioManager.PlaySound(SoundType.GAME_Enemy_Hit);

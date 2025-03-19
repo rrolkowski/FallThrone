@@ -45,7 +45,7 @@
                     "name": "Crouch",
                     "type": "Button",
                     "id": "27c5f898-bc57-4ee1-8800-db469aca5fe3",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -99,6 +99,15 @@
                     "name": "Throw",
                     "type": "Button",
                     "id": "16b211a3-08e3-4289-aae3-11e76ad50f35",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "UsePowerUp",
+                    "type": "Button",
+                    "id": "ba0a2349-8e45-4652-957d-b402bcf34ab9",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -510,6 +519,17 @@
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "Throw",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7ec2789f-c7a7-4d50-a86a-49ce4d487b24",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "UsePowerUp",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

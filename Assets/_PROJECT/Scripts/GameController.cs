@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using System;
 using TMPro;
 using System.Collections;
 
@@ -8,8 +9,10 @@ public class GameController : MonoBehaviour
 {
 	public static GameController Instance;
 
-	// Health system
-	[Header("Health Settings")]
+    public event Action OnPickedUp;
+
+    // Health system
+    [Header("Health Settings")]
 	public int maxHealth = 3;
 	public int currentHealth = 3;
 	public Transform healthContainer;
@@ -35,7 +38,16 @@ public class GameController : MonoBehaviour
 	[Header("Win Canvas")]
 	public GameObject winCanvas;
 
-	private void Awake()
+	//POWER-UP
+    [Header("Power-Up UI")]
+    [SerializeField] TextMeshProUGUI _powerUpText;
+    [SerializeField] private Image _powerUpImage;
+    [SerializeField] private Sprite _defaultPowerUpSprite;
+    private BasePowerUp _currentPowerUp;
+    private float _powerUpTimeRemaining = 0f;
+    private float _powerUpDuration = 1f;
+
+    private void Awake()
 	{
 		// Singleton pattern
 		if (Instance == null)
@@ -250,5 +262,71 @@ public class GameController : MonoBehaviour
 		// Jeœli ¿aden wróg nie jest aktywny i liczba pokonanych wrogów równa maksymalnej liczbie
 		return UnitSpawner.Instance._spawnedUnits >= UnitSpawner.Instance._maxEnemyUnits;
 	}
-	#endregion
+    #endregion
+
+    #region PowerUp
+
+    private string FormatPowerUpName(string name)
+    {
+        return System.Text.RegularExpressions.Regex.Replace(name, "(\\B[A-Z])", " $1");
+    }
+
+    public void SetPowerUp(BasePowerUp powerUp)
+    {
+        _currentPowerUp = powerUp;
+        _powerUpText.text = FormatPowerUpName(powerUp.GetType().Name);
+
+        SpriteRenderer spriteRenderer = powerUp.GetComponent<SpriteRenderer>();
+
+        if (spriteRenderer != null)
+        {
+            _powerUpImage.sprite = spriteRenderer.sprite;
+            _powerUpImage.enabled = true;
+        }
+        else
+        {
+            _powerUpImage.sprite = _defaultPowerUpSprite;
+        }
+    }
+    public void StartPowerUpTimer(float duration)
+    {
+        _powerUpDuration = duration;
+        _powerUpTimeRemaining = duration;
+        _powerUpImage.fillAmount = 1f;
+
+        StartCoroutine(UpdatePowerUpTimer());
+    }
+
+    private IEnumerator UpdatePowerUpTimer()
+    {
+        while (_powerUpTimeRemaining > 0)
+        {
+            _powerUpTimeRemaining -= Time.deltaTime;
+            _powerUpImage.fillAmount = _powerUpTimeRemaining / _powerUpDuration;
+
+            yield return null;
+        }
+
+        _powerUpImage.fillAmount = 0f;
+        OnPickedUp?.Invoke();
+    }
+
+    public void ClearPowerUp()
+    {
+        _currentPowerUp = null;
+        _powerUpText.text = "";
+        _powerUpImage.sprite = _defaultPowerUpSprite;
+        _powerUpImage.fillAmount = 1f;
+    }
+
+    public void ActivatePowerUp()
+    {
+        if (_currentPowerUp != null)
+        {
+            _currentPowerUp.ApplyEffect();
+			Debug.Log("Apply Effect (GC)");
+            _currentPowerUp = null;
+        }
+    }
+    #endregion
 }

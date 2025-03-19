@@ -49,6 +49,16 @@ public class RangeCircleController : MonoBehaviour
         }
     }
 
+    public float GetRawRange()
+    {
+        return maxThrowRange;
+    }
+
+    public void SetRange(float newRange)
+    {
+        maxThrowRange = newRange;
+    }
+
     private void UpdateRangeIndicatorColor()
     {
 

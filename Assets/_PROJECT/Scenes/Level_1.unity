@@ -18492,7 +18492,7 @@ GameObject:
   - component: {fileID: 207929642}
   - component: {fileID: 207929644}
   - component: {fileID: 207929643}
-  m_Layer: 1
+  m_Layer: 0
   m_Name: IconTimer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21455,7 +21455,7 @@ GameObject:
   - component: {fileID: 252583351}
   - component: {fileID: 252583353}
   - component: {fileID: 252583352}
-  m_Layer: 1
+  m_Layer: 0
   m_Name: Heart (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23611,7 +23611,7 @@ GameObject:
   - component: {fileID: 278075109}
   - component: {fileID: 278075111}
   - component: {fileID: 278075110}
-  m_Layer: 1
+  m_Layer: 0
   m_Name: TowerIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53791,7 +53791,7 @@ GameObject:
   - component: {fileID: 638359731}
   - component: {fileID: 638359730}
   - component: {fileID: 638359729}
-  m_Layer: 1
+  m_Layer: 0
   m_Name: Canvas UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -65813,6 +65813,10 @@ PrefabInstance:
     - target: {fileID: 8721421503126200363, guid: d6f8e2efbe1bf5c409fcdb3da47a2d69, type: 3}
       propertyPath: m_Name
       value: Heart
+      objectReference: {fileID: 0}
+    - target: {fileID: 8721421503126200363, guid: d6f8e2efbe1bf5c409fcdb3da47a2d69, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -93298,7 +93302,7 @@ GameObject:
   - component: {fileID: 1159934630}
   - component: {fileID: 1159934632}
   - component: {fileID: 1159934631}
-  m_Layer: 1
+  m_Layer: 0
   m_Name: PowerUp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95488,7 +95492,7 @@ GameObject:
   - component: {fileID: 1181197584}
   - component: {fileID: 1181197586}
   - component: {fileID: 1181197585}
-  m_Layer: 1
+  m_Layer: 0
   m_Name: Heart (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -119950,7 +119954,7 @@ GameObject:
   - component: {fileID: 1454641050}
   - component: {fileID: 1454641052}
   - component: {fileID: 1454641051}
-  m_Layer: 1
+  m_Layer: 0
   m_Name: PointsIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -143298,7 +143302,7 @@ GameObject:
   - component: {fileID: 1729643807}
   - component: {fileID: 1729643809}
   - component: {fileID: 1729643808}
-  m_Layer: 1
+  m_Layer: 0
   m_Name: Points
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -147505,7 +147509,7 @@ GameObject:
   - component: {fileID: 1781219997}
   - component: {fileID: 1781219999}
   - component: {fileID: 1781219998}
-  m_Layer: 1
+  m_Layer: 0
   m_Name: PowerUpName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -148813,7 +148817,7 @@ GameObject:
   - component: {fileID: 1797753171}
   - component: {fileID: 1797753173}
   - component: {fileID: 1797753172}
-  m_Layer: 1
+  m_Layer: 0
   m_Name: TowerCount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -151408,7 +151412,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1824046910}
   - component: {fileID: 1824046911}
-  m_Layer: 1
+  m_Layer: 0
   m_Name: HP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -152980,7 +152984,6 @@ MonoBehaviour:
   - {fileID: 1645050886}
   _powerUpPrefabs:
   - {fileID: 6129822490878968018, guid: a588190508ebae642a19756ddfe2fec1, type: 3}
-  - {fileID: 6129822490878968018, guid: 6c8f02268d335b84eb1898abfaec2fca, type: 3}
   _minTimeBtwSpawns: 5
   _maxTimeBtwSpawns: 15
 --- !u!4 &1840313517

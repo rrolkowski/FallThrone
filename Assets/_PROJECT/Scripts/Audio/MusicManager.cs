@@ -13,6 +13,7 @@ public class MusicManager : MonoBehaviour
 	[SerializeField] private AudioClip gameMusic_level1;
 	[SerializeField] private AudioClip gameMusic_level2;
 	[SerializeField] private AudioClip gameMusic_level3;
+	[SerializeField] private AudioClip gameMusic_level4;
 
 	[Header("Volume Settings")]
 	[Range(0, 1)]
@@ -67,6 +68,10 @@ public class MusicManager : MonoBehaviour
 		{
 			PlayGameMusic(3);
 		}
+		else if (scene.name == "Level_4")
+		{
+			PlayGameMusic(4);
+		}
 	}
 
 	public static void PlayMenuMusic()
@@ -86,6 +91,8 @@ public class MusicManager : MonoBehaviour
 			Instance.StartCoroutine(Instance.PlayMusicWithFade(Instance.gameMusic_level2, Instance.gameMusicVolume, 3));
 		else if (level == 3)
 			Instance.StartCoroutine(Instance.PlayMusicWithFade(Instance.gameMusic_level3, Instance.gameMusicVolume, 3));
+		else if (level == 4)
+			Instance.StartCoroutine(Instance.PlayMusicWithFade(Instance.gameMusic_level4, Instance.gameMusicVolume, 3));
 	}
 
 	public static void StopMusic()
@@ -136,6 +143,8 @@ public class MusicManager : MonoBehaviour
 			else if (musicSource.clip == gameMusic_level2)
 				musicSource.volume = gameMusicVolume;
 			else if (musicSource.clip == gameMusic_level3)
+				musicSource.volume = gameMusicVolume;
+			else if (musicSource.clip == gameMusic_level4)
 				musicSource.volume = gameMusicVolume;
 		}
 	}

@@ -13455,8 +13455,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278243583
+  m_fontColor: {r: 1, g: 0.815503, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -13473,8 +13473,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 96
-  m_fontSizeBase: 96
+  m_fontSize: 112
+  m_fontSizeBase: 112
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -20211,10 +20211,10 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "Controls:\r\n\r\n    ESC: Menu\r\n    SPACE: Shop\r\n    LMB: Grab/Drop\r\n   
-    RMB: Throw\r\n\r\nGoal:\n\r\n    Stop enemies before they reach the end.\r\n\r\nTips:\r\n\r\n   
-    Earn points by defeating enemies.\r\n    Use points to buy towers.\r\n    Grab
-    and throw towers/enemies.\r\n    Grabbing uses stamina, which regenerates over
-    time."
+    RMB: Throw\n    E: Use Power-Up\r\n\r\nGoal:\n\r\n    Stop enemies before they
+    reach the end.\r\n\r\nTips:\r\n\r\n    Earn points by defeating enemies.\r\n   
+    Use points to buy towers.\r\n    Grab and throw towers/enemies.\r\n    Grabbing
+    uses stamina, which regenerates over time."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a71b8d1f5c063d247be77829b206d69b, type: 2}
   m_sharedMaterial: {fileID: 1715437990902250564, guid: a71b8d1f5c063d247be77829b206d69b, type: 2}
@@ -108450,7 +108450,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f1b9bb38bb2673e46989c1eb95c94bfe, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 423e90b1a42921845aa297fdcdc09b9b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -141425,7 +141425,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: PRE-RELEASE v1.0.1
+  m_text: PRE-RELEASE v1.0.2
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a71b8d1f5c063d247be77829b206d69b, type: 2}
   m_sharedMaterial: {fileID: 1715437990902250564, guid: a71b8d1f5c063d247be77829b206d69b, type: 2}
@@ -168771,6 +168771,7 @@ MonoBehaviour:
   gameMusic_level1: {fileID: 8300000, guid: f31255c390d5399468c84f69e265f807, type: 3}
   gameMusic_level2: {fileID: 8300000, guid: 14588c00858f1014faef41bbde590a17, type: 3}
   gameMusic_level3: {fileID: 8300000, guid: b1e23db768e2a5347acc70c0d87408b2, type: 3}
+  gameMusic_level4: {fileID: 8300000, guid: 7f835f7b8e9b19a44a625932ef974ecb, type: 3}
   menuMusicVolume: 0.1
   gameMusicVolume: 0.1
 --- !u!82 &1835718462

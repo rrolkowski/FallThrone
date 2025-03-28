@@ -66,11 +66,11 @@ public class Projectile : MonoBehaviour
 		switch (projectileType)
 		{
 			case ProjectileType.Fireball:
-				healthController.TakeDamage(damage);
+				healthController.TakeDamage(damage, "normal");
 				break;
 
 			case ProjectileType.Ice:
-				healthController.TakeDamage(damage);
+				healthController.TakeDamage(damage, "ice");
 				if (enemyMovement != null)
 				{
 					enemyMovement.ApplySlow(slowDuration, slowPercentage);

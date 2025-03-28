@@ -25483,7 +25483,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sound: 4
-  volume: 1
 --- !u!1 &1706739634821280791
 GameObject:
   m_ObjectHideFlags: 0
@@ -35783,6 +35782,8 @@ MonoBehaviour:
   maxHealth: 100
   currentHealth: 0
   healthSlider: {fileID: 1832009126005391285}
+  hitParticleEffectNormal: {fileID: 5661099218938664411, guid: 145dc4d01e911d0458bbb26e2eade4aa, type: 3}
+  hitParticleEffectIce: {fileID: 7722660618853265191, guid: ca98a313bb4d2e341b4ddd64928791bb, type: 3}
 --- !u!114 &1290997555225439011
 MonoBehaviour:
   m_ObjectHideFlags: 0

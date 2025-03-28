@@ -70,7 +70,7 @@ public class AoeTower : MonoBehaviour
                     HealthController health = collider.GetComponent<HealthController>();
                     if (health != null && health.objectType == HealthController.ObjectType.Enemy)
                     {
-                        health.TakeDamage(_shockwaveDamage);
+                        health.TakeDamage(_shockwaveDamage, "aoe");
                         _hitEnemies.Add(collider.gameObject);
                     }
                 }

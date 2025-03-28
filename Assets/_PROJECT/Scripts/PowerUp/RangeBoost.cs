@@ -16,7 +16,7 @@ public class RangeBoost : BasePowerUp
             GameController.Instance.StartPowerUpTimer(_powerUpDuration);
             StartCoroutine(SpeedBoostCoroutine(rangeCircle, objectGrabber));
         }
-    }
+	}
 
     IEnumerator SpeedBoostCoroutine(RangeCircleController rangeCircle, ObjectGrabber objectGrabber)
     {
@@ -45,4 +45,9 @@ public class RangeBoost : BasePowerUp
 
         Destroy(gameObject);
     }
+
+	protected override SoundType GetPickupSound()
+	{
+		return SoundType.GAME_PowerUp_Range; // <- albo inny pasuj¹cy dŸwiêk
+	}
 }

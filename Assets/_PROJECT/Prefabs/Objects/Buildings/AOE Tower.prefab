@@ -854,6 +854,8 @@ MonoBehaviour:
   maxHealth: 100
   currentHealth: 0
   healthSlider: {fileID: 1940571602004267045}
+  hitParticleEffectNormal: {fileID: 0}
+  hitParticleEffectIce: {fileID: 0}
 --- !u!114 &1998854288747511120
 MonoBehaviour:
   m_ObjectHideFlags: 0

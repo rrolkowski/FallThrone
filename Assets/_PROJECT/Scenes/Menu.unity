@@ -2217,7 +2217,7 @@ PrefabInstance:
       objectReference: {fileID: 1329435436}
     - target: {fileID: 6560205613461190961, guid: afdaf61c612614048825b081e46f8c39, type: 3}
       propertyPath: m_VersionIndex
-      value: 2907
+      value: 2913
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -13455,8 +13455,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278243583
-  m_fontColor: {r: 1, g: 0.815503, b: 0, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -18161,7 +18161,7 @@ MonoBehaviour:
     sounds:
     - {fileID: 8300000, guid: f815246cef92c2a44a2128d812e152bc, type: 3}
   - name: GAME_Enemy_Hit
-    volume: 0
+    volume: 0.01
     sounds:
     - {fileID: 8300000, guid: 816757ef4cd20dd4cbd467b757834bb0, type: 3}
     - {fileID: 8300000, guid: a59c8450ba0604443afa044e6296f770, type: 3}
@@ -18170,7 +18170,7 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 814bc7112ee174c4b9d1129722fd820a, type: 3}
     - {fileID: 8300000, guid: 094f0d379f67fd848b7e9b1a5a211e95, type: 3}
   - name: MENU_Turret_Building
-    volume: 0.1
+    volume: 0.33
     sounds:
     - {fileID: 8300000, guid: 40bd0200a4706a942a4e78e077fd9c49, type: 3}
   - name: GAME_Turret_Fireball
@@ -18221,6 +18221,34 @@ MonoBehaviour:
     - {fileID: 8300000, guid: c96960d80b3c2ff4e96921e6be8a5a41, type: 3}
     - {fileID: 8300000, guid: 0a72effd79ac1ef46b4f3672f34bc922, type: 3}
     - {fileID: 8300000, guid: 6c750fedf121b4347a6bf262860d84bd, type: 3}
+  - name: GAME_PowerUp_Speed
+    volume: 0.7
+    sounds:
+    - {fileID: 8300000, guid: 94f06e9848ce6ef44865618485174e4e, type: 3}
+  - name: GAME_PowerUp_Range
+    volume: 0.7
+    sounds:
+    - {fileID: 8300000, guid: 1a22af1c80896e34b9340f3a19977833, type: 3}
+  - name: GAME_Enemy_Hit_IceTower
+    volume: 0.05
+    sounds:
+    - {fileID: 8300000, guid: 4547730c19fcbb447a42edf51b9c6413, type: 3}
+    - {fileID: 8300000, guid: 949ceef6bcaaa764b9e9c74af5aa2586, type: 3}
+    - {fileID: 8300000, guid: b93f11b30fe8a1c4595c29f666baf935, type: 3}
+    - {fileID: 8300000, guid: f07c3e565715694488bf8f6c72d7153d, type: 3}
+  - name: GAME_Enemy_Hit_AOETower
+    volume: 0.05
+    sounds:
+    - {fileID: 8300000, guid: 4a75b76a1df7dc94ca80b91c43c8a02f, type: 3}
+    - {fileID: 8300000, guid: 01cd3b9cb7348ee49a3fa0f0325af3b2, type: 3}
+  - name: MENU_Turret_Building2
+    volume: 0.33
+    sounds:
+    - {fileID: 8300000, guid: 508d9a0fc35f9d040923400f56109c6c, type: 3}
+  - name: MENU_Turret_Building3
+    volume: 0.33
+    sounds:
+    - {fileID: 8300000, guid: 6fe8d62aa1700124aa52a50ce088703b, type: 3}
 --- !u!1001 &190827123
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -62989,7 +63017,7 @@ PrefabInstance:
       objectReference: {fileID: 1582194534}
     - target: {fileID: 6560205613461190961, guid: afdaf61c612614048825b081e46f8c39, type: 3}
       propertyPath: m_VersionIndex
-      value: 2907
+      value: 2913
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -168770,8 +168798,8 @@ MonoBehaviour:
   menuMusic: {fileID: 8300000, guid: a883764688e255a4a9ce7124a0435daa, type: 3}
   gameMusic_level1: {fileID: 8300000, guid: f31255c390d5399468c84f69e265f807, type: 3}
   gameMusic_level2: {fileID: 8300000, guid: 14588c00858f1014faef41bbde590a17, type: 3}
-  gameMusic_level3: {fileID: 8300000, guid: b1e23db768e2a5347acc70c0d87408b2, type: 3}
-  gameMusic_level4: {fileID: 8300000, guid: 7f835f7b8e9b19a44a625932ef974ecb, type: 3}
+  gameMusic_level3: {fileID: 8300000, guid: 6a6252f73ea052c4fb91fda4dae21cd8, type: 3}
+  gameMusic_level4: {fileID: 8300000, guid: 08336db35c11ed2469abd810c0d26339, type: 3}
   menuMusicVolume: 0.1
   gameMusicVolume: 0.1
 --- !u!82 &1835718462
@@ -168784,8 +168812,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 7f835f7b8e9b19a44a625932ef974ecb, type: 3}
+  m_Resource: {fileID: 8300000, guid: 7f835f7b8e9b19a44a625932ef974ecb, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1

@@ -28,7 +28,7 @@ public class PowerUpSpawner : MonoBehaviour
 
         float timeBtwSpawns = Random.Range(_minTimeBtwSpawns, _maxTimeBtwSpawns);
 
-        GameObject spawnedPowerUp = Instantiate(_powerUpPrefabs[powerUpIndex], currentPoint.transform.position, Quaternion.Euler(60, 0, 0));
+        GameObject spawnedPowerUp = Instantiate(_powerUpPrefabs[powerUpIndex], currentPoint.transform.position, Quaternion.Euler(0, 0, 0));
 
         _powerUpActive = true;
 

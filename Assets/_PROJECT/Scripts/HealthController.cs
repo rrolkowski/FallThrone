@@ -27,7 +27,10 @@ public class HealthController : MonoBehaviour
 	// Slider do wyœwietlania stanu zdrowia
 	[SerializeField] private Slider healthSlider;
 
-    public void Init(System.Action<Unit> returnToPool)
+	[SerializeField] private ParticleSystem hitParticleEffectNormal;
+	[SerializeField] private ParticleSystem hitParticleEffectIce;
+
+	public void Init(System.Action<Unit> returnToPool)
     {
         _returnToPool = returnToPool;
     }
@@ -66,13 +69,41 @@ public class HealthController : MonoBehaviour
 	}
 
 	// Funkcja zadawania obra¿eñ
-	public void TakeDamage(float damage)
+	public void TakeDamage(float damage, string towerType)
 	{
 		currentHealth -= damage;
 		//Debug.Log($"{objectType} otrzyma³ {damage} obra¿eñ. Aktualne zdrowie: {currentHealth}");
 
-		//AUDIO
-		AudioManager.PlaySound(SoundType.GAME_Enemy_Hit);
+		// AUDIO + PARTICLE EFFECTS
+		switch (towerType)
+		{
+			case "normal":
+				AudioManager.PlaySound(SoundType.GAME_Enemy_Hit);
+
+				if (hitParticleEffectNormal != null)
+				{
+					var effect = Instantiate(hitParticleEffectNormal, transform.position, Quaternion.identity);
+					effect.Play();
+					Destroy(effect.gameObject, effect.main.duration + effect.main.startLifetime.constantMax);
+				}
+				break;
+
+			case "ice":
+				AudioManager.PlaySound(SoundType.GAME_Enemy_Hit_IceTower);
+
+				if (hitParticleEffectIce != null)
+				{
+					var effect = Instantiate(hitParticleEffectIce, transform.position, Quaternion.identity);
+					effect.Play();
+					Destroy(effect.gameObject, effect.main.duration + effect.main.startLifetime.constantMax);
+				}
+				break;
+
+			case "aoe":
+				AudioManager.PlaySound(SoundType.GAME_Enemy_Hit_AOETower);
+				// Mo¿esz dodaæ osobny efekt AOE jeœli chcesz
+				break;
+		}
 
 		// Aktualizacja slidera po otrzymaniu obra¿eñ
 		if (healthSlider != null)

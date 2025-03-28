@@ -14,7 +14,7 @@ public class SpeedBoost : BasePowerUp
             GameController.Instance.StartPowerUpTimer(_powerUpDuration);
             StartCoroutine(SpeedBoostCoroutine(movement));
         }
-    }
+	}
 
     IEnumerator SpeedBoostCoroutine(PlayerMovementController movement)
     {       
@@ -31,4 +31,9 @@ public class SpeedBoost : BasePowerUp
 
         Destroy(gameObject);      
     }
+
+	protected override SoundType GetPickupSound()
+	{
+		return SoundType.GAME_PowerUp_Speed; // <- albo inny pasuj¹cy dŸwiêk
+	}
 }

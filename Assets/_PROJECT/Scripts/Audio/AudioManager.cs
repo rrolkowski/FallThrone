@@ -21,6 +21,12 @@ public enum SoundType
 	GAME_Win,
 	GAME_Turret_Ice,
 	GAME_Turret_AOE,
+	GAME_PowerUp_Speed,
+	GAME_PowerUp_Range,
+	GAME_Enemy_Hit_IceTower,
+	GAME_Enemy_Hit_AOETower,
+	MENU_Turret_Building2,
+	MENU_Turret_Building3,
 }
 
 [RequireComponent(typeof(AudioSource)), ExecuteInEditMode]

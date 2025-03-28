@@ -3,21 +3,27 @@ using UnityEngine;
 
 public abstract class BasePowerUp : MonoBehaviour
 {
-    public abstract void ApplyEffect();
+	public abstract void ApplyEffect();
+	protected abstract SoundType GetPickupSound();
 
-    private void OnTriggerEnter(Collider collision)
-    {
-        if (collision.CompareTag("Player"))
-        {
-            GameController.Instance.SetPowerUp(this);
-            
-            GetComponent<Collider>().enabled = false;
+	private void OnTriggerEnter(Collider collision)
+	{
+		if (collision.CompareTag("Player"))
+		{
+			AudioManager.PlaySound(GetPickupSound());
 
-            if (GetComponent<SpriteRenderer>() != null)
-                GetComponent<SpriteRenderer>().enabled = false;
+			GameController.Instance.SetPowerUp(this);
 
-            if (GetComponent<ParticleSystem>() != null)
-                GetComponent<ParticleSystem>().Stop();
-        }
-    }
+			// Wy³¹czenie wszystkich Colliderów w obiekcie i jego dzieciach
+			foreach (var col in GetComponentsInChildren<Collider>())
+				col.enabled = false;
+
+			// Usuniêcie wszystkich dzieci obiektu
+			foreach (Transform child in transform)
+			{
+				Destroy(child.gameObject);
+			}
+
+		}
+	}
 }

@@ -49,20 +49,20 @@ public class ShopManager : MonoBehaviour
 
 	public void BuyTower1()
 	{
-		HandlePurchase(100, buildingPrefab1);
+		HandlePurchase(100, buildingPrefab1, "normal");
 	}
 
 	public void BuyTower2()
 	{
-		HandlePurchase(150, buildingPrefab2);
+		HandlePurchase(150, buildingPrefab2, "ice");
 	}
 
 	public void BuyTower3()
 	{
-		HandlePurchase(200, buildingPrefab3);
+		HandlePurchase(200, buildingPrefab3, "aoe");
 	}
 
-	private void HandlePurchase(int cost, GameObject prefab)
+	private void HandlePurchase(int cost, GameObject prefab, string towerType)
 	{
 		var gameController = GameController.Instance;
 		if (gameController == null || gameController.points < cost || gameController.currentTowers >= gameController.maxTowers)
@@ -73,7 +73,18 @@ public class ShopManager : MonoBehaviour
 		gameController.RemovePoints(cost);
 		gameController.AddTower();
 
-		AudioManager.PlaySound(SoundType.MENU_Turret_Building);
+		if (towerType == "normal")
+		{
+			AudioManager.PlaySound(SoundType.MENU_Turret_Building);
+		}
+		else if (towerType == "ice")
+		{
+			AudioManager.PlaySound(SoundType.MENU_Turret_Building2);
+		}
+		else if (towerType == "aoe")
+		{
+			AudioManager.PlaySound(SoundType.MENU_Turret_Building3);
+		}
 
 		ToggleShop();
 

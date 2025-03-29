@@ -837,7 +837,7 @@ MonoBehaviour:
   _detectionRange: 8
   _shockwaveRadius: 10
   _shockwaveDamage: 15
-  _shockwaveExpansionTime: 1.3
+  _shockwaveExpansionTime: 0.7
 --- !u!114 &4503458491919103147
 MonoBehaviour:
   m_ObjectHideFlags: 0

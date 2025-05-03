@@ -836,6 +836,7 @@ MonoBehaviour:
   _spawnPoint: {fileID: 158992196165184248}
   _detectionRange: 12
   _fireRate: 1.8
+  targetingStrategy: 0
 --- !u!114 &4503458491919103147
 MonoBehaviour:
   m_ObjectHideFlags: 0

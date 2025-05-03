@@ -16,6 +16,7 @@ TagManager:
   - End
   - Tower
   - PlayerHead
+  - ShieldBreaker
   layers:
   - Default
   - TransparentFX

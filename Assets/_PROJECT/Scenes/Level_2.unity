@@ -85561,7 +85561,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfaebb104efb3854bb363e47ad1e47a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _unitEnemyPrefab: {fileID: 8968255654805321680, guid: c743666851c65214aa1e37c6340ea5ab, type: 3}
+  enemySpawnConfigs:
+  - prefab: {fileID: 8968255654805321680, guid: c743666851c65214aa1e37c6340ea5ab, type: 3}
+    count: 8
   _unitParent: {fileID: 1769431831}
   _maxEnemyUnits: 8
   _usePool: 1

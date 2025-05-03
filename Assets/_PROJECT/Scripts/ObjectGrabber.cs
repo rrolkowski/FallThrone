@@ -119,18 +119,25 @@ public class ObjectGrabber : MonoBehaviour
                     if (verticalDistance <= _verticalRange)
                     {
                         //Debug.Log("The object is in the range: " + hit.collider.name);
+
+                        GameObject target = hit.collider.gameObject;
+
+                        if (target.TryGetComponent(out EnemyBase enemyBase))
+                        {
+                            if (!enemyBase.CanBeGrabbed)
+                            {
+                                Debug.Log("Nie można podnieść tego przeciwnika.");
+                                return;
+                            }
+                        }
                         if (_staminaSystem != null && !_staminaSystem.TryConsumePickupCost())
                         {
-                            Debug.Log("insufficient stamina");
+                            Debug.Log("Za mało staminy.");
                             return;
                         }
 
-                        currentlyGrabbedObject = hit.collider.gameObject;
-
-                        if (currentlyGrabbedObject.TryGetComponent(out EnemyBase enemyBase))
-                        {
-                            enemyBase.OnGrabbed();
-                        }
+                        currentlyGrabbedObject = target;
+                        enemyBase?.OnGrabbed();
 
                         // If grabbing an enemy, stop its movement temporarily
                         if (currentlyGrabbedObject.TryGetComponent(out EnemyMovement enemy))

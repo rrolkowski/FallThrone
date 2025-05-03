@@ -71,7 +71,13 @@ public class HealthController : MonoBehaviour
 	// Funkcja zadawania obra¿eñ
 	public void TakeDamage(float damage, string towerType)
 	{
-		currentHealth -= damage;
+        if (TryGetComponent<ShieldEnemy>(out var shieldEnemy))
+        {
+            if (shieldEnemy.IsShieldActive)           
+                return;        
+        }
+
+        currentHealth -= damage;
 		//Debug.Log($"{objectType} otrzyma³ {damage} obra¿eñ. Aktualne zdrowie: {currentHealth}");
 
 		// AUDIO + PARTICLE EFFECTS

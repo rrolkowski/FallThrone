@@ -52080,6 +52080,11 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!4 &616158972 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5513429608199366094, guid: a1fe3be63942fd249b03f025019ff3ec, type: 3}
+  m_PrefabInstance: {fileID: 7908096489663799864}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &617405627
 Mesh:
   m_ObjectHideFlags: 0
@@ -88211,7 +88216,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfaebb104efb3854bb363e47ad1e47a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _unitEnemyPrefab: {fileID: 8968255654805321680, guid: c743666851c65214aa1e37c6340ea5ab, type: 3}
+  enemySpawnConfigs:
+  - prefab: {fileID: 8968255654805321680, guid: c743666851c65214aa1e37c6340ea5ab, type: 3}
+    count: 3
+  - prefab: {fileID: 8968255654805321680, guid: d7f8be422ebc12243915b82b437c341c, type: 3}
+    count: 1
+  - prefab: {fileID: 8968255654805321680, guid: 3729eb94b9b6bc649ab862fd3d483513, type: 3}
+    count: 2
+  - prefab: {fileID: 8968255654805321680, guid: 49e76e0960485cb4ebf4de72a2132d0a, type: 3}
+    count: 2
   _unitParent: {fileID: 1769431831}
   _maxEnemyUnits: 8
   _usePool: 1
@@ -132118,6 +132131,7 @@ Transform:
   - {fileID: 919667466}
   - {fileID: 313688298}
   - {fileID: 1632359109}
+  - {fileID: 616158972}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1583789007
@@ -179797,6 +179811,63 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: afdaf61c612614048825b081e46f8c39, type: 3}
+--- !u!1001 &7908096489663799864
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1583268304}
+    m_Modifications:
+    - target: {fileID: 2602848700815794738, guid: a1fe3be63942fd249b03f025019ff3ec, type: 3}
+      propertyPath: m_Name
+      value: ShieldBrakerStatue
+      objectReference: {fileID: 0}
+    - target: {fileID: 5513429608199366094, guid: a1fe3be63942fd249b03f025019ff3ec, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -9
+      objectReference: {fileID: 0}
+    - target: {fileID: 5513429608199366094, guid: a1fe3be63942fd249b03f025019ff3ec, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5513429608199366094, guid: a1fe3be63942fd249b03f025019ff3ec, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -33
+      objectReference: {fileID: 0}
+    - target: {fileID: 5513429608199366094, guid: a1fe3be63942fd249b03f025019ff3ec, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.92387956
+      objectReference: {fileID: 0}
+    - target: {fileID: 5513429608199366094, guid: a1fe3be63942fd249b03f025019ff3ec, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5513429608199366094, guid: a1fe3be63942fd249b03f025019ff3ec, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.38268343
+      objectReference: {fileID: 0}
+    - target: {fileID: 5513429608199366094, guid: a1fe3be63942fd249b03f025019ff3ec, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5513429608199366094, guid: a1fe3be63942fd249b03f025019ff3ec, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5513429608199366094, guid: a1fe3be63942fd249b03f025019ff3ec, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 5513429608199366094, guid: a1fe3be63942fd249b03f025019ff3ec, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a1fe3be63942fd249b03f025019ff3ec, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

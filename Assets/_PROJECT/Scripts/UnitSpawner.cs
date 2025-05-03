@@ -4,137 +4,177 @@ using UnityEngine;
 using UnityEngine.Pool;
 using Unity.Cinemachine;
 
+[System.Serializable]
+public class EnemySpawnData
+{
+    public Unit prefab;
+    public int count;
+}
+
 public class UnitSpawner : MonoBehaviour
 {
-	public static UnitSpawner Instance;
+    public static UnitSpawner Instance;
 
-	private ObjectPool<Unit> _enemyPool;
+    [SerializeField] private List<EnemySpawnData> enemySpawnConfigs;
+    [SerializeField] private Transform _unitParent;
+    [SerializeField] public int _maxEnemyUnits;
+    [SerializeField] private bool _usePool;
+    [SerializeField] private float _minSpawnDelay = 1f;
+    [SerializeField] private float _maxSpawnDelay = 3f;
+    [SerializeField] private CinemachineTargetGroup _targetGroup;
 
-	[SerializeField] private Unit _unitEnemyPrefab;
+    public int _spawnedUnits = 0;
+    private int _currentSpawnedUnits = 0;
 
-	[SerializeField] private Transform _unitParent;
+    private Dictionary<string, ObjectPool<Unit>> enemyPools;
+    private Dictionary<string, Unit> prefabLookup;
+    private Dictionary<string, int> remainingCounts;
 
-	[SerializeField] public int _maxEnemyUnits;
+    private void Awake()
+    {
+        Instance = this;
+    }
 
-	[SerializeField] private bool _usePool;
+    private void Start()
+    {
+        enemyPools = new Dictionary<string, ObjectPool<Unit>>();
+        prefabLookup = new Dictionary<string, Unit>();
+        remainingCounts = new Dictionary<string, int>();
 
-	[SerializeField] private float _minSpawnDelay = 1f;
-	[SerializeField] private float _maxSpawnDelay = 3f;
+        int totalAvailable = 0;
 
-	[SerializeField] private CinemachineTargetGroup _targetGroup; // Dodano Cinemachine Target Group
+        foreach (var config in enemySpawnConfigs)
+        {
+            string prefabName = config.prefab.name;
+            prefabLookup[prefabName] = config.prefab;
+            remainingCounts[prefabName] = config.count;
+            totalAvailable += config.count;
 
-	public int _spawnedUnits = 0;
-	private int _currentSpawnedUnits = 0;
+            var pool = new ObjectPool<Unit>(() =>
+            {
+                var unit = Instantiate(config.prefab, _unitParent);
+                return unit;
+            }, unit =>
+            {
+                unit.gameObject.SetActive(true);
+                unit.ResetValues();
+                AddToTargetGroup(unit);
+            }, unit =>
+            {
+                unit.gameObject.SetActive(false);
+                RemoveFromTargetGroup(unit);
+            }, unit =>
+            {
+                Destroy(unit.gameObject);
+            }, false, 1, config.count);
 
-	private void Awake()
-	{
-		Instance = this;
-	}
+            enemyPools[prefabName] = pool;
+        }
 
-	private void Start()
-	{
-		_enemyPool = new ObjectPool<Unit>(() =>
-		{
-			var unit = Instantiate(_unitEnemyPrefab);
-			unit.transform.SetParent(_unitParent);
-			return unit;
-		}, unit =>
-		{
-			unit.gameObject.SetActive(true);
-			unit.ResetValues();
-			AddToTargetGroup(unit); // Dodaj do Cinemachine Target Group
-		}, unit =>
-		{
-			unit.gameObject.SetActive(false);
-			RemoveFromTargetGroup(unit); // Usuñ z Cinemachine Target Group
-		}, unit =>
-		{
-			Destroy(unit.gameObject);
-		}, false, 1, _maxEnemyUnits);
+        // Nie przekraczaj liczby mo¿liwych jednostek
+        _maxEnemyUnits = Mathf.Min(_maxEnemyUnits, totalAvailable);
 
-		StartCoroutine(SpawnUnitLoop());
-	}
+        StartCoroutine(SpawnUnitLoop());
+    }
 
-	private IEnumerator SpawnUnitLoop()
-	{
-		while (_currentSpawnedUnits < _maxEnemyUnits && _spawnedUnits <= _maxEnemyUnits)
-		{
-			yield return new WaitForSeconds(Random.Range(_minSpawnDelay, _maxSpawnDelay));
-			SpawnUnit();
-		}
-	}
+    private IEnumerator SpawnUnitLoop()
+    {
+        while (_currentSpawnedUnits < _maxEnemyUnits)
+        {
+            yield return new WaitForSeconds(Random.Range(_minSpawnDelay, _maxSpawnDelay));
+            SpawnUnit();
+        }
+    }
 
-	private void SpawnUnit()
-	{
-		if (_spawnedUnits < _maxEnemyUnits)
-		{
-			var unit = _usePool ? _enemyPool.Get() : Instantiate(_unitEnemyPrefab);
+    private void SpawnUnit()
+    {
+        if (_spawnedUnits >= _maxEnemyUnits)
+            return;
 
-			var spawnPositions = PathFinderManager.Instance.GetSpawnPositions();
-			if (spawnPositions.Count == 0)
-			{
-				Debug.LogError("Brak kafelków spawnTile! Dodaj co najmniej jeden spawnTile.");
-				return;
-			}
+        // Zbierz dostêpne prefabName'y które jeszcze maj¹ count > 0
+        List<string> availableTypes = new List<string>();
+        foreach (var kvp in remainingCounts)
+        {
+            if (kvp.Value > 0)
+                availableTypes.Add(kvp.Key);
+        }
 
-			Vector3Int spawnPoint = spawnPositions[Random.Range(0, spawnPositions.Count)];
-			Vector3 spawnPosition = PathFinderManager.Instance.gridManager.tilemap.GetCellCenterWorld(spawnPoint);
-			float yOffset = transform.localScale.y;
-			unit.transform.position = new Vector3(spawnPosition.x, spawnPosition.y + yOffset, spawnPosition.z);
+        if (availableTypes.Count == 0)
+            return;
 
-			List<TileNode> path = PathFinderManager.Instance.GetPathFromSpawnPoint(spawnPoint);
+        string selectedName = availableTypes[Random.Range(0, availableTypes.Count)];
+        remainingCounts[selectedName]--;
 
-			unit.Init(ReturnUnitToPool);
-			if (unit.TryGetComponent<EnemyMovement>(out var movement))
-			{
-				if (path == null || path.Count == 0)
-				{
-					Debug.LogError($"Nie uda³o siê znaleŸæ œcie¿ki od punktu spawn {spawnPoint}");
-				}
-				else
-				{
-					movement.SetPath(path);
-				}
-			}
+        var unit = _usePool
+            ? enemyPools[selectedName].Get()
+            : Instantiate(prefabLookup[selectedName]);
 
-			if (unit.TryGetComponent<HealthController>(out var healthController))
-			{
-				healthController.Init(ReturnUnitToPool);
-			}
+        var spawnPositions = PathFinderManager.Instance.GetSpawnPositions();
+        if (spawnPositions.Count == 0)
+        {
+            Debug.LogError("Brak kafelków spawnTile! Dodaj co najmniej jeden spawnTile.");
+            return;
+        }
 
-			_currentSpawnedUnits++;
-			_spawnedUnits++;
-		}
-		GameController.Instance.CheckForWinCondition();
-	}
+        Vector3Int spawnPoint = spawnPositions[Random.Range(0, spawnPositions.Count)];
+        Vector3 spawnPosition = PathFinderManager.Instance.gridManager.tilemap.GetCellCenterWorld(spawnPoint);
+        float yOffset = transform.localScale.y;
+        unit.transform.position = new Vector3(spawnPosition.x, spawnPosition.y + yOffset, spawnPosition.z);
 
-	private void ReturnUnitToPool(Unit unit)
-	{
-		if (_usePool)
-		{
-			_enemyPool.Release(unit);
-			_currentSpawnedUnits--;
-		}
-		else
-		{
-			RemoveFromTargetGroup(unit); // Usuñ z Cinemachine Target Group
-			Destroy(unit.gameObject);
-		}
-	}
+        List<TileNode> path = PathFinderManager.Instance.GetPathFromSpawnPoint(spawnPoint);
 
-	private void AddToTargetGroup(Unit unit)
-	{
-		if (_targetGroup != null)
-		{
-			_targetGroup.AddMember(unit.transform, 1f, 0.5f); // Waga i promieñ mo¿na dostosowaæ
-		}
-	}
+        unit.Init(ReturnUnitToPool);
+        if (unit.TryGetComponent<EnemyMovement>(out var movement))
+        {
+            if (path == null || path.Count == 0)
+            {
+                Debug.LogError($"Nie uda³o siê znaleŸæ œcie¿ki od punktu spawn {spawnPoint}");
+            }
+            else
+            {
+                movement.SetPath(path);
+            }
+        }
 
-	private void RemoveFromTargetGroup(Unit unit)
-	{
-		if (_targetGroup != null)
-		{
-			_targetGroup.RemoveMember(unit.transform);
-		}
-	}
+        if (unit.TryGetComponent<HealthController>(out var healthController))
+        {
+            healthController.Init(ReturnUnitToPool);
+        }
+
+        _currentSpawnedUnits++;
+        _spawnedUnits++;
+
+        GameController.Instance.CheckForWinCondition();
+    }
+
+    private void ReturnUnitToPool(Unit unit)
+    {
+        string prefabName = unit.name.Replace("(Clone)", "").Trim();
+        if (_usePool && enemyPools.ContainsKey(prefabName))
+        {
+            enemyPools[prefabName].Release(unit);
+            _currentSpawnedUnits--;
+        }
+        else
+        {
+            RemoveFromTargetGroup(unit);
+            Destroy(unit.gameObject);
+        }
+    }
+
+    private void AddToTargetGroup(Unit unit)
+    {
+        if (_targetGroup != null)
+        {
+            _targetGroup.AddMember(unit.transform, 1f, 0.5f);
+        }
+    }
+
+    private void RemoveFromTargetGroup(Unit unit)
+    {
+        if (_targetGroup != null)
+        {
+            _targetGroup.RemoveMember(unit.transform);
+        }
+    }
 }

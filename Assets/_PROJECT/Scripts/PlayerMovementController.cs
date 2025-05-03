@@ -1,5 +1,7 @@
+using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Debug = UnityEngine.Debug;
 
 public class PlayerMovementController : MonoBehaviour
 {
@@ -15,9 +17,17 @@ public class PlayerMovementController : MonoBehaviour
 	public float moveSpeed = 5f;
 	[SerializeField] float acceleration = 20f;
 
+	[Header("Srint Settings")]
+	[SerializeField] float _sprintMultiplier = 1.5f;
+	[SerializeField] float _sprintStaminaCost = 5f; //per second
+	private bool isSprinting;
+
 	[Header("Objects")]
 	[SerializeField] Camera mainCamera;
 	[SerializeField] Animator anim;
+
+	[Header("References")]
+	[SerializeField] StaminaSystem _staminaSystem;
 
 	[Header("Animation Smoothing")]
 	[Range(0, 1f)]
@@ -66,7 +76,22 @@ public class PlayerMovementController : MonoBehaviour
     void UpdateTargetVelocity()
 	{
 		Vector3 movement = new Vector3(movementInput.x, 0, movementInput.y).normalized;
-		targetVelocity = movement * moveSpeed;
+
+        float currentSpeed = moveSpeed;
+
+        if (isSprinting && movement.magnitude > 0.1f)
+        {
+            if (_staminaSystem.ConsumeSprintStamina(_sprintStaminaCost))
+            {
+                currentSpeed *= _sprintMultiplier;
+            }
+            else
+            {
+                isSprinting = false;
+            }
+        }
+
+        targetVelocity = movement * currentSpeed;
 
 		//With Gravity v0.01
 		if (!_isGrounded)
@@ -106,6 +131,12 @@ public class PlayerMovementController : MonoBehaviour
 	public void OnMove(InputAction.CallbackContext context)
 	{
 		movementInput = context.ReadValue<Vector2>();
+	}
+	
+	public void OnSprint(InputAction.CallbackContext context)
+	{
+		isSprinting = context.ReadValueAsButton();
+		Debug.Log("Sprint");
 	}
 
 	// Obsługa animacji

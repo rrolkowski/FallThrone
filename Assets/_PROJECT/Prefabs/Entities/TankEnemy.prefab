@@ -35635,13 +35635,14 @@ GameObject:
   - component: {fileID: 5974901632205209419}
   - component: {fileID: 1792351574077376666}
   - component: {fileID: 3419500165831751562}
+  - component: {fileID: -4969682041831743976}
   - component: {fileID: 7152667056050282786}
   - component: {fileID: 1290997555225439011}
   - component: {fileID: 787980681743463112}
   - component: {fileID: 8968255654805321680}
   - component: {fileID: 2800111272551535220}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: TankEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -35657,7 +35658,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 9.461313, y: 1, z: -0.36352062}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1709274094141236437}
@@ -35767,6 +35768,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &-4969682041831743976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1726922415980434321}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54abb1c4f82f08049a0c5623794cd490, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  staminaMultiplier: 2
+  speedMultiplierWhileHeld: 0.5
 --- !u!114 &7152667056050282786
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35780,7 +35795,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectType: 2
-  maxHealth: 100
+  maxHealth: 300
   currentHealth: 0
   healthSlider: {fileID: 1832009126005391285}
   hitParticleEffectNormal: {fileID: 5661099218938664411, guid: 145dc4d01e911d0458bbb26e2eade4aa, type: 3}

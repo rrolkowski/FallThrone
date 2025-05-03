@@ -11,6 +11,9 @@ public class TileNode
     public bool isObstacle;     // Indicates if the tile is an obstacle(not walkable)
     public int movementCost;    // Cost to move through this tile; higher costs make paths less preferable
     public TileNode parent;     // Reference to the parent tile in the path, used for retracing paths
+    public int gCost; // rzeczywisty koszt dotarcia z pocz¹tku
+    public int hCost; // heurystyka
+    public int fCost => gCost + hCost;
 
     // Constructor to initialize a tile node with its position, obstacle status, and movement cost
     public TileNode(Vector3Int position, bool isObstacle, int movementCost)
@@ -19,5 +22,7 @@ public class TileNode
         this.isObstacle = isObstacle;
         this.movementCost = movementCost;
         this.parent = null;     // Initially, no parent is assigned
+        this.gCost = int.MaxValue;
+        this.hCost = 0;
     }
 }

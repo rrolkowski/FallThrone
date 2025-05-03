@@ -1,4 +1,5 @@
 using UnityEngine;
+using static Tower;
 
 public class IceTower : MonoBehaviour
 {
@@ -13,37 +14,57 @@ public class IceTower : MonoBehaviour
 
     private float nextFireTime = 0f;
 
+    [SerializeField] private TargetingStrategy targetingStrategy = TargetingStrategy.Closest;
+
     void Update()
     {
         if (Time.time >= nextFireTime)
         {
-            GameObject nearestEnemy = FindClosestEnemy();
-            if (nearestEnemy != null)
+            GameObject targetEnemy = FindTargetEnemy();
+            if (targetEnemy != null)
             {
-                Shoot(nearestEnemy);
+                Shoot(targetEnemy);
 
                 nextFireTime = Time.time + _fireRate;
             }
         }
     }
 
-    GameObject FindClosestEnemy()
+    GameObject FindTargetEnemy()
     {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        GameObject closestEnemy = null;
-        float closestDistance = _detectionRange;
+        GameObject selectedEnemy = null;
+        float bestValue = float.MaxValue;
 
         foreach (GameObject enemy in enemies)
         {
-            float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
-            if (distanceToEnemy < closestDistance)
+            float distance = Vector3.Distance(transform.position, enemy.transform.position);
+            if (distance > _detectionRange) continue;
+
+            switch (targetingStrategy)
             {
-                closestDistance = distanceToEnemy;
-                closestEnemy = enemy;
+                case TargetingStrategy.Closest:
+                    if (distance < bestValue)
+                    {
+                        bestValue = distance;
+                        selectedEnemy = enemy;
+                    }
+                    break;
+
+                case TargetingStrategy.LowestHP:
+                    if (enemy.TryGetComponent(out HealthController hp))
+                    {
+                        if (hp.currentHealth < bestValue)
+                        {
+                            bestValue = hp.currentHealth;
+                            selectedEnemy = enemy;
+                        }
+                    }
+                    break;
             }
         }
 
-        return closestEnemy;
+        return selectedEnemy;
     }
 
     void Shoot(GameObject target)
@@ -71,5 +92,11 @@ public class IceTower : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, _detectionRange);
+    }
+
+    public enum TargetingStrategy
+    {
+        Closest,
+        LowestHP
     }
 }

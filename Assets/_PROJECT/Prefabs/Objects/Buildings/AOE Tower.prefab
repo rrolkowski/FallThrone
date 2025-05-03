@@ -451,6 +451,7 @@ GameObject:
   - component: {fileID: 1477209564869193015}
   - component: {fileID: 4503458491919103147}
   - component: {fileID: 1998854288747511120}
+  - component: {fileID: 6137734321361314409}
   m_Layer: 0
   m_Name: AOE Tower
   m_TagString: Tower
@@ -868,6 +869,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34db516ba1051ed479419932d9076927, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6137734321361314409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6245134262057179151}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d56beffc08c77f4ea93c5b5cc3a671f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _slideForce: 5
+  _rb: {fileID: 5055781812821200467}
 --- !u!1 &7233460958133507146
 GameObject:
   m_ObjectHideFlags: 0

@@ -15,7 +15,7 @@ public class ThrowableObject : MonoBehaviour
         // Checks if the object collides with the ground
         if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
-            Debug.Log("Collision with the ground");
+            //Debug.Log("Collision with the ground");
 
             //AUDIO
             if (this.gameObject.tag == "Enemy")
@@ -33,7 +33,7 @@ public class ThrowableObject : MonoBehaviour
             // If the object collides with an enemy, it triggers enemy movement
             if (gameObject.CompareTag("Enemy"))
             {
-                Debug.Log("Enemy Object Detected!");
+                //Debug.Log("Enemy Object Detected!");
 
                 if (TryGetComponent(out EnemyMovement enemy))
                 {

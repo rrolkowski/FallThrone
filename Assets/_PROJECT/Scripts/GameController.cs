@@ -83,7 +83,14 @@ public class GameController : MonoBehaviour
 		}
 	}
 
-	private IEnumerator Fade()
+    void Update()
+    {
+        if (!GameState.STATE_Won)
+            GameController.Instance.CheckForWinCondition();
+    }
+
+
+    private IEnumerator Fade()
 	{
 		yield return new WaitForSecondsRealtime(1);
 		ScreenFader.Instance.FadeIn();

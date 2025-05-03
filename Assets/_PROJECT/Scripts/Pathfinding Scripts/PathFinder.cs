@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 /// <summary>
@@ -17,42 +18,50 @@ public class PathFinder : MonoBehaviour
         TileNode startNode = _gridManager.GetNode(start);
         TileNode endNode = _gridManager.GetNode(end);
 
-        List<TileNode> openSet = new List<TileNode> { startNode }; // Nodes to be evaluated
-        HashSet<TileNode> closedSet = new HashSet<TileNode>(); // Nodes already evaluated
+        if (startNode == null || endNode == null)
+            return null;
 
+        startNode.gCost = 0;
+        startNode.hCost = Heuristic(start, end);
+
+        List<TileNode> openSet = new List<TileNode> { startNode };
+        HashSet<TileNode> closedSet = new HashSet<TileNode>();
 
         while (openSet.Count > 0)
         {
-            TileNode currentNode = openSet[0];
+            int minFCost = openSet.Min(n => n.fCost);
+            int tolerance = 10;
 
-            // Find the node in openSet with the lowest total cost (movement cost + heuristic)
-            for (int i = 1; i < openSet.Count; i++)
+            List<TileNode> candidates = new List<TileNode>();
+            foreach (var node in openSet)
             {
-                if (openSet[i].movementCost + Heuristic(openSet[i].position, end) < currentNode.movementCost + Heuristic(currentNode.position, end))
+                if (node.fCost <= minFCost + tolerance)
                 {
-                    currentNode = openSet[i];
+                    candidates.Add(node);
                 }
             }
 
-            openSet.Remove(currentNode);// Move current node from openSet to closedSet
+            //if two paths are with the same cost (or almost the same), draw a random path
+            TileNode currentNode = candidates[Random.Range(0, candidates.Count)];
+
+            openSet.Remove(currentNode);
             closedSet.Add(currentNode);
 
             if (currentNode == endNode)
             {
-                return RetracePath(startNode, endNode); // Trace the path back from end to start
+                return RetracePath(startNode, endNode);
             }
 
-            // Process each neighboring node of the current node
             foreach (TileNode neighbor in _gridManager.GetNeighbors(currentNode))
             {
                 if (neighbor.isObstacle || closedSet.Contains(neighbor)) continue;
 
-                int newCost = currentNode.movementCost + neighbor.movementCost;
+                int newGCost = currentNode.gCost + neighbor.movementCost;
 
-                // If a shorter path to the neighbor is found, update its cost and parent
-                if (newCost < neighbor.movementCost || !openSet.Contains(neighbor))
+                if (newGCost < neighbor.gCost || !openSet.Contains(neighbor))
                 {
-                    neighbor.movementCost = newCost;
+                    neighbor.gCost = newGCost;
+                    neighbor.hCost = Heuristic(neighbor.position, end);
                     neighbor.parent = currentNode;
 
                     if (!openSet.Contains(neighbor))
@@ -62,8 +71,10 @@ public class PathFinder : MonoBehaviour
                 }
             }
         }
+
         return null;
     }
+
 
     /// Heuristic function that calculates the estimated distance between two points.
     /// (Manhattan distance) for grid pathfinding.

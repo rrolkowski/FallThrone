@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static UnityEngine.UI.Image;
 
 public class ObjectGrabber : MonoBehaviour
 {
@@ -17,7 +18,8 @@ public class ObjectGrabber : MonoBehaviour
     [SerializeField] LayerMask _groundLayer;
 
     [Header("Grab/Throw Settings")]
-    [SerializeField] float _throwSpeedXZ = 10.0f; // Throw Speed
+    //[SerializeField] float _throwSpeedXZ = 10.0f; // Throw Speed
+    [SerializeField] float _arcHeight = 1.5f;
     [SerializeField] float _maxThrowRange = 10f; // Throw Range
 
     [Header("Objects")]
@@ -26,6 +28,7 @@ public class ObjectGrabber : MonoBehaviour
 
     [Header("Scripts")]
     public RangeCircleController _rangeCircleController;
+    [SerializeField] private StaminaSystem _staminaSystem;
 
     [Header("")]
     [SerializeField] public GameObject currentlyGrabbedObject = null;
@@ -47,25 +50,24 @@ public class ObjectGrabber : MonoBehaviour
     // Input System Method for the "Grab" action
     public void OnGrab(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (!context.performed) return;
+
+        if (currentlyGrabbedObject == null)
         {
-            if (currentlyGrabbedObject == null)
-            {
-                TryGrabObject();             
-            }
-            else
-            {
-                ReleaseObject();
-            }
+            TryGrabObject();
+        }
+        else if (currentlyGrabbedObject != null)
+        {
+            ThrowObject();
         }
     }
 
     // Input System Method for the "Throww" action
     public void OnThrow(InputAction.CallbackContext context)
     {
-        if (context.performed && currentlyGrabbedObject != null)
+        if(context.performed && currentlyGrabbedObject != null)
         {
-            ThrowObject();
+            ReleaseObject();
         }
     }
     public float GetRawThrowRange()
@@ -117,8 +119,18 @@ public class ObjectGrabber : MonoBehaviour
                     if (verticalDistance <= _verticalRange)
                     {
                         //Debug.Log("The object is in the range: " + hit.collider.name);
+                        if (_staminaSystem != null && !_staminaSystem.TryConsumePickupCost())
+                        {
+                            Debug.Log("insufficient stamina");
+                            return;
+                        }
 
                         currentlyGrabbedObject = hit.collider.gameObject;
+
+                        if (currentlyGrabbedObject.TryGetComponent(out EnemyBase enemyBase))
+                        {
+                            enemyBase.OnGrabbed();
+                        }
 
                         // If grabbing an enemy, stop its movement temporarily
                         if (currentlyGrabbedObject.TryGetComponent(out EnemyMovement enemy))
@@ -183,7 +195,7 @@ public class ObjectGrabber : MonoBehaviour
         }
     }
 
-    void ReleaseObject()
+    public void ReleaseObject()
     {
 		// Sprawdzenie stan�w gry
 		if (GameState.STATE_Lost || GameState.STATE_Won || GameState.STATE_LoadingLevel ||
@@ -209,6 +221,7 @@ public class ObjectGrabber : MonoBehaviour
             }
 
             Vector3 newPosition = currentlyGrabbedObject.transform.position;
+            newPosition += transform.right * 1.5f;
             newPosition.y = transform.position.y;
             currentlyGrabbedObject.transform.position = newPosition;
 
@@ -217,7 +230,13 @@ public class ObjectGrabber : MonoBehaviour
                 throwable.SetObjectAlpha(1.0f);
             }
 
+            if (currentlyGrabbedObject.TryGetComponent(out EnemyBase enemyBase))
+            {
+                enemyBase.OnReleased();
+            }
+
             currentlyGrabbedObject = null;
+
             if (_rangeCircleController != null)
             {
                 _rangeCircleController.DeactivateRangeCircle();
@@ -254,9 +273,11 @@ public class ObjectGrabber : MonoBehaviour
 
 					if (distance > _maxThrowRange)
 					{
-						Debug.Log("Target point out of range - throw canceled");
-						return;
-					}
+                        //Debug.Log("Target point out of range - throw canceled");
+                        //return;
+                        direction = direction.normalized * _maxThrowRange;
+                        targetPoint = _grabPoint.position + direction;
+                    }
 
 					GameObject thrownObject = currentlyGrabbedObject;
 					thrownObject.transform.SetParent(_originalParent);
@@ -268,29 +289,21 @@ public class ObjectGrabber : MonoBehaviour
 
 					rb.isKinematic = false;
 
-					// Calculate the time to reach the point.
-					float time = distance / _throwSpeedXZ;
+                    Vector3 velocity = CalculateBallisticVelocity(targetPoint, _grabPoint.position, _arcHeight);
+                    rb.linearVelocity = velocity;
 
-					// Set the raycast speed in the XZ direction
-					Vector3 throwVelocity = new Vector3(direction.x / time, 0, direction.z / time);
-
-					// Adjust height (Y component) based on distance
-					float gravity = Mathf.Abs(Physics.gravity.y);
-
-					// If the throw distance is short, reduce the height
-					float heightMultiplier = Mathf.Clamp(distance / _maxThrowRange, 0.3f, 1.0f); // Minimum height factor is 0.3
-					throwVelocity.y = (direction.y * heightMultiplier + 0.5f * gravity * Mathf.Pow(time, 2)) / time;
-
-					Debug.Log($"Throw velocity: {throwVelocity} (distance: {distance}, height multiplier: {heightMultiplier})");
-
-					rb.linearVelocity = throwVelocity;
-
-					if (thrownObject.TryGetComponent(out ThrowableObject throwable))
+                    if (thrownObject.TryGetComponent(out ThrowableObject throwable))
 					{
 						throwable.SetObjectAlpha(0.5f);
 					}
 
-					currentlyGrabbedObject = null;
+                    if (thrownObject.TryGetComponent(out EnemyBase enemyBase))
+                    {
+                        enemyBase.OnReleased();
+                        enemyBase.OnThrown();
+                    }
+
+                    currentlyGrabbedObject = null;
 					if (_rangeCircleController != null)
 					{
 						_rangeCircleController.DeactivateRangeCircle();
@@ -305,8 +318,27 @@ public class ObjectGrabber : MonoBehaviour
 	}
 
 
-	//Draw yellow cylinder
-	private void OnDrawGizmosSelected()
+    Vector3 CalculateBallisticVelocity(Vector3 target, Vector3 origin, float arcHeight)
+    {
+        Vector3 direction = target - origin;
+        Vector3 directionXZ = new Vector3(direction.x, 0, direction.z);
+        float distance = directionXZ.magnitude;
+        float yOffset = direction.y;
+
+        float gravity = Mathf.Abs(Physics.gravity.y);
+
+        float initialYVelocity = Mathf.Sqrt(2 * gravity * arcHeight);
+        float timeToApex = initialYVelocity / gravity;
+        float totalTime = timeToApex + Mathf.Sqrt(2 * (arcHeight - yOffset) / gravity);
+
+        Vector3 velocityY = Vector3.up * initialYVelocity;
+        Vector3 velocityXZ = directionXZ / totalTime;
+
+        return velocityXZ + velocityY;
+    }
+
+    //Draw yellow cylinder
+    private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
         float radius = 2.0f;

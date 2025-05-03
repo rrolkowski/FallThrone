@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -94,6 +95,9 @@ public class GridManager : MonoBehaviour
 	{
         foreach (var node in _nodes.Values)
         {
+            node.parent = null;
+            node.gCost = int.MaxValue;
+            node.hCost = 0;
             // Reset kosztu w zale¿noœci od tagu GameObjectu w gridzie
             Transform child = GetChildAtGridPosition(node.position);
             if (child == null) continue;
@@ -138,7 +142,9 @@ public class GridManager : MonoBehaviour
 		List<TileNode> neighbors = new List<TileNode>();
 		Vector3Int[] directions = { Vector3Int.up, Vector3Int.down, Vector3Int.left, Vector3Int.right };
 
-		foreach (var dir in directions)
+        directions = directions.OrderBy(x => UnityEngine.Random.value).ToArray();
+
+        foreach (var dir in directions)
 		{
 			Vector3Int neighborPos = node.position + dir;
 			if (_nodes.ContainsKey(neighborPos))

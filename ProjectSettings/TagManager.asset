@@ -15,6 +15,7 @@ TagManager:
   - Spawn
   - End
   - Tower
+  - PlayerHead
   layers:
   - Default
   - TransparentFX

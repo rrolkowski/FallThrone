@@ -8,46 +8,67 @@ public class Tower : MonoBehaviour
 	public float fireRate = 1f;          // Czêstotliwoœæ strza³ów (czas w sekundach miêdzy kolejnymi strza³ami)
 	private float nextFireTime = 0f;     // Czas do nastêpnego strza³u
 
-	// Update is called once per frame
-	void Update()
+    [SerializeField] private TargetingStrategy targetingStrategy = TargetingStrategy.Closest;
+
+
+    // Update is called once per frame
+    void Update()
 	{
 		// Sprawdzenie, czy mo¿na ju¿ wystrzeliæ
 		if (Time.time >= nextFireTime)
 		{
-			// Szukaj najbli¿szego wroga w zasiêgu
-			GameObject nearestEnemy = FindClosestEnemy();
-			if (nearestEnemy != null)
-			{
-				// Respawn pocisku
-				Shoot(nearestEnemy);
-				// Ustaw czas na nastêpny strza³
-				nextFireTime = Time.time + fireRate;
-			}
-		}
-	}
+            // Szukaj najbli¿szego wroga w zasiêgu
+            GameObject targetEnemy = FindTargetEnemy();
+            if (targetEnemy != null)
+            {
+                Shoot(targetEnemy);
+                nextFireTime = Time.time + fireRate;
+            }
 
-	// Funkcja wyszukuj¹ca najbli¿szego wroga w zasiêgu
-	GameObject FindClosestEnemy()
-	{
-		GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-		GameObject closestEnemy = null;
-		float closestDistance = detectionRange;
+        }
+    }
 
-		foreach (GameObject enemy in enemies)
-		{
-			float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
-			if (distanceToEnemy < closestDistance)
-			{
-				closestDistance = distanceToEnemy;
-				closestEnemy = enemy;
-			}
-		}
+    // Funkcja wyszukuj¹ca najbli¿szego wroga w zasiêgu
+    GameObject FindTargetEnemy()
+    {
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        GameObject selectedEnemy = null;
+        float bestValue = float.MaxValue;
 
-		return closestEnemy;
-	}
+        foreach (GameObject enemy in enemies)
+        {
+            float distance = Vector3.Distance(transform.position, enemy.transform.position);
+            if (distance > detectionRange) continue;
 
-	// Funkcja strzelaj¹ca w kierunku wroga
-	void Shoot(GameObject target)
+            switch (targetingStrategy)
+            {
+                case TargetingStrategy.Closest:
+                    if (distance < bestValue)
+                    {
+                        bestValue = distance;
+                        selectedEnemy = enemy;
+                    }
+                    break;
+
+                case TargetingStrategy.LowestHP:
+                    if (enemy.TryGetComponent(out HealthController hp))
+                    {
+                        if (hp.currentHealth < bestValue)
+                        {
+                            bestValue = hp.currentHealth;
+                            selectedEnemy = enemy;
+                        }
+                    }
+                    break;
+            }
+        }
+
+        return selectedEnemy;
+    }
+
+
+    // Funkcja strzelaj¹ca w kierunku wroga
+    void Shoot(GameObject target)
 	{
 		if (spawnPoint != null)
 		{
@@ -76,4 +97,11 @@ public class Tower : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, detectionRange);
     }
+
+    public enum TargetingStrategy
+    {
+        Closest,
+        LowestHP
+    }
+
 }

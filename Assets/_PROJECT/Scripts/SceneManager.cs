@@ -107,4 +107,34 @@ public class SceneManagerScript : MonoBehaviour
 			Debug.LogWarning("Nie rozpoznano sceny: " + sceneName);
 		}
 	}
+
+	/// <summary>
+	/// £aduje nastêpny poziom na podstawie aktualnej sceny.
+	/// </summary>
+	public void LoadNextLevel()
+	{
+		string currentSceneName = SceneManager.GetActiveScene().name;
+		int currentIndex = System.Array.IndexOf(levelScenes, currentSceneName);
+
+		if (currentIndex != -1 && currentIndex + 1 < levelScenes.Length)
+		{
+			string nextSceneName = levelScenes[currentIndex + 1];
+			if (!string.IsNullOrEmpty(nextSceneName))
+			{
+				SceneManager.LoadScene(nextSceneName);
+				UpdateGameState(nextSceneName);
+			}
+			else
+			{
+				Debug.LogError("Nastêpna scena nie jest przypisana.");
+			}
+		}
+		else
+		{
+			Debug.LogWarning("Nie ma wiêcej poziomów do za³adowania lub obecna scena nie jest na liœcie!");
+			// Opcjonalnie mo¿esz tutaj np. powróciæ do menu:
+			// LoadMenuScene();
+		}
+	}
+
 }

@@ -67,7 +67,7 @@ public class ObjectGrabber : MonoBehaviour
     {
         if(context.performed && currentlyGrabbedObject != null)
         {
-            ReleaseObject();
+            //ReleaseObject();
         }
     }
     public float GetRawThrowRange()
@@ -202,6 +202,7 @@ public class ObjectGrabber : MonoBehaviour
         }
     }
 
+    /*
     public void ReleaseObject()
     {
 		// Sprawdzenie stan�w gry
@@ -250,6 +251,7 @@ public class ObjectGrabber : MonoBehaviour
             }
         }
     }
+    */
 
 	public void ThrowObject()
 	{

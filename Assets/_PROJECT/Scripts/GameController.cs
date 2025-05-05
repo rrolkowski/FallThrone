@@ -21,8 +21,8 @@ public class GameController : MonoBehaviour
 
 	// Tower system
 	[Header("Tower Settings")]
-	public int maxTowers = 3;
-	public int currentTowers = 0;
+	public int maxTower_Points = 5;
+	public int currentTower_Points = 0;
 	public TextMeshProUGUI towerText;
 
 	// Economy system
@@ -47,7 +47,11 @@ public class GameController : MonoBehaviour
     private float _powerUpTimeRemaining = 0f;
     private float _powerUpDuration = 1f;
 
-    private void Awake()
+	[Header("Enemy Defeat Counter")]
+	public int DefeatedEnemies = 0;
+
+
+	private void Awake()
 	{
 		// Singleton pattern
 		if (Instance == null)
@@ -148,37 +152,37 @@ public class GameController : MonoBehaviour
 	#endregion
 
 	#region Tower System
-	public void AddTower()
+	public void AddTower(int tower_cost)
 	{
-		if (currentTowers < maxTowers)
+		if (currentTower_Points < maxTower_Points)
 		{
-			currentTowers++;
+			currentTower_Points = currentTower_Points + tower_cost;
 			UpdateTowerText();
 		}
 	}
 
-	public void RemoveTower()
+	public void RemoveTower(int tower_cost)
 	{
-		if (currentTowers > 0)
+		if (currentTower_Points > 0)
 		{
-			currentTowers--;
+			currentTower_Points = currentTower_Points - tower_cost;
 			UpdateTowerText();
 		}
 	}
 
 	private void UpdateTowerText()
 	{
-		towerText.text = $"{currentTowers}/{maxTowers}";
+		towerText.text = $"{currentTower_Points}/{maxTower_Points}";
 	}
 
 	public void SetMaxTowers(int newMaxTowers)
 	{
-		maxTowers = newMaxTowers;
+		maxTower_Points = newMaxTowers;
 
-		// Ensure currentTowers is not greater than maxTowers
-		if (currentTowers > maxTowers)
+		// Ensure currentTower_Points is not greater than maxTower_Points
+		if (currentTower_Points > maxTower_Points)
 		{
-			currentTowers = maxTowers;
+			currentTower_Points = maxTower_Points;
 		}
 
 		UpdateTowerText();
@@ -335,5 +339,12 @@ public class GameController : MonoBehaviour
             _currentPowerUp = null;
         }
     }
-    #endregion
+	#endregion
+
+	public void EnemyDefeated()
+	{
+		DefeatedEnemies++;
+		CheckForWinCondition();
+	}
+
 }

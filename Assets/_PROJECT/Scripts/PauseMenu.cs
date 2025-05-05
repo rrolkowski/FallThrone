@@ -85,4 +85,21 @@ public class PauseMenu : MonoBehaviour
 		Time.timeScale = 1f; // Przywróæ normalny czas gry przed wyjœciem
 		SceneManagerScript.Instance.LoadMenuScene();
 	}
+
+	// ===== NOWY VOID: Przejœcie do nastêpnego poziomu =====
+	public void LoadNextLevel()
+	{
+		AudioManager.PlaySound(SoundType.MENU_Select_Button);
+		StartCoroutine(LoadNextLevelAfterFadeOut());
+	}
+
+	private IEnumerator LoadNextLevelAfterFadeOut()
+	{
+		ScreenFader.Instance.FadeOut();
+		yield return new WaitForSecondsRealtime(1);
+
+		Time.timeScale = 1f;
+		SceneManagerScript.Instance.LoadNextLevel();
+	}
+
 }

@@ -6,42 +6,58 @@ using System.Collections;
 
 public class ButtonHighlightEffect : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-	[SerializeField] private Transform targetObject; // Obiekt, którego skala ma siê zmieniaæ
+	public enum TowerType
+	{
+		NormalTower,
+		IceTower,
+		AOETower
+	}
+
+	[Header("Target Settings")]
+	[SerializeField] private Transform targetObject;
 	[SerializeField] private float scaleMultiplier = 0.95f;
-	[SerializeField] private Color highlightColor = Color.yellow; // Kolor podœwietlenia
-	[SerializeField] private Color originalColor = Color.white; // Kolor bazowy
-	[SerializeField] private float scaleAnimationDuration = 0.2f; // Czas trwania animacji
-	[SerializeField] private bool enableSmoothAnimation = false; // W³¹czanie p³ynnej animacji
+	[SerializeField] private Color highlightColor = Color.yellow;
+	[SerializeField] private Color originalColor = Color.white;
+	[SerializeField] private float scaleAnimationDuration = 0.2f;
+	[SerializeField] private bool enableSmoothAnimation = false;
+
+	[Header("Tower Button Settings")]
+	[SerializeField] private bool isTowerButton = false; // <-- Nowy bool
+	[SerializeField] private TowerType towerType;
+	[SerializeField] private TextMeshProUGUI descriptionText;
 
 	private Vector3 originalScale;
 	private Coroutine scaleCoroutine;
 
 	private void Awake()
 	{
-		// Jeœli nie przypisano targetObject, u¿yj bie¿¹cego obiektu
 		if (targetObject == null)
 		{
 			targetObject = transform;
 		}
 
-		// Zapisanie oryginalnej skali obiektu
 		originalScale = targetObject.localScale;
+
+		// Jeœli to przycisk wie¿y, upewnij siê, ¿e opis zosta³ przypisany
+		if (isTowerButton && descriptionText == null)
+		{
+			Debug.LogWarning($"Button '{gameObject.name}' is marked as TowerButton but has no DescriptionText assigned!", this);
+		}
 	}
 
 	private void OnDisable()
 	{
-		// Zatrzymanie bie¿¹cej korutyny, jeœli dzia³a
 		if (scaleCoroutine != null)
 		{
 			StopCoroutine(scaleCoroutine);
 			scaleCoroutine = null;
 		}
 
-		// Powrót do oryginalnej skali
 		targetObject.localScale = originalScale;
-
-		// Przywrócenie oryginalnego koloru
 		ChangeColors(targetObject, originalColor);
+
+		// Opcjonalne czyszczenie opisu
+		// if (isTowerButton && descriptionText != null) descriptionText.text = "";
 	}
 
 	public void OnPointerEnter(PointerEventData eventData)
@@ -61,8 +77,13 @@ public class ButtonHighlightEffect : MonoBehaviour, IPointerEnterHandler, IPoint
 			targetObject.localScale = originalScale * scaleMultiplier;
 		}
 
-		// Zmiana koloru dla wszystkich obiektów w kontenerze
 		ChangeColors(targetObject, highlightColor);
+
+		// Aktualizacja opisu tylko dla przycisków wie¿
+		if (isTowerButton)
+		{
+			UpdateDescriptionText();
+		}
 	}
 
 	public void OnPointerExit(PointerEventData eventData)
@@ -80,30 +101,28 @@ public class ButtonHighlightEffect : MonoBehaviour, IPointerEnterHandler, IPoint
 			targetObject.localScale = originalScale;
 		}
 
-		// Przywrócenie oryginalnego koloru
 		ChangeColors(targetObject, originalColor);
+
+		// Opcjonalne czyszczenie opisu
+		// if (isTowerButton && descriptionText != null) descriptionText.text = "";
 	}
 
 	private void ChangeColors(Transform container, Color color)
 	{
-		// Iteracja po wszystkich dzieciach kontenera
 		foreach (Transform child in container)
 		{
-			// SprawdŸ, czy obiekt ma komponent Image
 			Image image = child.GetComponent<Image>();
 			if (image != null)
 			{
 				image.color = color;
 			}
 
-			// SprawdŸ, czy obiekt ma komponent TextMeshProUGUI
 			TextMeshProUGUI text = child.GetComponent<TextMeshProUGUI>();
 			if (text != null)
 			{
 				text.color = color;
 			}
 
-			// Rekurencyjnie obs³u¿ potencjalne pod-kontenery
 			if (child.childCount > 0)
 			{
 				ChangeColors(child, color);
@@ -118,11 +137,29 @@ public class ButtonHighlightEffect : MonoBehaviour, IPointerEnterHandler, IPoint
 		while (elapsedTime < scaleAnimationDuration)
 		{
 			targetObject.localScale = Vector3.Lerp(from, to, elapsedTime / scaleAnimationDuration);
-			elapsedTime += Time.unscaledDeltaTime; // U¿ycie Time.unscaledDeltaTime zamiast Time.deltaTime
+			elapsedTime += Time.unscaledDeltaTime;
 			yield return null;
 		}
 
 		targetObject.localScale = to;
 	}
 
+	private void UpdateDescriptionText()
+	{
+		if (descriptionText == null)
+			return;
+
+		switch (towerType)
+		{
+			case TowerType.NormalTower:
+				descriptionText.text = "A basic tower that shoots fireballs at one enemy at a time. Always attacks the enemy with the lowest health.";
+				break;
+			case TowerType.IceTower:
+				descriptionText.text = "A tower that shoots ice projectiles at one enemy. Always targets the nearest enemy.";
+				break;
+			case TowerType.AOETower:
+				descriptionText.text = "A tower that attacks all nearby enemies with an area of effect attack.";
+				break;
+		}
+	}
 }

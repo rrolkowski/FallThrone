@@ -48579,7 +48579,7 @@ Transform:
   m_GameObject: {fileID: 584980911}
   serializedVersion: 2
   m_LocalRotation: {x: 0.5, y: 0, z: 0, w: 0.8660254}
-  m_LocalPosition: {x: 1, y: 38.31139, z: -66.741745}
+  m_LocalPosition: {x: 1, y: 39.75, z: -64.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -87672,13 +87672,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemySpawnConfigs:
   - prefab: {fileID: 8968255654805321680, guid: c743666851c65214aa1e37c6340ea5ab, type: 3}
-    count: 3
-  - prefab: {fileID: 8968255654805321680, guid: d7f8be422ebc12243915b82b437c341c, type: 3}
-    count: 1
-  - prefab: {fileID: 8968255654805321680, guid: 3729eb94b9b6bc649ab862fd3d483513, type: 3}
-    count: 2
-  - prefab: {fileID: 8968255654805321680, guid: 49e76e0960485cb4ebf4de72a2132d0a, type: 3}
-    count: 2
+    count: 5
   _unitParent: {fileID: 1769431831}
   _maxEnemyUnits: 5
   _usePool: 1
@@ -92959,7 +92953,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 63.5, y: -893.82104}
+  m_AnchoredPosition: {x: 63.5, y: -857.78314}
   m_SizeDelta: {x: 150, y: 150}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1159934631
@@ -180618,6 +180612,10 @@ PrefabInstance:
     - target: {fileID: 2602848700815794738, guid: a1fe3be63942fd249b03f025019ff3ec, type: 3}
       propertyPath: m_Name
       value: ShieldBrakerStatue
+      objectReference: {fileID: 0}
+    - target: {fileID: 2602848700815794738, guid: a1fe3be63942fd249b03f025019ff3ec, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5513429608199366094, guid: a1fe3be63942fd249b03f025019ff3ec, type: 3}
       propertyPath: m_LocalPosition.x

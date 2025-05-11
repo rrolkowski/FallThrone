@@ -15,11 +15,22 @@ public class ThrowableObject : MonoBehaviour
         // Checks if the object collides with the ground
         if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
-            //Debug.Log("Collision with the ground");
+			//Debug.Log("Collision with the ground");
 
-            //AUDIO
-            if (this.gameObject.tag == "Enemy")
+			//AUDIO
+
+			if (this.gameObject.tag == "Enemy" && this.gameObject.layer == LayerMask.NameToLayer("Bomba"))
 				AudioManager.PlaySound(SoundType.GAME_Enemy_Throw);
+
+			if (this.gameObject.tag == "Enemy" && this.gameObject.layer == LayerMask.NameToLayer("Duch"))
+				AudioManager.PlaySound(SoundType.GAME_Enemy_Duch_Throw);
+
+			if (this.gameObject.tag == "Enemy" && this.gameObject.layer == LayerMask.NameToLayer("Bober"))
+				AudioManager.PlaySound(SoundType.GAME_Enemy_Bober_Throw);
+
+			if (this.gameObject.tag == "Enemy" && this.gameObject.layer == LayerMask.NameToLayer("Slimak"))
+				AudioManager.PlaySound(SoundType.GAME_Enemy_Slimak_Throw);
+
 			if (this.gameObject.tag == "Tower")
 				AudioManager.PlaySound(SoundType.GAME_Turret_Throw);
 

@@ -2,8 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum EnemyType
+{
+	Bomba,
+	Bober,
+	Duch,
+	Slimak
+}
+
 public class EnemyMovement : MonoBehaviour
 {
+	public EnemyType enemyType;
+	public EnemyType Type => enemyType;
+
 	[SerializeField] private float _movementSpeed;
 	[SerializeField] private Transform enemyModel;
 	[SerializeField] private float rotationSpeed = 5f;
@@ -16,20 +27,19 @@ public class EnemyMovement : MonoBehaviour
 	private List<TileNode> _currentPath;
 	private bool isMoving = false;
 
-	private float originalSpeed; // Oryginalna prêdkoœæ
-	private float slowTimer = 0f; // Licznik czasu spowolnienia
-	private bool isSlowed = false; // Flaga sprawdzaj¹ca, czy wróg jest spowolniony
+	private float originalSpeed;
+	private float slowTimer = 0f;
+	private bool isSlowed = false;
 
 	public System.Action OnPathEndReached;
 
 	private void Start()
 	{
-		originalSpeed = _movementSpeed; // Zapamiêtanie oryginalnej prêdkoœci
+		originalSpeed = _movementSpeed;
 	}
 
 	private void Update()
 	{
-		// Jeœli wróg jest spowolniony, zmniejszamy licznik czasu spowolnienia
 		if (isSlowed)
 		{
 			slowTimer -= Time.deltaTime;
@@ -42,15 +52,15 @@ public class EnemyMovement : MonoBehaviour
 
 	public void ApplySlow(float duration, float slowPercentage)
 	{
-		_movementSpeed = originalSpeed * (1f - slowPercentage); // Zastosowanie efektu slow
-		slowTimer = duration; // Ustawienie czasu trwania
-		isSlowed = true; // Ustawienie flagi, ¿e wróg jest spowolniony
+		_movementSpeed = originalSpeed * (1f - slowPercentage);
+		slowTimer = duration;
+		isSlowed = true;
 	}
 
 	private void RemoveSlow()
 	{
-		_movementSpeed = originalSpeed; // Przywrócenie prêdkoœci
-		isSlowed = false; // Usuniêcie efektu slow
+		_movementSpeed = originalSpeed;
+		isSlowed = false;
 	}
 
 	public void SetPath(List<TileNode> path)
@@ -151,7 +161,6 @@ public class EnemyMovement : MonoBehaviour
 		{
 			animator.SetBool("walk", false);
 		}
-		//
 
 		OnPathEndReached?.Invoke();
 		OnPathEndReached = null;

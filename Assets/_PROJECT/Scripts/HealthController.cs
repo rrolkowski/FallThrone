@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class HealthController : MonoBehaviour
 {
+	public EnemyMovement enemymovement;
+
     private System.Action<Unit> _returnToPool;
     // Definicja typu obiektu
     public enum ObjectType
@@ -80,35 +82,74 @@ public class HealthController : MonoBehaviour
         currentHealth -= damage;
 		//Debug.Log($"{objectType} otrzyma³ {damage} obra¿eñ. Aktualne zdrowie: {currentHealth}");
 
-		// AUDIO + PARTICLE EFFECTS
-		switch (towerType)
+		if (enemymovement.enemyType == EnemyType.Bomba)
 		{
-			case "normal":
-				AudioManager.PlaySound(SoundType.GAME_Enemy_Hit);
+			// AUDIO + PARTICLE EFFECTS
+			switch (towerType)
+			{
+				case "normal":
+					AudioManager.PlaySound(SoundType.GAME_Enemy_Hit);
 
-				if (hitParticleEffectNormal != null)
-				{
-					var effect = Instantiate(hitParticleEffectNormal, transform.position, Quaternion.identity);
-					effect.Play();
-					Destroy(effect.gameObject, effect.main.duration + effect.main.startLifetime.constantMax);
-				}
-				break;
+					if (hitParticleEffectNormal != null)
+					{
+						var effect = Instantiate(hitParticleEffectNormal, transform.position, Quaternion.identity);
+						effect.Play();
+						Destroy(effect.gameObject, effect.main.duration + effect.main.startLifetime.constantMax);
+					}
+					break;
 
-			case "ice":
-				AudioManager.PlaySound(SoundType.GAME_Enemy_Hit_IceTower);
+				case "ice":
+					AudioManager.PlaySound(SoundType.GAME_Enemy_Hit_IceTower);
 
-				if (hitParticleEffectIce != null)
-				{
-					var effect = Instantiate(hitParticleEffectIce, transform.position, Quaternion.identity);
-					effect.Play();
-					Destroy(effect.gameObject, effect.main.duration + effect.main.startLifetime.constantMax);
-				}
-				break;
+					if (hitParticleEffectIce != null)
+					{
+						var effect = Instantiate(hitParticleEffectIce, transform.position, Quaternion.identity);
+						effect.Play();
+						Destroy(effect.gameObject, effect.main.duration + effect.main.startLifetime.constantMax);
+					}
+					break;
 
-			case "aoe":
-				AudioManager.PlaySound(SoundType.GAME_Enemy_Hit_AOETower);
-				// Mo¿esz dodaæ osobny efekt AOE jeœli chcesz
-				break;
+				case "aoe":
+					AudioManager.PlaySound(SoundType.GAME_Enemy_Hit_AOETower);
+					// Mo¿esz dodaæ osobny efekt AOE jeœli chcesz
+					break;
+			}
+		}
+
+		if (enemymovement.enemyType == EnemyType.Bober)
+		{
+			AudioManager.PlaySound(SoundType.GAME_Enemy_Bober_Hit);
+
+			if (hitParticleEffectNormal != null)
+			{
+				var effect = Instantiate(hitParticleEffectNormal, transform.position, Quaternion.identity);
+				effect.Play();
+				Destroy(effect.gameObject, effect.main.duration + effect.main.startLifetime.constantMax);
+			}
+		}
+
+		if (enemymovement.enemyType == EnemyType.Duch)
+		{
+			AudioManager.PlaySound(SoundType.GAME_Enemy_Duch_Hit);
+
+			if (hitParticleEffectNormal != null)
+			{
+				var effect = Instantiate(hitParticleEffectNormal, transform.position, Quaternion.identity);
+				effect.Play();
+				Destroy(effect.gameObject, effect.main.duration + effect.main.startLifetime.constantMax);
+			}
+		}
+
+		if (enemymovement.enemyType == EnemyType.Slimak)
+		{
+			AudioManager.PlaySound(SoundType.GAME_Enemy_Slimak_Hit);
+
+			if (hitParticleEffectNormal != null)
+			{
+				var effect = Instantiate(hitParticleEffectNormal, transform.position, Quaternion.identity);
+				effect.Play();
+				Destroy(effect.gameObject, effect.main.duration + effect.main.startLifetime.constantMax);
+			}
 		}
 
 		// Aktualizacja slidera po otrzymaniu obra¿eñ

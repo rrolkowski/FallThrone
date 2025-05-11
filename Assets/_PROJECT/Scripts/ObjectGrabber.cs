@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -9,7 +10,7 @@ public class ObjectGrabber : MonoBehaviour
 {
     public static ObjectGrabber Instance;
 
-    [Header("Interaction Settings")]
+	[Header("Interaction Settings")]
     [SerializeField] float _horizontalRange = 2.0f;  // Radius range on the horizontal directions (X-Z)
     [SerializeField] float _verticalRange = 10.0f;    // Height range from the player  (Y)
 	//[SerializeField] string _interactableTag = "Interactable";
@@ -173,9 +174,28 @@ public class ObjectGrabber : MonoBehaviour
                             throwable.SetObjectAlpha(0.5f);
                         }
 
-                        // AUDIO
-                        if(currentlyGrabbedObject.tag == "Enemy")
-						    AudioManager.PlaySound(SoundType.GAME_Enemy_Grab);
+						// AUDIO
+						if (currentlyGrabbedObject.tag == "Enemy" && currentlyGrabbedObject.layer == LayerMask.NameToLayer("Bomba"))
+						{
+                            Debug.Log("bomba");
+							AudioManager.PlaySound(SoundType.GAME_Enemy_Grab);
+						}
+						if (currentlyGrabbedObject.tag == "Enemy" && currentlyGrabbedObject.layer == LayerMask.NameToLayer("Bober"))
+						{
+							Debug.Log("bober");
+							AudioManager.PlaySound(SoundType.GAME_Enemy_Bober_Grab);
+						}
+						if (currentlyGrabbedObject.tag == "Enemy" && currentlyGrabbedObject.layer == LayerMask.NameToLayer("Duch"))
+						{
+							Debug.Log("duch");
+							AudioManager.PlaySound(SoundType.GAME_Enemy_Duch_Grab);
+						}
+						if (currentlyGrabbedObject.tag == "Enemy" && currentlyGrabbedObject.layer == LayerMask.NameToLayer("Slimak"))
+						{
+							Debug.Log("slimak");
+							AudioManager.PlaySound(SoundType.GAME_Enemy_Slimak_Grab);
+						}
+
 						if (currentlyGrabbedObject.tag == "Tower")
 							AudioManager.PlaySound(SoundType.GAME_Turret_Grab);
 

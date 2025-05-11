@@ -3,13 +3,22 @@ using UnityEngine;
 
 public abstract class BasePowerUp : MonoBehaviour
 {
+	public GameObject pickupEffectPrefab;
+
 	public abstract void ApplyEffect();
 	protected abstract SoundType GetPickupSound();
+
+	private void Update()
+	{
+		Debug.Log("xd");
+	}
 
 	private void OnTriggerEnter(Collider collision)
 	{
 		if (collision.CompareTag("Player"))
 		{
+			Instantiate(pickupEffectPrefab, transform.position, Quaternion.Euler(90, 0, 0));
+
 			AudioManager.PlaySound(GetPickupSound());
 
 			GameController.Instance.SetPowerUp(this);

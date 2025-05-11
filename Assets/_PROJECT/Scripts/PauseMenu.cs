@@ -89,7 +89,7 @@ public class PauseMenu : MonoBehaviour
 	// ===== NOWY VOID: Przejœcie do nastêpnego poziomu =====
 	public void LoadNextLevel()
 	{
-		AudioManager.PlaySound(SoundType.MENU_Select_Button);
+		AudioManager.PlaySound(SoundType.MENU_NextLevel_Button);
 		StartCoroutine(LoadNextLevelAfterFadeOut());
 	}
 

@@ -50,6 +50,7 @@ public class GameController : MonoBehaviour
 	[Header("Enemy Defeat Counter")]
 	public int DefeatedEnemies = 0;
 
+	private bool localwincondition;
 
 	private void Awake()
 	{
@@ -250,9 +251,10 @@ public class GameController : MonoBehaviour
 
 	public void CheckForWinCondition()
 	{
-		if (!GameState.STATE_Won && CheckWinCondition())
+		if (!GameState.STATE_Won && CheckWinCondition() && !localwincondition)
 		{
 			GameWin();
+			localwincondition = true;
 		}
 	}
 

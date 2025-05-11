@@ -23,7 +23,8 @@ public class ShieldEnemy : EnemyBase
         if (_shieldVisual != null)
             _shieldVisual.SetActive(false);
 
-        Debug.Log($"{name}: Tarcza zniszczona!");
+		AudioManager.PlaySound(SoundType.GAME_Slimak_ShieldBreak);
+		Debug.Log($"{name}: Tarcza zniszczona!");
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -32,7 +33,7 @@ public class ShieldEnemy : EnemyBase
 
         if (collision.gameObject.CompareTag("ShieldBreaker"))
         {
-            BreakShield();
+			BreakShield();
         }
     }
 }

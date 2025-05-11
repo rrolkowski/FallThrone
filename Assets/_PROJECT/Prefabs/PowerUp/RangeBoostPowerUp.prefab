@@ -10020,6 +10020,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adb2b16921d1b1b48b3bc6a9ae4338db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pickupEffectPrefab: {fileID: 2683828353326887455, guid: c111b27469a815345b662f1ee0edbb66, type: 3}
   _newRangeSize: 2
   _powerUpDuration: 15
 --- !u!1 &7333743764434423281

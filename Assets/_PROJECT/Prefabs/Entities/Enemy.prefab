@@ -5537,9 +5537,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1709636093599527185}
   - component: {fileID: 1607396917061327561}
+  - component: {fileID: 587069109029833586}
   m_Layer: 0
   m_Name: Object001
-  m_TagString: Untagged
+  m_TagString: EnemySelected
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5553,7 +5554,7 @@ Transform:
   m_GameObject: {fileID: 1706081169042892507}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0.0000000022499398, y: 0.13932145, z: -0.05147261}
+  m_LocalPosition: {x: 0.0000000022499398, y: 0.362, z: 0.017}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5630,6 +5631,29 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.014581472, y: 0.00000035762787, z: 0.17953984}
     m_Extent: {x: 0.27980065, y: 0.2645134, z: 0.44381088}
   m_DirtyAABB: 0
+--- !u!136 &587069109029833586
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1706081169042892507}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 0.5
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1706120949598248013
 GameObject:
   m_ObjectHideFlags: 0
@@ -25424,7 +25448,7 @@ GameObject:
   - component: {fileID: 607899306986077867}
   m_Layer: 0
   m_Name: Mon_00
-  m_TagString: Untagged
+  m_TagString: EnemySelected
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -35640,7 +35664,7 @@ GameObject:
   - component: {fileID: 787980681743463112}
   - component: {fileID: 8968255654805321680}
   - component: {fileID: 2800111272551535220}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -35779,6 +35803,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa47adfb43bd4084e9d5f71e5280da94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemymovement: {fileID: 787980681743463112}
   objectType: 2
   maxHealth: 100
   currentHealth: 0
@@ -35809,6 +35834,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e413b99e2e29e847ab3d4bd79877249, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyType: 0
   _movementSpeed: 3
   enemyModel: {fileID: 1709274094141236437}
   rotationSpeed: 10

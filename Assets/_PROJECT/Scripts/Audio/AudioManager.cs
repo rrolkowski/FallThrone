@@ -27,6 +27,36 @@ public enum SoundType
 	GAME_Enemy_Hit_AOETower,
 	MENU_Turret_Building2,
 	MENU_Turret_Building3,
+
+	MENU_NextLevel_Button,
+
+	GAME_Enemy_Bober_Footsteps,
+	GAME_Enemy_Bober_Death,
+	GAME_Enemy_Bober_Throw,
+	GAME_Enemy_Bober_Grab,
+	GAME_Enemy_Bober_Hit,
+
+	GAME_Enemy_Duch_Footsteps,
+	GAME_Enemy_Duch_Death,
+	GAME_Enemy_Duch_Throw,
+	GAME_Enemy_Duch_Grab,
+	GAME_Enemy_Duch_Hit,
+
+	GAME_Enemy_Slimak_Footsteps,
+	GAME_Enemy_Slimak_Death,
+	GAME_Enemy_Slimak_Throw,
+	GAME_Enemy_Slimak_Grab,
+	GAME_Enemy_Slimak_Hit,
+
+	GAME_NoStamina,
+
+	GAME_SprintPowerUpEffect,
+	GAME_RangePowerUpEffect,
+
+	GAME_Health_Bober,
+	GAME_Health_Duch,
+
+	GAME_Slimak_ShieldBreak,
 }
 
 [RequireComponent(typeof(AudioSource)), ExecuteInEditMode]

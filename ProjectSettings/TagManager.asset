@@ -17,6 +17,7 @@ TagManager:
   - Tower
   - PlayerHead
   - ShieldBreaker
+  - EnemySelected
   layers:
   - Default
   - TransparentFX
@@ -25,10 +26,10 @@ TagManager:
   - Water
   - UI
   - Ground
-  - 
-  - 
-  - 
-  - 
+  - Bomba
+  - Bober
+  - Duch
+  - Slimak
   - 
   - 
   - 

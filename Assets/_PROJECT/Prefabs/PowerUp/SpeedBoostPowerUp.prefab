@@ -10020,6 +10020,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d32ba384f700d8468b772700dbc3fe9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pickupEffectPrefab: {fileID: 2683828353326887455, guid: 500d1f0b0e47a1a49880f9cc9b048ba2, type: 3}
   _speedMultiplier: 1.5
   _powerUpDuration: 5
 --- !u!1 &8167262014851255669

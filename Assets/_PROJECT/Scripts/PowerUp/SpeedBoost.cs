@@ -13,7 +13,7 @@ public class SpeedBoost : BasePowerUp
         {
             GameController.Instance.StartPowerUpTimer(_powerUpDuration);
             StartCoroutine(SpeedBoostCoroutine(movement));
-        }
+		}
 	}
 
     IEnumerator SpeedBoostCoroutine(PlayerMovementController movement)
@@ -21,13 +21,21 @@ public class SpeedBoost : BasePowerUp
         float originalMoveSpeed = movement.GetRawMoveSpeed();
         float boostedMoveSpeed = originalMoveSpeed * _speedMultiplier;
         movement.SetMoveSpeed(boostedMoveSpeed);
-        Debug.Log($"Effect start! {movement.moveSpeed}");
 
-        yield return new WaitForSeconds(_powerUpDuration);
+		PlayerController.Instance.PowerUpEffect("speed", true);
+
+		Debug.Log($"Effect start! {movement.moveSpeed}");
+
+		AudioManager.PlaySound(SoundType.GAME_SprintPowerUpEffect);
+
+		yield return new WaitForSeconds(_powerUpDuration);
 
         GameController.Instance.ClearPowerUp();
         movement.SetMoveSpeed(originalMoveSpeed);
-        Debug.Log($"Effect end! {movement.moveSpeed}");
+
+		PlayerController.Instance.PowerUpEffect("speed", false);
+
+		Debug.Log($"Effect end! {movement.moveSpeed}");
 
         Destroy(gameObject);      
     }

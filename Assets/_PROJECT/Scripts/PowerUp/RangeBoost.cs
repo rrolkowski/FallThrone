@@ -33,7 +33,11 @@ public class RangeBoost : BasePowerUp
         objectGrabber.SetThrowRange(boostedDistance);
         rangeCircle.transform.localScale = boostedScale;
 
-        Debug.Log("Effect start!");
+		PlayerController.Instance.PowerUpEffect("range", true);
+
+		AudioManager.PlaySound(SoundType.GAME_RangePowerUpEffect);
+
+		Debug.Log("Effect start!");
 
         yield return new WaitForSeconds(_powerUpDuration);
 
@@ -41,7 +45,10 @@ public class RangeBoost : BasePowerUp
         rangeCircle.SetRange(originalSize);
         objectGrabber.SetThrowRange(originalDistance);
         rangeCircle.transform.localScale = originalScale;
-        Debug.Log("Effect end!");
+
+		PlayerController.Instance.PowerUpEffect("range", false);
+
+		Debug.Log("Effect end!");
 
         Destroy(gameObject);
     }

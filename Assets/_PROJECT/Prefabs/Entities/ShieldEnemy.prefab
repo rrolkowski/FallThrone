@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 8968255654805321680}
   - component: {fileID: 2800111272551535220}
   - component: {fileID: -1868076720517362013}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ShieldEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -234,6 +234,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa47adfb43bd4084e9d5f71e5280da94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemymovement: {fileID: 787980681743463112}
   objectType: 2
   maxHealth: 150
   currentHealth: 0
@@ -264,6 +265,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e413b99e2e29e847ab3d4bd79877249, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyType: 3
   _movementSpeed: 3
   enemyModel: {fileID: 3672658697014607869}
   rotationSpeed: 10
@@ -832,6 +834,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 223691272365192274}
     m_Modifications:
+    - target: {fileID: 1521177035039436, guid: e2aafa8770d34a9591b41bedf4e318ba, type: 3}
+      propertyPath: m_TagString
+      value: EnemySelected
+      objectReference: {fileID: 0}
     - target: {fileID: 1524411113276028, guid: e2aafa8770d34a9591b41bedf4e318ba, type: 3}
       propertyPath: m_Name
       value: TurtleShellPBR
@@ -1099,8 +1105,39 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1521177035039436, guid: e2aafa8770d34a9591b41bedf4e318ba, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5075048123425452489}
   m_SourcePrefab: {fileID: 100100000, guid: e2aafa8770d34a9591b41bedf4e318ba, type: 3}
+--- !u!1 &3666674266576201867 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1521177035039436, guid: e2aafa8770d34a9591b41bedf4e318ba, type: 3}
+  m_PrefabInstance: {fileID: 3668115174956943943}
+  m_PrefabAsset: {fileID: 0}
+--- !u!136 &5075048123425452489
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3666674266576201867}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.8089029
+  m_Height: 1.6641887
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.08728194, z: 0.45835823}
 --- !u!4 &3672658697014607869 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4544219117696442, guid: e2aafa8770d34a9591b41bedf4e318ba, type: 3}

@@ -30,15 +30,19 @@ public class StaminaSystem : MonoBehaviour
 	[Header("Color Settings")]
 	[SerializeField] private Color fullStaminaColor = Color.white;
 	[SerializeField] private Color lowStaminaColor = Color.red;
-	[SerializeField] private float colorChangeStartPercent = 35f;
+	[SerializeField] private float colorChangeStartPercent = 30f;
 	[SerializeField] private float fullRedPercent = 10f;
 
 	[Header("Pulse Settings (for Text)")]
 	[SerializeField] private bool enablePulse = true;
-	[SerializeField] private float maxPulseSpeed = 20f;  // Maksymalna prêdkoœæ pulsu przy niskiej staminy
-	[SerializeField] private float maxPulseScaleAmount = 0.01f; // Maksymalna skala pulsu
+	[SerializeField] private float maxPulseSpeed = 20f;
+	[SerializeField] private float maxPulseScaleAmount = 0.01f;
 
 	private Vector3 originalTextScale;
+
+	// NEW: Cooldown for stamina warning sound
+	private float _noStaminaSoundCooldown = 0f;
+	[SerializeField] private float _noStaminaSoundInterval = .5f;
 
 	void Start()
 	{
@@ -113,6 +117,12 @@ public class StaminaSystem : MonoBehaviour
 		UpdateStaminaUI();
 
 		_wasHoldingLastFrame = isHolding;
+
+		// Update cooldown timer
+		if (_noStaminaSoundCooldown > 0f)
+		{
+			_noStaminaSoundCooldown -= Time.deltaTime;
+		}
 	}
 
 	private void UpdateStaminaUI()
@@ -121,15 +131,20 @@ public class StaminaSystem : MonoBehaviour
 			return;
 
 		float staminaPercent = (_stamina / _maxStamina) * 100f;
-
 		Color targetColor = fullStaminaColor;
 
 		if (staminaPercent <= colorChangeStartPercent)
 		{
-			float t = Mathf.InverseLerp(colorChangeStartPercent, fullRedPercent, staminaPercent); // <--- UWAGA: zmiana kolejnoœci w InverseLerp
-			t = Mathf.Clamp01(t);
+			// Play sound only if cooldown expired
+			if (_noStaminaSoundCooldown <= 0f)
+			{
+				AudioManager.PlaySound(SoundType.GAME_NoStamina);
+				_noStaminaSoundCooldown = _noStaminaSoundInterval;
+			}
 
-			targetColor = Color.Lerp(fullStaminaColor, lowStaminaColor, t); // od bia³ego do czerwonego
+			float t = Mathf.InverseLerp(colorChangeStartPercent, fullRedPercent, staminaPercent);
+			t = Mathf.Clamp01(t);
+			targetColor = Color.Lerp(fullStaminaColor, lowStaminaColor, t);
 
 			if (enablePulse && _staminaText != null)
 			{
@@ -160,8 +175,6 @@ public class StaminaSystem : MonoBehaviour
 		float scale = 1f + Mathf.Sin(Time.time * pulseSpeed) * pulseScaleAmount;
 		_staminaText.rectTransform.localScale = originalTextScale * scale;
 	}
-
-
 
 	private void ResetTextScale()
 	{

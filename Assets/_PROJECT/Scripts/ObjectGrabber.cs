@@ -63,6 +63,20 @@ public class ObjectGrabber : MonoBehaviour
         }
     }
 
+    public void OnSell(InputAction.CallbackContext context)
+    {
+        if (!context.performed) return;
+
+        if (isHoldingObject && currentlyGrabbedObject != null && currentlyGrabbedObject.CompareTag("Tower"))
+        {
+            ShopManager.Instance.SellTower(currentlyGrabbedObject);
+            currentlyGrabbedObject = null;
+            if (_rangeCircleController != null)
+                _rangeCircleController.DeactivateRangeCircle();
+        }
+    }
+
+
     // Input System Method for the "Throww" action
     public void OnThrow(InputAction.CallbackContext context)
     {

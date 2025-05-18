@@ -125,7 +125,43 @@ public class ShopManager : MonoBehaviour
 		}
 	}
 
-	private void UpdateShopUI()
+    public void SellTower(GameObject tower)
+    {
+        if (tower == null) return;
+        if (!tower.CompareTag("Tower")) return;
+
+        int sellValue = 0;
+        int towerPoints = 0;
+
+        string name = tower.name.Replace("(Clone)", "").Trim();
+
+        if (name == buildingPrefab1.name)
+        {
+            sellValue = Mathf.FloorToInt(100 / 2f);
+            towerPoints = 2;
+        }
+        else if (name == buildingPrefab2.name)
+        {
+            sellValue = Mathf.FloorToInt(150 / 2f);
+            towerPoints = 1;
+        }
+        else if (name == buildingPrefab3.name)
+        {
+            sellValue = Mathf.FloorToInt(200 / 2f);
+            towerPoints = 3;
+        }
+        else
+        {
+            return;
+        }
+
+        GameController.Instance.AddPoints(sellValue);
+        GameController.Instance.RemoveTower(towerPoints);
+        //AudioManager.PlaySound(  );
+        Destroy(tower);
+    }
+
+    private void UpdateShopUI()
 	{
 		var gameController = GameController.Instance;
 		if (gameController == null) return;

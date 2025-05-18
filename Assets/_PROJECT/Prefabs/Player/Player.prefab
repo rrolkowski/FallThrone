@@ -3417,6 +3417,7 @@ MonoBehaviour:
   enablePulse: 1
   maxPulseSpeed: 20
   maxPulseScaleAmount: 0.01
+  _noStaminaSoundInterval: 0.5
 --- !u!114 &8827817912107513775
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3640,6 +3641,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: ba0a2349-8e45-4652-957d-b402bcf34ab9
     m_ActionName: 'Player/UsePowerUp[/Keyboard/e]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8062616480985624164}
+        m_TargetAssemblyTypeName: ObjectGrabber, Assembly-CSharp
+        m_MethodName: OnSell
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: ef9c79b2-a10e-433d-8112-eee23c0b8ad4
+    m_ActionName: 'Player/Sell[/Keyboard/q]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

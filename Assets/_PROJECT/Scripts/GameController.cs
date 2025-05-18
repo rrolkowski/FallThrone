@@ -11,6 +11,9 @@ public class GameController : MonoBehaviour
 
     public event Action OnPickedUp;
 
+	//Star rating
+    [HideInInspector] public int starRating = 0;
+
     // Health system
     [Header("Health Settings")]
 	public int maxHealth = 3;
@@ -37,8 +40,11 @@ public class GameController : MonoBehaviour
 	// Win condition
 	[Header("Win Canvas")]
 	public GameObject winCanvas;
+    public Image[] starIcons;
+    public Sprite activeStarSprite;
+    public Sprite inactiveStarSprite;
 
-	//POWER-UP
+    //POWER-UP
     [Header("Power-Up UI")]
     [SerializeField] TextMeshProUGUI _powerUpText;
     [SerializeField] private Image _powerUpImage;
@@ -210,10 +216,20 @@ public class GameController : MonoBehaviour
 			pointsText.text = points.ToString("D3"); // Format with three digits
 		}
 	}
-	#endregion
+    #endregion
 
-	#region Game Control
-	private void GameOver()
+    #region Star Rating
+    public void StarRating()
+    {
+        for (int i = 0; i < starIcons.Length; i++)
+        {
+            starIcons[i].sprite = i < starRating ? activeStarSprite : inactiveStarSprite;
+        }
+    }
+    #endregion
+
+    #region Game Control
+    private void GameOver()
 	{
 		MusicManager.StopMusic();
 
@@ -224,6 +240,7 @@ public class GameController : MonoBehaviour
 			PauseMenu.Instance.pauseMenuCanvas.SetActive(false);
 
 			lostCanvas.SetActive(true);
+
 		}
 
 		AudioManager.PlaySound(SoundType.GAME_Lost);
@@ -236,7 +253,12 @@ public class GameController : MonoBehaviour
 		MusicManager.StopMusic();
 
 		GameState.STATE_Won = true;
-		if (winCanvas != null)
+
+        starRating = Mathf.Clamp(currentHealth, 0, 3);
+		StarRating();
+		Debug.Log("Stars" + starRating);
+
+        if (winCanvas != null)
 		{
 			ShopManager.Instance.GUI_Shop.SetActive(false);
 			PauseMenu.Instance.pauseMenuCanvas.SetActive(false);

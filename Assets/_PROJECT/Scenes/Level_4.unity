@@ -985,7 +985,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "MOVEMENT\t\t[WASD]\nSPRINT\t\t\t[SHIFT]\nPAUSE GAME \t\t[ESC]\nOPEN SHOP\t\t[SPACE]\nGRAB/THROW\t[LMB]\nUSE
-    POWER-UP\t[E]"
+    POWER-UP\t[E]\nSELL TOWER\t\t[Q]"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a71b8d1f5c063d247be77829b206d69b, type: 2}
   m_sharedMaterial: {fileID: 1715437990902250564, guid: a71b8d1f5c063d247be77829b206d69b, type: 2}

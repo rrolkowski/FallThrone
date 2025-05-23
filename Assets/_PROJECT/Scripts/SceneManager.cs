@@ -3,15 +3,13 @@ using UnityEngine.SceneManagement;
 
 public class SceneManagerScript : MonoBehaviour
 {
-	// Prywatne zmienne sceny
-	[SerializeField] private string menuScene; // Nazwa sceny menu
-	[SerializeField] private string[] levelScenes; // Tablica nazw poziomów
+	[SerializeField] private string menuScene;
+	[SerializeField] private string[] levelScenes;
 
 	private static SceneManagerScript instance;
 
 	private void Awake()
 	{
-		// Singleton, aby umo¿liwiæ dostêp z innych skryptów
 		if (instance == null)
 		{
 			instance = this;
@@ -29,14 +27,10 @@ public class SceneManagerScript : MonoBehaviour
 		UpdateGameState(currentScene.name);
 	}
 
-	/// <summary>
-	/// Instancja Singletona, pozwala na dostêp do metod tego skryptu.
-	/// </summary>
 	public static SceneManagerScript Instance => instance;
 
-	/// <summary>
-	/// £aduje scenê menu.
-	/// </summary>
+	public string[] LevelScenes => levelScenes;
+
 	public void LoadMenuScene()
 	{
 		if (!string.IsNullOrEmpty(menuScene))
@@ -44,16 +38,8 @@ public class SceneManagerScript : MonoBehaviour
 			SceneManager.LoadScene(menuScene);
 			UpdateGameState(menuScene);
 		}
-		else
-		{
-			Debug.LogError("MenuScene nie jest przypisana w edytorze.");
-		}
 	}
 
-	/// <summary>
-	/// £aduje poziom na podstawie indeksu w tablicy levelScenes.
-	/// </summary>
-	/// <param name="levelIndex">Indeks poziomu (np. 0 dla Level1, 1 dla Level2).</param>
 	public void LoadLevel(int levelIndex)
 	{
 		if (levelIndex >= 0 && levelIndex < levelScenes.Length)
@@ -64,20 +50,9 @@ public class SceneManagerScript : MonoBehaviour
 				SceneManager.LoadScene(sceneName);
 				UpdateGameState(sceneName);
 			}
-			else
-			{
-				Debug.LogError($"Level {levelIndex} nie jest przypisany w edytorze.");
-			}
-		}
-		else
-		{
-			Debug.LogError("Level index poza zakresem.");
 		}
 	}
 
-	/// <summary>
-	/// Prze³adowuje bie¿¹c¹ scenê.
-	/// </summary>
 	public void ReloadCurrentScene()
 	{
 		Scene currentScene = SceneManager.GetActiveScene();
@@ -85,15 +60,10 @@ public class SceneManagerScript : MonoBehaviour
 		UpdateGameState(currentScene.name);
 	}
 
-	/// <summary>
-	/// Aktualizuje stany gry w zale¿noœci od nazwy sceny.
-	/// </summary>
-	/// <param name="sceneName">Nazwa sceny.</param>
 	private void UpdateGameState(string sceneName)
 	{
 		GameState.ResetAllStates();
 
-		// Ustaw odpowiedni stan na true
 		if (sceneName == menuScene)
 		{
 			GameState.STATE_MainMenu = true;
@@ -102,15 +72,8 @@ public class SceneManagerScript : MonoBehaviour
 		{
 			GameState.STATE_Game = true;
 		}
-		else
-		{
-			Debug.LogWarning("Nie rozpoznano sceny: " + sceneName);
-		}
 	}
 
-	/// <summary>
-	/// £aduje nastêpny poziom na podstawie aktualnej sceny.
-	/// </summary>
 	public void LoadNextLevel()
 	{
 		string currentSceneName = SceneManager.GetActiveScene().name;
@@ -124,17 +87,19 @@ public class SceneManagerScript : MonoBehaviour
 				SceneManager.LoadScene(nextSceneName);
 				UpdateGameState(nextSceneName);
 			}
-			else
-			{
-				Debug.LogError("Nastêpna scena nie jest przypisana.");
-			}
-		}
-		else
-		{
-			Debug.LogWarning("Nie ma wiêcej poziomów do za³adowania lub obecna scena nie jest na liœcie!");
-			// Opcjonalnie mo¿esz tutaj np. powróciæ do menu:
-			// LoadMenuScene();
 		}
 	}
 
+	public void UnlockNextLevel()
+	{
+		string currentSceneName = SceneManager.GetActiveScene().name;
+		int currentIndex = System.Array.IndexOf(levelScenes, currentSceneName);
+		int unlockedLevel = PlayerPrefs.GetInt("UnlockedLevel", 0);
+
+		if (currentIndex + 1 > unlockedLevel && currentIndex + 1 < levelScenes.Length)
+		{
+			PlayerPrefs.SetInt("UnlockedLevel", currentIndex + 1);
+			PlayerPrefs.Save();
+		}
+	}
 }

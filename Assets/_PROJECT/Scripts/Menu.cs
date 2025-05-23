@@ -1,69 +1,148 @@
-using System.Collections;
+Ôªøusing System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Menu : MonoBehaviour
 {
-	public GameObject menuCanvas; // Canvas g≥Ûwnego menu
-	public GameObject creditsCanvas; // Canvas credits
-	public GameObject guideCanvas; // Canvas guide
-	public GameObject levelSelectCanvas; // Canvas level select
+	public GameObject menuCanvas;
+	public GameObject creditsCanvas;
+	public GameObject guideCanvas;
+	public GameObject levelSelectCanvas;
+
+	[SerializeField] private Button[] levelButtons;
+
+	private int unlockedLevel = 0;
 
 	private void Start()
 	{
-		// Upewnij siÍ, øe tylko menu jest aktywne na poczπtku
+		InitializeProgress();
+		SetupCanvases();
+		UpdateLevelButtons();
+	}
+
+	private void InitializeProgress()
+	{
+		const int defaultUnlockedLevel = 0;
+
+		if (!PlayerPrefs.HasKey("UnlockedLevel") || PlayerPrefs.GetInt("UnlockedLevel") < defaultUnlockedLevel)
+		{
+			PlayerPrefs.SetInt("UnlockedLevel", defaultUnlockedLevel);
+			PlayerPrefs.Save();
+		}
+
+		unlockedLevel = PlayerPrefs.GetInt("UnlockedLevel", defaultUnlockedLevel);
+	}
+
+	private void SetupCanvases()
+	{
 		menuCanvas.SetActive(true);
 		creditsCanvas.SetActive(false);
 		guideCanvas.SetActive(false);
 		levelSelectCanvas.SetActive(false);
 	}
 
-	// Metoda przypisana do przycisku Start
+	private void UpdateLevelButtons()
+	{
+		for (int i = 0; i < levelButtons.Length; i++)
+		{
+			bool isUnlocked = i <= unlockedLevel;
+
+			levelButtons[i].interactable = isUnlocked;
+
+			Transform container = levelButtons[i].transform.Find("Container");
+			if (container != null)
+			{
+				SetVisualOpacity(container.gameObject, isUnlocked ? 1f : 0.1f);
+			}
+
+			ButtonHighlightEffect highlightEffect = levelButtons[i].GetComponent<ButtonHighlightEffect>();
+			if (highlightEffect != null)
+			{
+				highlightEffect.enabled = isUnlocked;
+			}
+		}
+	}
+
+	private void SetVisualOpacity(GameObject root, float alpha)
+	{
+		// Obs≈Çuga Image (UI)
+		Image[] images = root.GetComponentsInChildren<Image>(true);
+		foreach (var image in images)
+		{
+			Color c = image.color;
+			c.a = alpha;
+			image.color = c;
+		}
+
+		// Obs≈Çuga TextMeshProUGUI
+		TMPro.TextMeshProUGUI[] texts = root.GetComponentsInChildren<TMPro.TextMeshProUGUI>(true);
+		foreach (var text in texts)
+		{
+			Color c = text.color;
+			c.a = alpha;
+			text.color = c;
+		}
+	}
+
+	public void TryStartGame(int levelIndex)
+	{
+		if (levelIndex <= unlockedLevel)
+		{
+			StartGame(levelIndex);
+		}
+		else
+		{
+			Debug.LogWarning($"[TRY START GAME] Level {levelIndex} jest zablokowany. Max odblokowany: {unlockedLevel}");
+		}
+	}
+
 	public void StartGame(int loadLevel)
 	{
-		// Uruchamiamy coroutine, aby wykonaÊ fade-out i zmieniÊ scenÍ po zakoÒczeniu
 		StartCoroutine(StartGameWithFade(loadLevel));
 	}
 
 	private IEnumerator StartGameWithFade(int level)
 	{
 		AudioManager.PlaySound(SoundType.MENU_Select_Play_Button);
-
-		// Wywo≥aj fade-out (czarny ekran)
 		ScreenFader.Instance.FadeOut();
-
-		// Poczekaj, aø fade-out zostanie zakoÒczony
 		yield return new WaitForSecondsRealtime(ScreenFader.Instance.fadeDuration);
-
-		// Po fade-out za≥aduj nowπ scenÍ
 		SceneManagerScript.Instance.LoadLevel(level);
 	}
 
-	// Metoda przypisana do przycisku Level Select
 	public void ShowLevelSelect()
 	{
 		AudioManager.PlaySound(SoundType.MENU_Select_Button);
-
-		// Dezaktywacja menu i aktywacja level select
 		menuCanvas.SetActive(false);
 		levelSelectCanvas.SetActive(true);
 	}
 
-	// Metoda przypisana do przycisku Credits
 	public void ShowCredits()
 	{
 		AudioManager.PlaySound(SoundType.MENU_Select_Button);
-
-		// Dezaktywacja menu i aktywacja credits
 		menuCanvas.SetActive(false);
 		creditsCanvas.SetActive(true);
 	}
 
-	// Metoda przypisana do przycisku Exit
+	public void ShowGuide()
+	{
+		AudioManager.PlaySound(SoundType.MENU_Select_Button);
+		menuCanvas.SetActive(false);
+		guideCanvas.SetActive(true);
+	}
+
+	public void GoBack()
+	{
+		AudioManager.PlaySound(SoundType.MENU_Select_Button);
+		creditsCanvas.SetActive(false);
+		guideCanvas.SetActive(false);
+		levelSelectCanvas.SetActive(false);
+		menuCanvas.SetActive(true);
+	}
+
 	public void ExitGame()
 	{
 		AudioManager.PlaySound(SoundType.MENU_Select_Button);
 
-		// Dzia≥a zarÛwno w buildzie, jak i w edytorze Unity
 #if UNITY_EDITOR
 		UnityEditor.EditorApplication.isPlaying = false;
 #else
@@ -71,25 +150,27 @@ public class Menu : MonoBehaviour
 #endif
 	}
 
-	// Metoda przypisana do przycisku Go Back
-	public void GoBack()
+	// üîÅ Reset Progress z przycisku
+	public void ResetProgressButton()
 	{
-		AudioManager.PlaySound(SoundType.MENU_Select_Button);
+		// Pierwszy raz
+		PlayerPrefs.SetInt("UnlockedLevel", 0);
+		PlayerPrefs.Save();
+		unlockedLevel = 0;
 
-		// Dezaktywacja innych canvasÛw i powrÛt do menu g≥Ûwnego
-		creditsCanvas.SetActive(false);
-		guideCanvas.SetActive(false);
-		levelSelectCanvas.SetActive(false);
-		menuCanvas.SetActive(true);
+		UpdateLevelButtons();
+		UpdateLevelButtons(); // tak - musi byc 2 razy bo jak jest raz to nie dzia≈Ça pozdrawiam
 	}
 
-	// Metoda przypisana do przycisku Guide
-	public void ShowGuide()
-	{
-		AudioManager.PlaySound(SoundType.MENU_Select_Button);
 
-		// Dezaktywacja menu i aktywacja guide
-		menuCanvas.SetActive(false);
-		guideCanvas.SetActive(true);
+	// üîì Unlock All z przycisku
+	public void UnlockAllLevelsButton()
+	{
+		unlockedLevel = levelButtons.Length - 1;
+		PlayerPrefs.SetInt("UnlockedLevel", unlockedLevel);
+		PlayerPrefs.Save();
+
+		UpdateLevelButtons();
+		Debug.Log("[UNLOCK] Wszystkie poziomy zosta≈Çy odblokowane.");
 	}
 }

@@ -258,7 +258,9 @@ public class GameController : MonoBehaviour
 		StarRating();
 		Debug.Log("Stars" + starRating);
 
-        if (winCanvas != null)
+		SceneManagerScript.Instance.UnlockNextLevel();
+
+		if (winCanvas != null)
 		{
 			ShopManager.Instance.GUI_Shop.SetActive(false);
 			PauseMenu.Instance.pauseMenuCanvas.SetActive(false);

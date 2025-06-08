@@ -25,7 +25,10 @@ public class UnitSpawner : MonoBehaviour
 	[SerializeField] private CinemachineTargetGroup _targetGroup;
 	[SerializeField] private TextMeshProUGUI _enemyCounterText;
 
-	public int _spawnedUnits = 0;
+    [SerializeField] private List<GameObject> _spawnIndicatorsUI;
+    [SerializeField] private float _indicatorDuration = 2f;
+
+    public int _spawnedUnits = 0;
 	private int _currentSpawnedUnits = 0;
 
 	private Dictionary<string, ObjectPool<Unit>> enemyPools;
@@ -118,7 +121,13 @@ public class UnitSpawner : MonoBehaviour
 		}
 
 		Vector3Int spawnPoint = spawnPositions[Random.Range(0, spawnPositions.Count)];
-		Vector3 spawnPosition = PathFinderManager.Instance.gridManager.tilemap.GetCellCenterWorld(spawnPoint);
+        int spawnIndex = spawnPositions.IndexOf(spawnPoint);
+        if (spawnIndex >= 0 && spawnIndex < _spawnIndicatorsUI.Count)
+        {
+            StartCoroutine(ShowIndicator(spawnIndex));
+        }
+
+        Vector3 spawnPosition = PathFinderManager.Instance.gridManager.tilemap.GetCellCenterWorld(spawnPoint);
 		float yOffset = transform.localScale.y;
 		unit.transform.position = new Vector3(spawnPosition.x, spawnPosition.y + yOffset, spawnPosition.z);
 
@@ -191,4 +200,13 @@ public class UnitSpawner : MonoBehaviour
 			_enemyCounterText.text = $"{remainingEnemies}";
 		}
 	}
+
+    private IEnumerator ShowIndicator(int index)
+    {
+        var go = _spawnIndicatorsUI[index];
+        go.SetActive(true);
+        yield return new WaitForSeconds(_indicatorDuration);
+        go.SetActive(false);
+    }
+
 }

@@ -54,7 +54,7 @@ public class PathFinderManager : MonoBehaviour
 	/// </summary>
 	public List<TileNode> GetPathFromTo(Vector3Int start, Vector3Int end)
 	{
-		Debug.Log("GetPathFromTo wywo³ane od punktu " + start + " do " + end);
+		//Debug.Log("GetPathFromTo wywo³ane od punktu " + start + " do " + end);
 		PathFinder pathfinding = GetComponent<PathFinder>();
 		return pathfinding.FindPath(start, end);
 	}

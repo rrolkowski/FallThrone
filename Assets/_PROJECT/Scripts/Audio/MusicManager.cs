@@ -1,12 +1,14 @@
-using System.Collections;
+ï»¿using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(AudioSource))]
+[RequireComponent(typeof(AudioLowPassFilter))]
 public class MusicManager : MonoBehaviour
 {
 	private static MusicManager Instance;
 	private AudioSource musicSource;
+	private AudioLowPassFilter lowPassFilter;
 
 	[Header("Music Clips")]
 	[SerializeField] private AudioClip menuMusic;
@@ -17,17 +19,16 @@ public class MusicManager : MonoBehaviour
 	[SerializeField] private AudioClip gameMusic_level5;
 	[SerializeField] private AudioClip gameMusic_level6;
 	[SerializeField] private AudioClip gameMusic_level7;
+	[SerializeField] private AudioClip gameMusic_level8;
+	[SerializeField] private AudioClip gameMusic_level9;
 
 	[Header("Volume Settings")]
-	[Range(0, 1)]
-	[SerializeField] private float menuMusicVolume = 0.5f; // G³oœnoœæ dla menu
-	[Range(0, 1)]
-	[SerializeField] private float gameMusicVolume = 0.5f; // G³oœnoœæ dla gry
+	[Range(0, 1)][SerializeField] private float menuMusicVolume = 0.5f;
+	[Range(0, 1)][SerializeField] private float gameMusicVolume = 0.5f;
 
 	private void Awake()
 	{
-		if (!Application.isPlaying)
-			return;
+		if (!Application.isPlaying) return;
 
 		if (Instance == null)
 		{
@@ -37,10 +38,38 @@ public class MusicManager : MonoBehaviour
 		else
 		{
 			Destroy(gameObject);
+			return;
 		}
 
 		musicSource = GetComponent<AudioSource>();
-		musicSource.loop = true; // Ustawienie pêtli na true
+		lowPassFilter = GetComponent<AudioLowPassFilter>();
+
+		musicSource.loop = true;
+		lowPassFilter.cutoffFrequency = 22000f;
+	}
+
+	private void Update()
+	{
+		if (musicSource == null || lowPassFilter == null) return;
+
+		// Apply effect if Paused OR Shop
+		if (GameState.STATE_Paused || GameState.STATE_Shop)
+		{
+			musicSource.volume = GetTargetVolume() * 0.6f;
+			musicSource.pitch = 0.95f; // 5% wolniej
+			lowPassFilter.cutoffFrequency = 500f;
+		}
+		else
+		{
+			musicSource.volume = GetTargetVolume();
+			musicSource.pitch = 1.0f;
+			lowPassFilter.cutoffFrequency = 22000f;
+		}
+	}
+
+	private float GetTargetVolume()
+	{
+		return musicSource.clip == menuMusic ? menuMusicVolume : gameMusicVolume;
 	}
 
 	private void OnEnable()
@@ -59,33 +88,12 @@ public class MusicManager : MonoBehaviour
 		{
 			PlayMenuMusic();
 		}
-		else if (scene.name == "Level_1")
+		else if (scene.name.StartsWith("Level_"))
 		{
-			PlayGameMusic(1);
-		}
-		else if (scene.name == "Level_2")
-		{
-			PlayGameMusic(2);
-		}
-		else if (scene.name == "Level_3")
-		{
-			PlayGameMusic(3);
-		}
-		else if (scene.name == "Level_4")
-		{
-			PlayGameMusic(4);
-		}
-		else if (scene.name == "Level_5")
-		{
-			PlayGameMusic(5);
-		}
-		else if (scene.name == "Level_6")
-		{
-			PlayGameMusic(6);
-		}
-		else if (scene.name == "Level_7")
-		{
-			PlayGameMusic(7);
+			if (int.TryParse(scene.name.Replace("Level_", ""), out int level))
+			{
+				PlayGameMusic(level);
+			}
 		}
 	}
 
@@ -100,20 +108,22 @@ public class MusicManager : MonoBehaviour
 	{
 		if (Instance == null) return;
 
-		if (level == 1)
-			Instance.StartCoroutine(Instance.PlayMusicWithFade(Instance.gameMusic_level1, Instance.gameMusicVolume, 3));
-		else if (level == 2)
-			Instance.StartCoroutine(Instance.PlayMusicWithFade(Instance.gameMusic_level2, Instance.gameMusicVolume, 3));
-		else if (level == 3)
-			Instance.StartCoroutine(Instance.PlayMusicWithFade(Instance.gameMusic_level3, Instance.gameMusicVolume, 3));
-		else if (level == 4)
-			Instance.StartCoroutine(Instance.PlayMusicWithFade(Instance.gameMusic_level4, Instance.gameMusicVolume, 3));
-		else if (level == 5)
-			Instance.StartCoroutine(Instance.PlayMusicWithFade(Instance.gameMusic_level5, Instance.gameMusicVolume, 3));
-		else if (level == 6)
-			Instance.StartCoroutine(Instance.PlayMusicWithFade(Instance.gameMusic_level6, Instance.gameMusicVolume, 3));
-		else if (level == 7)
-			Instance.StartCoroutine(Instance.PlayMusicWithFade(Instance.gameMusic_level7, Instance.gameMusicVolume, 3));
+		AudioClip selected = level switch
+		{
+			1 => Instance.gameMusic_level1,
+			2 => Instance.gameMusic_level2,
+			3 => Instance.gameMusic_level3,
+			4 => Instance.gameMusic_level4,
+			5 => Instance.gameMusic_level5,
+			6 => Instance.gameMusic_level6,
+			7 => Instance.gameMusic_level7,
+			8 => Instance.gameMusic_level8,
+			9 => Instance.gameMusic_level9,
+			_ => null
+		};
+
+		if (selected != null)
+			Instance.StartCoroutine(Instance.PlayMusicWithFade(selected, Instance.gameMusicVolume, 3));
 	}
 
 	public static void StopMusic()
@@ -134,7 +144,6 @@ public class MusicManager : MonoBehaviour
 	{
 		if (clip == null) yield break;
 
-		// Stop current music
 		musicSource.Stop();
 		musicSource.clip = clip;
 		musicSource.volume = 0;
@@ -157,22 +166,7 @@ public class MusicManager : MonoBehaviour
 	{
 		if (musicSource != null)
 		{
-			if (musicSource.clip == menuMusic)
-				musicSource.volume = menuMusicVolume;
-			else if (musicSource.clip == gameMusic_level1)
-				musicSource.volume = gameMusicVolume;
-			else if (musicSource.clip == gameMusic_level2)
-				musicSource.volume = gameMusicVolume;
-			else if (musicSource.clip == gameMusic_level3)
-				musicSource.volume = gameMusicVolume;
-			else if (musicSource.clip == gameMusic_level4)
-				musicSource.volume = gameMusicVolume;
-			else if (musicSource.clip == gameMusic_level5)
-				musicSource.volume = gameMusicVolume;
-			else if (musicSource.clip == gameMusic_level6)
-				musicSource.volume = gameMusicVolume;
-			else if (musicSource.clip == gameMusic_level7)
-				musicSource.volume = gameMusicVolume;
+			musicSource.volume = GetTargetVolume();
 		}
 	}
 #endif

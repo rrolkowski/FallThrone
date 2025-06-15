@@ -13,11 +13,26 @@ public class Menu : MonoBehaviour
 
 	private int unlockedLevel = 0;
 
+	// Obiekt 3D do animacji
+	[SerializeField] private Transform animatedObject;
+	private Vector3 originalPosition;
+	private Vector3 targetPosition;
+
+	[SerializeField] private Transform blockInteraction_Object;
+
+
 	private void Start()
 	{
 		InitializeProgress();
 		SetupCanvases();
 		UpdateLevelButtons();
+
+		// Zapamiętaj pozycję oryginalną
+		if (animatedObject != null)
+		{
+			originalPosition = animatedObject.position;
+			targetPosition = originalPosition;
+		}
 	}
 
 	private void InitializeProgress()
@@ -89,6 +104,7 @@ public class Menu : MonoBehaviour
 		if (levelIndex <= unlockedLevel)
 		{
 			StartGame(levelIndex);
+			blockInteraction_Object.gameObject.SetActive(true);
 		}
 		else
 		{
@@ -114,6 +130,11 @@ public class Menu : MonoBehaviour
 		AudioManager.PlaySound(SoundType.MENU_Select_Button);
 		menuCanvas.SetActive(false);
 		levelSelectCanvas.SetActive(true);
+
+		if (animatedObject != null)
+		{
+			targetPosition = originalPosition + new Vector3(-3f, 0f, 0f);
+		}
 	}
 
 	public void ShowCredits()
@@ -121,6 +142,11 @@ public class Menu : MonoBehaviour
 		AudioManager.PlaySound(SoundType.MENU_Select_Button);
 		menuCanvas.SetActive(false);
 		creditsCanvas.SetActive(true);
+
+		if (animatedObject != null)
+		{
+			targetPosition = originalPosition + new Vector3(-3f, 0f, 0f);
+		}
 	}
 
 	public void ShowGuide()
@@ -128,6 +154,11 @@ public class Menu : MonoBehaviour
 		AudioManager.PlaySound(SoundType.MENU_Select_Button);
 		menuCanvas.SetActive(false);
 		guideCanvas.SetActive(true);
+
+		if (animatedObject != null)
+		{
+			targetPosition = originalPosition + new Vector3(-3f, 0f, 0f);
+		}
 	}
 
 	public void GoBack()
@@ -137,6 +168,11 @@ public class Menu : MonoBehaviour
 		guideCanvas.SetActive(false);
 		levelSelectCanvas.SetActive(false);
 		menuCanvas.SetActive(true);
+
+		if (animatedObject != null)
+		{
+			targetPosition = originalPosition;
+		}
 	}
 
 	public void ExitGame()
@@ -146,21 +182,35 @@ public class Menu : MonoBehaviour
 #if UNITY_EDITOR
 		UnityEditor.EditorApplication.isPlaying = false;
 #else
-		Application.Quit();
+        Application.Quit();
 #endif
 	}
 
 	// 🔁 Reset Progress z przycisku
 	public void ResetProgressButton()
 	{
-		// Pierwszy raz
 		PlayerPrefs.SetInt("UnlockedLevel", 0);
-		PlayerPrefs.Save();
 		unlockedLevel = 0;
+
+		// Dodatkowo resetujemy gwiazdki dla wszystkich leveli 1..9
+		for (int level = 1; level <= 9; level++)
+		{
+			PlayerPrefs.DeleteKey($"Level_{level}_Stars");
+		}
+
+		PlayerPrefs.Save();
 
 		UpdateLevelButtons();
 		UpdateLevelButtons(); // tak - musi byc 2 razy bo jak jest raz to nie działa pozdrawiam
+
+		// 🔄 Force update stars display
+		LevelStarsDisplay starsDisplay = FindObjectOfType<LevelStarsDisplay>();
+		if (starsDisplay != null)
+		{
+			starsDisplay.ForceUpdateStars();
+		}
 	}
+
 
 
 	// 🔓 Unlock All z przycisku
@@ -172,5 +222,14 @@ public class Menu : MonoBehaviour
 
 		UpdateLevelButtons();
 		Debug.Log("[UNLOCK] Wszystkie poziomy zostały odblokowane.");
+	}
+
+	private void Update()
+	{
+		if (animatedObject != null)
+		{
+			// Płynne przejście w stronę targetPosition
+			animatedObject.position = Vector3.Lerp(animatedObject.position, targetPosition, Time.deltaTime * 3f); // 5f = prędkość płynności
+		}
 	}
 }

@@ -149,6 +149,23 @@ public class EnemyMovement : MonoBehaviour
 					animator.SetBool("walk", false);
 				}
 
+				if(enemyType == EnemyType.Bomba)
+				{
+					AudioManager.PlaySound(SoundType.GAME_Health);
+				}
+				if (enemyType == EnemyType.Bober)
+				{
+					AudioManager.PlaySound(SoundType.GAME_Health_Bober);
+				}
+				if (enemyType == EnemyType.Duch)
+				{
+					AudioManager.PlaySound(SoundType.GAME_Health_Duch);
+				}
+				if (enemyType == EnemyType.Slimak)
+				{
+					AudioManager.PlaySound(SoundType.GAME_Health_Slimak);
+				}
+
 				GameController.Instance.TakeDamage();
 				this.gameObject.SetActive(false);
 				yield break;

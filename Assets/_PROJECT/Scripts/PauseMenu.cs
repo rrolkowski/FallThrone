@@ -34,7 +34,7 @@ public class PauseMenu : MonoBehaviour
 
 			if (GameState.STATE_Paused)
 			{
-				ResumeGame();
+				ResumeGameNoAudio();
 			}
 			else
 			{
@@ -48,6 +48,13 @@ public class PauseMenu : MonoBehaviour
 	{
 		AudioManager.PlaySound(SoundType.MENU_Select_Button);
 
+		pauseMenuCanvas.SetActive(false); // Ukryj menu pauzy
+		Time.timeScale = 1f; // Przywróæ normalny czas gry
+		GameState.STATE_Paused = false; // Ustaw flagê
+	}
+
+	public void ResumeGameNoAudio()
+	{
 		pauseMenuCanvas.SetActive(false); // Ukryj menu pauzy
 		Time.timeScale = 1f; // Przywróæ normalny czas gry
 		GameState.STATE_Paused = false; // Ustaw flagê

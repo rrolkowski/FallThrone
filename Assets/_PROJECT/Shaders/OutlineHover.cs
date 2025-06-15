@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 public class OutlineHover : MonoBehaviour
 {
@@ -6,8 +7,8 @@ public class OutlineHover : MonoBehaviour
 
 	private string targetTag = "EnemySelected";
 
-	private Renderer lastRenderer;
-	private Material[] originalMaterials;
+	private List<Renderer> modifiedRenderers = new List<Renderer>();
+	private Dictionary<Renderer, Material[]> originalMaterials = new Dictionary<Renderer, Material[]>();
 
 	void Update()
 	{
@@ -25,62 +26,77 @@ public class OutlineHover : MonoBehaviour
 
 			if (taggedParent != null && taggedParent.CompareTag(targetTag))
 			{
-				Renderer rend = taggedParent.GetComponentInChildren<Renderer>();
-				if (rend != null)
+				// Jeżeli zmieniliśmy wcześniej inny obiekt — resetujemy
+				if (modifiedRenderers.Count == 0 || modifiedRenderers[0].transform.root != taggedParent.root)
 				{
-					if (rend != lastRenderer)
-					{
-						Debug.Log("[OutlineHover] Trafiono: " + hit.collider.name);
+					Debug.Log("[OutlineHover] Trafiono nowy obiekt: " + taggedParent.name);
+					ResetAllRenderers();
 
-						ResetLastRenderer();
+					// Szukamy i podmieniamy MeshRenderer i SkinnedMeshRenderer
+					Renderer[] meshRenderers = taggedParent.GetComponentsInChildren<MeshRenderer>(true);
+					SkinnedMeshRenderer[] skinnedMeshRenderers = taggedParent.GetComponentsInChildren<SkinnedMeshRenderer>(true);
 
-						originalMaterials = rend.materials;
+					foreach (Renderer rend in meshRenderers)
+						ReplaceMaterials(rend);
 
-						Debug.Log("[OutlineHover] Materiały oryginalne:");
-						foreach (var mat in originalMaterials)
-							Debug.Log(" - " + (mat != null ? mat.name : "null"));
-
-						// Tworzymy unikalną instancję materiału na runtime
-						Material outlineMatInstance = new Material(outlineMaterialTemplate);
-
-						// Przenosimy BaseMap z oryginalnego materiału
-						Texture baseMap = rend.material.GetTexture("_BaseMap");
-						if (baseMap == null)
-							Debug.LogWarning("[OutlineHover] Brak _BaseMap w materiale: " + rend.material.name);
-						else
-							outlineMatInstance.SetTexture("_BaseMap", baseMap);
-
-						// Podmieniamy wszystkie materiały
-						Material[] mats = new Material[rend.materials.Length];
-						for (int i = 0; i < mats.Length; i++)
-							mats[i] = outlineMatInstance;
-
-						Debug.Log("[OutlineHover] Podmieniam materiały (ilość: " + mats.Length + ")");
-
-						rend.materials = mats;
-						lastRenderer = rend;
-					}
-
-					return; // nie resetuj, jeśli jesteśmy najechani
+					foreach (SkinnedMeshRenderer rend in skinnedMeshRenderers)
+						ReplaceMaterials(rend);
 				}
-				else
-				{
-					Debug.LogWarning("[OutlineHover] Nie znaleziono Renderer'a w obiekcie z tagiem: " + taggedParent.name);
-				}
+
+				return; // nie resetuj, jeśli jesteśmy najechani
 			}
 		}
 
-		ResetLastRenderer();
+		ResetAllRenderers();
 	}
 
-	void ResetLastRenderer()
+	void ReplaceMaterials(Renderer rend)
 	{
-		if (lastRenderer != null && originalMaterials != null)
+		if (rend == null)
+			return;
+
+		Debug.Log("[OutlineHover] Podmieniam materiały dla: " + rend.name);
+
+		// Zachowaj oryginalne materiały
+		originalMaterials[rend] = rend.materials;
+
+		// Tworzymy unikalną instancję materiału outline
+		Material outlineMatInstance = new Material(outlineMaterialTemplate);
+
+		// Przenosimy BaseMap z pierwszego oryginalnego materiału (jeśli istnieje)
+		Texture baseMap = rend.material.GetTexture("_BaseMap");
+		if (baseMap == null)
+			Debug.LogWarning("[OutlineHover] Brak _BaseMap w materiale: " + rend.material.name);
+		else
+			outlineMatInstance.SetTexture("_BaseMap", baseMap);
+
+		// Tworzymy tablicę materiałów
+		Material[] mats = new Material[rend.materials.Length];
+		for (int i = 0; i < mats.Length; i++)
+			mats[i] = outlineMatInstance;
+
+		rend.materials = mats;
+
+		// Dodajemy do listy zmodyfikowanych
+		modifiedRenderers.Add(rend);
+	}
+
+	void ResetAllRenderers()
+	{
+		if (modifiedRenderers.Count == 0)
+			return;
+
+		Debug.Log("[OutlineHover] Reset wszystkich materiałów");
+
+		foreach (Renderer rend in modifiedRenderers)
 		{
-			Debug.Log("[OutlineHover] Reset materiałów");
-			lastRenderer.materials = originalMaterials;
-			lastRenderer = null;
-			originalMaterials = null;
+			if (rend != null && originalMaterials.ContainsKey(rend))
+			{
+				rend.materials = originalMaterials[rend];
+			}
 		}
+
+		modifiedRenderers.Clear();
+		originalMaterials.Clear();
 	}
 }

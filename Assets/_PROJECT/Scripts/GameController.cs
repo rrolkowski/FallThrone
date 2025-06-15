@@ -11,8 +11,11 @@ public class GameController : MonoBehaviour
 
     public event Action OnPickedUp;
 
+	[Header("Level Info")]
+	public int currentLevel;
+
 	//Star rating
-    [HideInInspector] public int starRating = 0;
+	[HideInInspector] public int starRating = 0;
 
     // Health system
     [Header("Health Settings")]
@@ -55,6 +58,7 @@ public class GameController : MonoBehaviour
 
 	[Header("Enemy Defeat Counter")]
 	public int DefeatedEnemies = 0;
+	public int Enemies2 = 0;
 
 	private bool localwincondition;
 
@@ -112,7 +116,6 @@ public class GameController : MonoBehaviour
 	{
 		if (currentHealth > 0)
 		{
-			AudioManager.PlaySound(SoundType.GAME_Health);
 			currentHealth--;
 			UpdateHealthUI();
 			Debug.Log($"Health: {currentHealth}");
@@ -258,6 +261,9 @@ public class GameController : MonoBehaviour
 		StarRating();
 		Debug.Log("Stars" + starRating);
 
+		LevelProgressManager.Instance.SaveStarsForLevel(currentLevel, starRating);
+		Debug.Log($"LevelProgressManager.SaveStarsForLevel({currentLevel}, {starRating});");
+
 		SceneManagerScript.Instance.UnlockNextLevel();
 
 		if (winCanvas != null)
@@ -299,11 +305,27 @@ public class GameController : MonoBehaviour
 		// Jeœli ¿aden wróg nie jest aktywny i liczba pokonanych wrogów równa maksymalnej liczbie
 		return UnitSpawner.Instance._spawnedUnits >= UnitSpawner.Instance._maxEnemyUnits;
 	}
-    #endregion
 
-    #region PowerUp
+	public int GetActiveEnemyCount()
+	{
+		GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+		int activeCount = 0;
 
-    private string FormatPowerUpName(string name)
+		foreach (var enemy in enemies)
+		{
+			if (enemy.activeSelf)
+			{
+				activeCount++;
+			}
+		}
+
+		return activeCount;
+	}
+	#endregion
+
+	#region PowerUp
+
+	private string FormatPowerUpName(string name)
     {
         return System.Text.RegularExpressions.Regex.Replace(name, "(\\B[A-Z])", " $1");
     }

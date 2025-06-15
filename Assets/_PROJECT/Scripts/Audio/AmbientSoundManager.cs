@@ -1,4 +1,4 @@
-using UnityEngine;
+Ôªøusing UnityEngine;
 using UnityEngine.Audio;
 using System.Collections;
 
@@ -12,7 +12,7 @@ public class AmbientSoundManager : MonoBehaviour
 	public float maxDelay = 20f;
 
 	[Range(0f, 1f)]
-	public float volume = 1f; // Dodane ustawienie g≥oúnoúci
+	public float volume = 1f; // Dodane ustawienie g≈Ço≈õno≈õci
 
 	void Start()
 	{
@@ -33,7 +33,7 @@ public class AmbientSoundManager : MonoBehaviour
 			if (ambientClips.Length > 0)
 			{
 				AudioClip clip = ambientClips[Random.Range(0, ambientClips.Length)];
-				audioSource.volume = volume; // Ustawienie aktualnej g≥oúnoúci
+				audioSource.volume = volume; // Ustawienie aktualnej g≈Ço≈õno≈õci
 				audioSource.PlayOneShot(clip);
 			}
 		}

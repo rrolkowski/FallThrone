@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro;
-using System.Collections;
 
 public class ButtonHighlightEffect : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
@@ -18,27 +17,47 @@ public class ButtonHighlightEffect : MonoBehaviour, IPointerEnterHandler, IPoint
 	[SerializeField] private float scaleMultiplier = 0.95f;
 	[SerializeField] private Color highlightColor = Color.yellow;
 	[SerializeField] private Color originalColor = Color.white;
-	[SerializeField] private float scaleAnimationDuration = 0.2f;
-	[SerializeField] private bool enableSmoothAnimation = false;
+	[SerializeField] private float animationSpeed = 10f;
 
 	[Header("Tower Button Settings")]
-	[SerializeField] private bool isTowerButton = false; // <-- Nowy bool
+	[SerializeField] private bool isTowerButton = false;
 	[SerializeField] private TowerType towerType;
 	[SerializeField] private TextMeshProUGUI descriptionText;
 
+	[Header("Solo Text Mode")]
+	[SerializeField] private bool soloText = false;
+
 	private Vector3 originalScale;
-	private Coroutine scaleCoroutine;
+	private Vector3 targetScale;
+
+	private TextMeshProUGUI targetText;
+	private float originalFontSize;
+	private float targetFontSize;
+	private Color targetTextColor;
+	private Color currentTextColor;
+
+	private bool isHovered = false;
 
 	private void Awake()
 	{
 		if (targetObject == null)
-		{
 			targetObject = transform;
-		}
 
 		originalScale = targetObject.localScale;
+		targetScale = originalScale;
 
-		// Jeœli to przycisk wie¿y, upewnij siê, ¿e opis zosta³ przypisany
+		if (soloText)
+		{
+			targetText = targetObject.GetComponent<TextMeshProUGUI>();
+			if (targetText != null)
+			{
+				originalFontSize = targetText.fontSize;
+				targetFontSize = originalFontSize;
+				currentTextColor = targetText.color;
+				targetTextColor = currentTextColor;
+			}
+		}
+
 		if (isTowerButton && descriptionText == null)
 		{
 			Debug.LogWarning($"Button '{gameObject.name}' is marked as TowerButton but has no DescriptionText assigned!", this);
@@ -47,39 +66,42 @@ public class ButtonHighlightEffect : MonoBehaviour, IPointerEnterHandler, IPoint
 
 	private void OnDisable()
 	{
-		if (scaleCoroutine != null)
-		{
-			StopCoroutine(scaleCoroutine);
-			scaleCoroutine = null;
-		}
-
 		targetObject.localScale = originalScale;
-		ChangeColors(targetObject, originalColor);
 
-		// Opcjonalne czyszczenie opisu
-		// if (isTowerButton && descriptionText != null) descriptionText.text = "";
+		if (soloText && targetText != null)
+		{
+			targetText.fontSize = originalFontSize;
+			targetText.color = originalColor;
+			targetFontSize = originalFontSize;
+			targetTextColor = originalColor;
+		}
+		else
+		{
+			ChangeColors(targetObject, originalColor);
+			targetScale = originalScale;
+		}
 	}
 
 	public void OnPointerEnter(PointerEventData eventData)
 	{
+		if (isTowerButton && !CanAffordTower())
+			return;
+
 		AudioManager.PlaySound(SoundType.MENU_Highlight_Button);
 
-		if (enableSmoothAnimation)
+		isHovered = true;
+
+		if (soloText && targetText != null)
 		{
-			if (scaleCoroutine != null)
-			{
-				StopCoroutine(scaleCoroutine);
-			}
-			scaleCoroutine = StartCoroutine(SmoothScale(targetObject.localScale, originalScale * scaleMultiplier));
+			targetFontSize = originalFontSize * 0.9f;
+			targetTextColor = highlightColor;
 		}
 		else
 		{
-			targetObject.localScale = originalScale * scaleMultiplier;
+			targetScale = originalScale * scaleMultiplier;
+			ChangeColors(targetObject, highlightColor);
 		}
 
-		ChangeColors(targetObject, highlightColor);
-
-		// Aktualizacja opisu tylko dla przycisków wie¿
 		if (isTowerButton)
 		{
 			UpdateDescriptionText();
@@ -88,37 +110,43 @@ public class ButtonHighlightEffect : MonoBehaviour, IPointerEnterHandler, IPoint
 
 	public void OnPointerExit(PointerEventData eventData)
 	{
-		if (enableSmoothAnimation)
+		isHovered = false;
+
+		if (soloText && targetText != null)
 		{
-			if (scaleCoroutine != null)
-			{
-				StopCoroutine(scaleCoroutine);
-			}
-			scaleCoroutine = StartCoroutine(SmoothScale(targetObject.localScale, originalScale));
+			targetFontSize = originalFontSize;
+			targetTextColor = originalColor;
 		}
 		else
 		{
-			targetObject.localScale = originalScale;
+			targetScale = originalScale;
+			ChangeColors(targetObject, originalColor);
 		}
+	}
 
-		ChangeColors(targetObject, originalColor);
-
-		// Opcjonalne czyszczenie opisu
-		// if (isTowerButton && descriptionText != null) descriptionText.text = "";
+	private void Update()
+	{
+		if (soloText && targetText != null)
+		{
+			targetText.fontSize = Mathf.Lerp(targetText.fontSize, targetFontSize, Time.unscaledDeltaTime * animationSpeed);
+			targetText.color = Color.Lerp(targetText.color, targetTextColor, Time.unscaledDeltaTime * animationSpeed);
+		}
+		else
+		{
+			targetObject.localScale = Vector3.Lerp(targetObject.localScale, targetScale, Time.unscaledDeltaTime * animationSpeed);
+		}
 	}
 
 	private void ChangeColors(Transform container, Color color)
 	{
 		foreach (Transform child in container)
 		{
-			Image image = child.GetComponent<Image>();
-			if (image != null)
+			if (child.TryGetComponent(out Image image))
 			{
 				image.color = color;
 			}
 
-			TextMeshProUGUI text = child.GetComponent<TextMeshProUGUI>();
-			if (text != null)
+			if (child.TryGetComponent(out TextMeshProUGUI text) && (!soloText || text != targetText))
 			{
 				text.color = color;
 			}
@@ -128,20 +156,6 @@ public class ButtonHighlightEffect : MonoBehaviour, IPointerEnterHandler, IPoint
 				ChangeColors(child, color);
 			}
 		}
-	}
-
-	private IEnumerator SmoothScale(Vector3 from, Vector3 to)
-	{
-		float elapsedTime = 0f;
-
-		while (elapsedTime < scaleAnimationDuration)
-		{
-			targetObject.localScale = Vector3.Lerp(from, to, elapsedTime / scaleAnimationDuration);
-			elapsedTime += Time.unscaledDeltaTime;
-			yield return null;
-		}
-
-		targetObject.localScale = to;
 	}
 
 	private void UpdateDescriptionText()
@@ -161,5 +175,23 @@ public class ButtonHighlightEffect : MonoBehaviour, IPointerEnterHandler, IPoint
 				descriptionText.text = "A tower that attacks all nearby enemies with an area of effect attack.";
 				break;
 		}
+	}
+
+	private bool CanAffordTower()
+	{
+		if (GameController.Instance == null)
+			return false;
+
+		int points = GameController.Instance.points;
+		int current = GameController.Instance.currentTower_Points;
+		int max = GameController.Instance.maxTower_Points;
+
+		return towerType switch
+		{
+			TowerType.NormalTower => points >= 100 && current + 2 <= max,
+			TowerType.IceTower => points >= 150 && current + 1 <= max,
+			TowerType.AOETower => points >= 200 && current + 3 <= max,
+			_ => false
+		};
 	}
 }

@@ -57,6 +57,14 @@ public enum SoundType
 	GAME_Health_Duch,
 
 	GAME_Slimak_ShieldBreak,
+
+	GAME_Sell_Tower,
+
+	GAME_Win_1Star,
+	GAME_Win_2Star,
+	GAME_Win_3Star,
+
+	GAME_Health_Slimak,
 }
 
 [RequireComponent(typeof(AudioSource)), ExecuteInEditMode]
@@ -89,6 +97,8 @@ public class AudioManager : MonoBehaviour
 
 	public static void PlaySound(SoundType sound, float overrideVolume = -1)
 	{
+		Debug.Log($"PlaySound {sound}");
+
 		SoundList selectedSoundList = Instance.soundList[(int)sound];
 		AudioClip[] clips = selectedSoundList.Sounds;
 		if (clips.Length == 0) return;

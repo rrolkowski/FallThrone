@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Net;
 using UnityEngine;
 
 /// <summary>
@@ -9,97 +8,88 @@ using UnityEngine;
 /// </summary>
 public class ThrowableObject : MonoBehaviour
 {
-    // Handles collision events
-    void OnCollisionEnter(Collision collision)
-    {
-        // Checks if the object collides with the ground
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
-        {
-			//Debug.Log("Collision with the ground");
+	private float lastSoundTime = -Mathf.Infinity;
+	private const float soundCooldown = 0.5f;
 
-			//AUDIO
-
-			if (this.gameObject.tag == "Enemy" && this.gameObject.layer == LayerMask.NameToLayer("Bomba"))
-				AudioManager.PlaySound(SoundType.GAME_Enemy_Throw);
-
-			if (this.gameObject.tag == "Enemy" && this.gameObject.layer == LayerMask.NameToLayer("Duch"))
-				AudioManager.PlaySound(SoundType.GAME_Enemy_Duch_Throw);
-
-			if (this.gameObject.tag == "Enemy" && this.gameObject.layer == LayerMask.NameToLayer("Bober"))
-				AudioManager.PlaySound(SoundType.GAME_Enemy_Bober_Throw);
-
-			if (this.gameObject.tag == "Enemy" && this.gameObject.layer == LayerMask.NameToLayer("Slimak"))
-				AudioManager.PlaySound(SoundType.GAME_Enemy_Slimak_Throw);
-
-			if (this.gameObject.tag == "Tower")
-				AudioManager.PlaySound(SoundType.GAME_Turret_Throw);
+	void OnCollisionEnter(Collision collision)
+	{
+		if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
+		{
+			if (Time.time - lastSoundTime >= soundCooldown)
+			{
+				PlayThrowSound();
+				lastSoundTime = Time.time;
+			}
 
 			if (TryGetComponent(out Rigidbody rb))
-            {
-               rb.isKinematic = true;
-            }
+				rb.isKinematic = true;
 
-            SetObjectAlpha(1.0f); // Resets the object's visibility to full opacity
+			SetObjectAlpha(1.0f); // Full opacity
 
-            // If the object collides with an enemy, it triggers enemy movement
-            if (gameObject.CompareTag("Enemy"))
-            {
-                //Debug.Log("Enemy Object Detected!");
+			if (gameObject.CompareTag("Enemy") && TryGetComponent(out EnemyMovement enemy))
+			{
+				enemy.OnPathEndReached = null;
+				enemy.isMovable = true;
 
-                if (TryGetComponent(out EnemyMovement enemy))
-                {
-                    enemy.OnPathEndReached = null; // Zapobiega nieoczekiwanym wywo³aniom
-                    enemy.isMovable = false;
+				Vector3Int landingPosition = PathFinderManager.Instance.gridManager.tilemap.WorldToCell(transform.position);
+				TileNode closestNode = PathFinderManager.Instance.gridManager.GetClosestWalkableNode(landingPosition);
 
-                    enemy.isMovable = true; // Reactivates enemy movement
+				if (closestNode != null)
+				{
+					Transform childAtPosition = PathFinderManager.Instance.gridManager.GetChildAtGridPosition(closestNode.position);
+					if (childAtPosition != null && childAtPosition.CompareTag("Path"))
+					{
+						List<TileNode> path = PathFinderManager.Instance.GetPathFromTo(closestNode.position, PathFinderManager.Instance.endPoint);
+						enemy.OnPathEndReached = null;
+						enemy.SetPath(path);
+					}
+					else
+					{
+						TileNode closestPathNode = PathFinderManager.Instance.gridManager.GetClosestPathTileNode(closestNode.position);
+						List<TileNode> pathToPathTile = PathFinderManager.Instance.GetPathFromTo(closestNode.position, closestPathNode.position);
+						enemy.OnPathEndReached = null;
+						enemy.SetPath(pathToPathTile);
 
-                    // Determines the grid position where the object landed, and searching the closest wakable nodes
-                    Vector3Int landingPosition = PathFinderManager.Instance.gridManager.tilemap.WorldToCell(transform.position);
-                    TileNode closestNode = PathFinderManager.Instance.gridManager.GetClosestWalkableNode(landingPosition);
+						enemy.OnPathEndReached = () =>
+						{
+							List<TileNode> pathToEnd = PathFinderManager.Instance.GetPathFromTo(closestPathNode.position, PathFinderManager.Instance.endPoint);
+							enemy.SetPath(pathToEnd);
+						};
+					}
+				}
+			}
+		}
+	}
 
-                    // If a walkable node is found, checks if it's on the path and initiates enemy movement along the path
-                    if (closestNode != null)
-                    {
-                        //Debug.Log("Nearest walkable tile after landing: " + closestNode.position);
+	private void PlayThrowSound()
+	{
+		if (gameObject.tag == "Enemy")
+		{
+			int layer = gameObject.layer;
 
-                        Transform childAtPosition = PathFinderManager.Instance.gridManager.GetChildAtGridPosition(closestNode.position);
-                        //Checks if the enemy landed on a path tile
-                        if (childAtPosition != null && childAtPosition.CompareTag("Path"))
-                        {
-                            //enemy.closestPathPosition = closestNode.position; // Sets the closest path position, so the enemy resumes its movement from here
+			if (layer == LayerMask.NameToLayer("Bomba"))
+				AudioManager.PlaySound(SoundType.GAME_Enemy_Throw);
+			else if (layer == LayerMask.NameToLayer("Duch"))
+				AudioManager.PlaySound(SoundType.GAME_Enemy_Duch_Throw);
+			else if (layer == LayerMask.NameToLayer("Bober"))
+				AudioManager.PlaySound(SoundType.GAME_Enemy_Bober_Throw);
+			else if (layer == LayerMask.NameToLayer("Slimak"))
+				AudioManager.PlaySound(SoundType.GAME_Enemy_Slimak_Throw);
+		}
+		else if (gameObject.tag == "Tower")
+		{
+			AudioManager.PlaySound(SoundType.GAME_Turret_Throw);
+		}
+	}
 
-                            // Retrieves the path from the current position to the end goal
-                            List<TileNode> path = PathFinderManager.Instance.GetPathFromTo(closestNode.position, PathFinderManager.Instance.endPoint);
-                            enemy.OnPathEndReached = null;
-                            enemy.SetPath(path);
-                        }
-                        else
-                        {
-                            TileNode closestPathNode = PathFinderManager.Instance.gridManager.GetClosestPathTileNode(closestNode.position);
-                            List<TileNode> pathToPathTile = PathFinderManager.Instance.GetPathFromTo(closestNode.position, closestPathNode.position);
-                            enemy.OnPathEndReached = null;
-                            enemy.SetPath(pathToPathTile);
-
-                            // Gdy dotrze do kafelka œcie¿ki, ustaw œcie¿kê do punktu koñcowego
-                            enemy.OnPathEndReached = () =>
-                            {
-                                List<TileNode> pathToEnd = PathFinderManager.Instance.GetPathFromTo(closestPathNode.position, PathFinderManager.Instance.endPoint);
-                                enemy.SetPath(pathToEnd);
-                            };
-                        }
-                    }
-                }
-            }
-        }
-    }
-    // Adjusts the object's transparency by setting the alpha value of its material
-    public void SetObjectAlpha(float alpha)
-    {
-        if (TryGetComponent(out Renderer renderer))
-        {
-            Color color = renderer.material.color;
-            color.a = alpha;
-            renderer.material.color = color;
-        }
-    }
+	// Adjusts the object's transparency by setting the alpha value of its material
+	public void SetObjectAlpha(float alpha)
+	{
+		if (TryGetComponent(out Renderer renderer))
+		{
+			Color color = renderer.material.color;
+			color.a = alpha;
+			renderer.material.color = color;
+		}
+	}
 }

@@ -20,6 +20,7 @@ public class UnitSpawner : MonoBehaviour
 	[SerializeField] private Transform _unitParent;
 	[SerializeField] public int _maxEnemyUnits;
 	[SerializeField] private bool _usePool;
+	[SerializeField] private float _initialSpawnDelay = 0f; // delay przed pierwszym spawnem
 	[SerializeField] private float _minSpawnDelay = 1f;
 	[SerializeField] private float _maxSpawnDelay = 3f;
 	[SerializeField] private CinemachineTargetGroup _targetGroup;
@@ -82,14 +83,23 @@ public class UnitSpawner : MonoBehaviour
 		StartCoroutine(SpawnUnitLoop());
 	}
 
+	private void Update()
+	{
+		UpdateEnemyCounter();
+	}
+
 	private IEnumerator SpawnUnitLoop()
 	{
+		// Czekamy przed pierwszym spawnem
+		yield return new WaitForSeconds(_initialSpawnDelay);
+
 		while (_currentSpawnedUnits < _maxEnemyUnits)
 		{
-			yield return new WaitForSeconds(Random.Range(_minSpawnDelay, _maxSpawnDelay));
 			SpawnUnit();
+			yield return new WaitForSeconds(Random.Range(_minSpawnDelay, _maxSpawnDelay));
 		}
 	}
+
 
 	private void SpawnUnit()
 	{
@@ -196,12 +206,17 @@ public class UnitSpawner : MonoBehaviour
 	{
 		if (_enemyCounterText != null)
 		{
-			int remainingEnemies = _maxEnemyUnits - GameController.Instance.DefeatedEnemies;
+			int lostHealth = GameController.Instance.maxHealth - GameController.Instance.currentHealth;
+			int remainingEnemies = _maxEnemyUnits - GameController.Instance.DefeatedEnemies - lostHealth;
+
+			remainingEnemies = Mathf.Max(remainingEnemies, 0);
+
 			_enemyCounterText.text = $"{remainingEnemies}";
 		}
 	}
 
-    private IEnumerator ShowIndicator(int index)
+
+	private IEnumerator ShowIndicator(int index)
     {
         var go = _spawnIndicatorsUI[index];
         go.SetActive(true);

@@ -8,11 +8,6 @@ public abstract class BasePowerUp : MonoBehaviour
 	public abstract void ApplyEffect();
 	protected abstract SoundType GetPickupSound();
 
-	private void Update()
-	{
-		Debug.Log("xd");
-	}
-
 	private void OnTriggerEnter(Collider collision)
 	{
 		if (collision.CompareTag("Player"))

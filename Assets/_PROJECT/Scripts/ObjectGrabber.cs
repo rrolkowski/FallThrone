@@ -70,7 +70,8 @@ public class ObjectGrabber : MonoBehaviour
         if (isHoldingObject && currentlyGrabbedObject != null && currentlyGrabbedObject.CompareTag("Tower"))
         {
             ShopManager.Instance.SellTower(currentlyGrabbedObject);
-            currentlyGrabbedObject = null;
+			AudioManager.PlaySound(SoundType.GAME_Sell_Tower);
+			currentlyGrabbedObject = null;
             if (_rangeCircleController != null)
                 _rangeCircleController.DeactivateRangeCircle();
         }

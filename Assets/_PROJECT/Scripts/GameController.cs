@@ -7,6 +7,8 @@ using System.Collections;
 
 public class GameController : MonoBehaviour
 {
+	public bool isTutorialActive;
+
 	public static GameController Instance;
 
     public event Action OnPickedUp;
@@ -100,7 +102,10 @@ public class GameController : MonoBehaviour
 
     void Update()
     {
-        if (!GameState.STATE_Won)
+		if (isTutorialActive) return;
+
+
+		if (!GameState.STATE_Won)
             GameController.Instance.CheckForWinCondition();
     }
 

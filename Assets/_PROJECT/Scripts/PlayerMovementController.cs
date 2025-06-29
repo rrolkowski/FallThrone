@@ -13,13 +13,13 @@ public class PlayerMovementController : MonoBehaviour
 	private Vector3 targetVelocity;
 
 	[Header("Movement/Look Settings")]
-	[SerializeField] float rotationSpeed = 20f;  // Prędkość rotacji gracza
+	[SerializeField] float rotationSpeed = 20f;
 	public float moveSpeed = 5f;
 	[SerializeField] float acceleration = 20f;
 
 	[Header("Srint Settings")]
 	[SerializeField] float _sprintMultiplier = 1.5f;
-	[SerializeField] float _sprintStaminaCost = 5f; //per second
+	[SerializeField] float _sprintStaminaCost = 5f;
 	private bool isSprinting;
 
 	[Header("Objects")]
@@ -42,8 +42,9 @@ public class PlayerMovementController : MonoBehaviour
 	private float speed;
 	private float allowPlayerRotation = 0.1f;
 
-    private bool _isGrounded;
-    void Awake()
+	private bool _isGrounded;
+
+	void Awake()
 	{
 		rb = GetComponent<Rigidbody>() ?? throw new MissingComponentException("Rigidbody is missing");
 		mainCamera = mainCamera ?? Camera.main ?? throw new MissingReferenceException("Camera is missing");
@@ -53,99 +54,102 @@ public class PlayerMovementController : MonoBehaviour
 	void Update()
 	{
 		UpdateTargetVelocity();
-		UpdateAnimation();  // Dodana obsługa animacji
+		UpdateAnimation();
 	}
 
 	void FixedUpdate()
 	{
 		HandleMovement();
-		HandleRotation();  // Nowa funkcja do rotacji
+		HandleRotation();
 	}
 
-    public float GetRawMoveSpeed()
-    {
-        return moveSpeed;
-    }
-
-    public void SetMoveSpeed(float newSpeed)
-    {
-        moveSpeed = newSpeed;
-    }
-
-    // Calculates how fast the player should go based on current input e.g from keyboard.
-    void UpdateTargetVelocity()
+	public float GetRawMoveSpeed()
 	{
+		return moveSpeed;
+	}
+
+	public void SetMoveSpeed(float newSpeed)
+	{
+		moveSpeed = newSpeed;
+	}
+
+	void UpdateTargetVelocity()
+	{
+		if (GameController.Instance != null && GameController.Instance.isTutorialActive)
+		{
+			targetVelocity = Vector3.zero;
+			return;
+		}
+
 		Vector3 movement = new Vector3(movementInput.x, 0, movementInput.y).normalized;
+		float currentSpeed = moveSpeed;
 
-        float currentSpeed = moveSpeed;
+		if (isSprinting && movement.magnitude > 0.1f)
+		{
+			if (_staminaSystem.ConsumeSprintStamina(_sprintStaminaCost))
+			{
+				currentSpeed *= _sprintMultiplier;
+			}
+			else
+			{
+				isSprinting = false;
+			}
+		}
 
-        if (isSprinting && movement.magnitude > 0.1f)
-        {
-            if (_staminaSystem.ConsumeSprintStamina(_sprintStaminaCost))
-            {
-                currentSpeed *= _sprintMultiplier;
-            }
-            else
-            {
-                isSprinting = false;
-            }
-        }
+		targetVelocity = movement * currentSpeed;
 
-        targetVelocity = movement * currentSpeed;
-
-		//With Gravity v0.01
 		if (!_isGrounded)
 		{
 			rb.linearVelocity += Physics.gravity * Time.fixedDeltaTime;
 		}
 	}
 
-	// Changes player speed to make movement smooth
 	void HandleMovement()
 	{
-        // Using Vector3.Lerp
-        //rb.linearVelocity = Vector3.Lerp(rb.linearVelocity, targetVelocity, acceleration * Time.fixedDeltaTime);
+		float currentYVelocity = rb.linearVelocity.y;
+		Vector3 horizontalVelocity = Vector3.Lerp(new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z), targetVelocity, acceleration * Time.fixedDeltaTime);
+		rb.linearVelocity = new Vector3(horizontalVelocity.x, currentYVelocity, horizontalVelocity.z);
+	}
 
-        // Movment with Gravity v0.01
-        float currentYVelocity = rb.linearVelocity.y;
-        Vector3 horizontalVelocity = Vector3.Lerp(new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z), targetVelocity, acceleration * Time.fixedDeltaTime);
-        rb.linearVelocity = new Vector3(horizontalVelocity.x, currentYVelocity, horizontalVelocity.z);
-    }
-
-	// Rotates the player towards the direction of movement
 	void HandleRotation()
 	{
-		// Sprawdzamy, czy gracz się porusza
+		if (GameController.Instance != null && GameController.Instance.isTutorialActive)
+			return;
+
 		if (movementInput.sqrMagnitude > 0.01f)
 		{
-			// Wyznaczamy kąt, w którym gracz powinien się obrócić, zgodnie z kierunkiem ruchu
 			Vector3 movementDirection = new Vector3(movementInput.x, 0, movementInput.y);
 			Quaternion targetRotation = Quaternion.LookRotation(movementDirection);
-
-			// Interpolujemy rotację gracza w kierunku obliczonego kąta
 			transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
 		}
 	}
 
-	// Input System Method for the "Move" action
 	public void OnMove(InputAction.CallbackContext context)
 	{
+		if (GameController.Instance != null && GameController.Instance.isTutorialActive)
+		{
+			movementInput = Vector2.zero;
+			return;
+		}
+
 		movementInput = context.ReadValue<Vector2>();
 	}
-	
+
 	public void OnSprint(InputAction.CallbackContext context)
 	{
+		if (GameController.Instance != null && GameController.Instance.isTutorialActive)
+		{
+			isSprinting = false;
+			return;
+		}
+
 		isSprinting = context.ReadValueAsButton();
-		Debug.Log("Sprint");
 	}
 
-	// Obsługa animacji
 	void UpdateAnimation()
 	{
-		// Oblicz prędkość w oparciu o wektor ruchu
 		speed = new Vector2(movementInput.x, movementInput.y).sqrMagnitude;
 
-		// Animacja Blend - kontrola płynności animacji
 		if (speed > allowPlayerRotation)
 		{
 			anim.SetFloat("Blend", speed, StartAnimTime, Time.deltaTime);
@@ -156,21 +160,19 @@ public class PlayerMovementController : MonoBehaviour
 		}
 	}
 
-    //Gravity v0.01
-    void OnCollisionStay(Collision collision)
-    {
-        // Sprawdza, czy gracz dotyka ziemi
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            _isGrounded = true;
-        }
-    }
+	void OnCollisionStay(Collision collision)
+	{
+		if (collision.gameObject.CompareTag("Ground"))
+		{
+			_isGrounded = true;
+		}
+	}
 
-    void OnCollisionExit(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            _isGrounded = false;
-        }
-    }
+	void OnCollisionExit(Collision collision)
+	{
+		if (collision.gameObject.CompareTag("Ground"))
+		{
+			_isGrounded = false;
+		}
+	}
 }

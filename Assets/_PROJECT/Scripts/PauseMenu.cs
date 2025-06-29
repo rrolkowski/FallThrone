@@ -5,7 +5,7 @@ public class PauseMenu : MonoBehaviour
 {
 	public static PauseMenu Instance;
 
-	public GameObject pauseMenuCanvas; // Canvas Pause Menu
+	public GameObject pauseMenuCanvas;
 
 	private void Awake()
 	{
@@ -16,10 +16,17 @@ public class PauseMenu : MonoBehaviour
 	{
 		if (GameState.STATE_LoadingLevel) return;
 
-		// Sprawdzanie, czy gracz nacisn¹³ ESC
 		if (Input.GetKeyDown(KeyCode.Escape))
 		{
 			var gameController = GameController.Instance;
+
+			// Blokada menu pauzy w trakcie tutoriala
+			if (gameController != null && gameController.isTutorialActive)
+			{
+				Debug.Log("Cannot pause the game during tutorial!");
+				return;
+			}
+
 			if (GameState.STATE_Lost || GameState.STATE_Won)
 			{
 				return;
@@ -27,7 +34,6 @@ public class PauseMenu : MonoBehaviour
 
 			if (GameState.STATE_Shop)
 			{
-				// Zamknij sklep, jeœli jest otwarty
 				ShopManager.Instance.ToggleShop();
 				return;
 			}
@@ -43,32 +49,28 @@ public class PauseMenu : MonoBehaviour
 		}
 	}
 
-	// Wznawianie gry
 	public void ResumeGame()
 	{
 		AudioManager.PlaySound(SoundType.MENU_Select_Button);
-
-		pauseMenuCanvas.SetActive(false); // Ukryj menu pauzy
-		Time.timeScale = 1f; // Przywróæ normalny czas gry
-		GameState.STATE_Paused = false; // Ustaw flagê
+		pauseMenuCanvas.SetActive(false);
+		Time.timeScale = 1f;
+		GameState.STATE_Paused = false;
 	}
 
 	public void ResumeGameNoAudio()
 	{
-		pauseMenuCanvas.SetActive(false); // Ukryj menu pauzy
-		Time.timeScale = 1f; // Przywróæ normalny czas gry
-		GameState.STATE_Paused = false; // Ustaw flagê
+		pauseMenuCanvas.SetActive(false);
+		Time.timeScale = 1f;
+		GameState.STATE_Paused = false;
 	}
 
-	// Wstrzymanie gry
 	public void PauseGame()
 	{
-		pauseMenuCanvas.SetActive(true); // Poka¿ menu pauzy
-		Time.timeScale = 0f; // Zatrzymaj czas gry
-		GameState.STATE_Paused = true; // Ustaw flagê
+		pauseMenuCanvas.SetActive(true);
+		Time.timeScale = 0f;
+		GameState.STATE_Paused = true;
 	}
 
-	// Restart sceny
 	public void RestartLevel()
 	{
 		AudioManager.PlaySound(SoundType.MENU_Select_Button);
@@ -77,23 +79,19 @@ public class PauseMenu : MonoBehaviour
 
 	private IEnumerator RestartAfterFadeOut()
 	{
-		ScreenFader.Instance.FadeOut(); // Uruchomienie animacji fade-out
-		yield return new WaitForSecondsRealtime(1); // Poczekaj na zakoñczenie animacji (1 sekunda)
-
-		Time.timeScale = 1f; // Przywróæ normalny czas gry przed restartem
+		ScreenFader.Instance.FadeOut();
+		yield return new WaitForSecondsRealtime(1);
+		Time.timeScale = 1f;
 		SceneManagerScript.Instance.ReloadCurrentScene();
 	}
 
-	// Wyjœcie do g³ównego menu
 	public void ExitToMenu()
 	{
 		AudioManager.PlaySound(SoundType.MENU_Select_Button);
-
-		Time.timeScale = 1f; // Przywróæ normalny czas gry przed wyjœciem
+		Time.timeScale = 1f;
 		SceneManagerScript.Instance.LoadMenuScene();
 	}
 
-	// ===== NOWY VOID: Przejœcie do nastêpnego poziomu =====
 	public void LoadNextLevel()
 	{
 		AudioManager.PlaySound(SoundType.MENU_NextLevel_Button);
@@ -104,9 +102,7 @@ public class PauseMenu : MonoBehaviour
 	{
 		ScreenFader.Instance.FadeOut();
 		yield return new WaitForSecondsRealtime(1);
-
 		Time.timeScale = 1f;
 		SceneManagerScript.Instance.LoadNextLevel();
 	}
-
 }

@@ -20,16 +20,15 @@ public class UnitSpawner : MonoBehaviour
 	[SerializeField] private Transform _unitParent;
 	[SerializeField] public int _maxEnemyUnits;
 	[SerializeField] private bool _usePool;
-	[SerializeField] private float _initialSpawnDelay = 0f; // delay przed pierwszym spawnem
+	[SerializeField] private float _initialSpawnDelay = 0f;
 	[SerializeField] private float _minSpawnDelay = 1f;
 	[SerializeField] private float _maxSpawnDelay = 3f;
 	[SerializeField] private CinemachineTargetGroup _targetGroup;
 	[SerializeField] private TextMeshProUGUI _enemyCounterText;
+	[SerializeField] private List<GameObject> _spawnIndicatorsUI;
+	[SerializeField] private float _indicatorDuration = 2f;
 
-    [SerializeField] private List<GameObject> _spawnIndicatorsUI;
-    [SerializeField] private float _indicatorDuration = 2f;
-
-    public int _spawnedUnits = 0;
+	public int _spawnedUnits = 0;
 	private int _currentSpawnedUnits = 0;
 
 	private Dictionary<string, ObjectPool<Unit>> enemyPools;
@@ -80,7 +79,7 @@ public class UnitSpawner : MonoBehaviour
 		_maxEnemyUnits = Mathf.Min(_maxEnemyUnits, totalAvailable);
 
 		UpdateEnemyCounter();
-		StartCoroutine(SpawnUnitLoop());
+		StartCoroutine(WaitForTutorialEndThenSpawn());
 	}
 
 	private void Update()
@@ -88,9 +87,20 @@ public class UnitSpawner : MonoBehaviour
 		UpdateEnemyCounter();
 	}
 
+	private IEnumerator WaitForTutorialEndThenSpawn()
+	{
+		// Jeœli tutorial jest aktywny - czekamy
+		while (GameController.Instance.isTutorialActive)
+		{
+			yield return null;
+		}
+
+		// Tutorial siê skoñczy³ lub wcale go nie by³o - odpalamy spawn loop
+		StartCoroutine(SpawnUnitLoop());
+	}
+
 	private IEnumerator SpawnUnitLoop()
 	{
-		// Czekamy przed pierwszym spawnem
 		yield return new WaitForSeconds(_initialSpawnDelay);
 
 		while (_currentSpawnedUnits < _maxEnemyUnits)
@@ -99,7 +109,6 @@ public class UnitSpawner : MonoBehaviour
 			yield return new WaitForSeconds(Random.Range(_minSpawnDelay, _maxSpawnDelay));
 		}
 	}
-
 
 	private void SpawnUnit()
 	{
@@ -131,13 +140,13 @@ public class UnitSpawner : MonoBehaviour
 		}
 
 		Vector3Int spawnPoint = spawnPositions[Random.Range(0, spawnPositions.Count)];
-        int spawnIndex = spawnPositions.IndexOf(spawnPoint);
-        if (spawnIndex >= 0 && spawnIndex < _spawnIndicatorsUI.Count)
-        {
-            StartCoroutine(ShowIndicator(spawnIndex));
-        }
+		int spawnIndex = spawnPositions.IndexOf(spawnPoint);
+		if (spawnIndex >= 0 && spawnIndex < _spawnIndicatorsUI.Count)
+		{
+			StartCoroutine(ShowIndicator(spawnIndex));
+		}
 
-        Vector3 spawnPosition = PathFinderManager.Instance.gridManager.tilemap.GetCellCenterWorld(spawnPoint);
+		Vector3 spawnPosition = PathFinderManager.Instance.gridManager.tilemap.GetCellCenterWorld(spawnPoint);
 		float yOffset = transform.localScale.y;
 		unit.transform.position = new Vector3(spawnPosition.x, spawnPosition.y + yOffset, spawnPosition.z);
 
@@ -208,20 +217,16 @@ public class UnitSpawner : MonoBehaviour
 		{
 			int lostHealth = GameController.Instance.maxHealth - GameController.Instance.currentHealth;
 			int remainingEnemies = _maxEnemyUnits - GameController.Instance.DefeatedEnemies - lostHealth;
-
 			remainingEnemies = Mathf.Max(remainingEnemies, 0);
-
 			_enemyCounterText.text = $"{remainingEnemies}";
 		}
 	}
 
-
 	private IEnumerator ShowIndicator(int index)
-    {
-        var go = _spawnIndicatorsUI[index];
-        go.SetActive(true);
-        yield return new WaitForSeconds(_indicatorDuration);
-        go.SetActive(false);
-    }
-
+	{
+		var go = _spawnIndicatorsUI[index];
+		go.SetActive(true);
+		yield return new WaitForSeconds(_indicatorDuration);
+		go.SetActive(false);
+	}
 }

@@ -52,6 +52,14 @@ public class ShopManager : MonoBehaviour
 		if (Input.GetKeyDown(KeyCode.Space))
 		{
 			var gameController = GameController.Instance;
+
+			// Blokada otwierania sklepu jeœli tutorial aktywny
+			if (gameController != null && gameController.isTutorialActive)
+			{
+				Debug.Log("Cannot open shop during tutorial!");
+				return;
+			}
+
 			if (GameState.STATE_Paused || GameState.STATE_Lost || GameState.STATE_Won || ObjectGrabber.Instance.isHoldingObject)
 			{
 				Debug.Log("Cannot open shop!");
@@ -125,43 +133,43 @@ public class ShopManager : MonoBehaviour
 		}
 	}
 
-    public void SellTower(GameObject tower)
-    {
-        if (tower == null) return;
-        if (!tower.CompareTag("Tower")) return;
+	public void SellTower(GameObject tower)
+	{
+		if (tower == null) return;
+		if (!tower.CompareTag("Tower")) return;
 
-        int sellValue = 0;
-        int towerPoints = 0;
+		int sellValue = 0;
+		int towerPoints = 0;
 
-        string name = tower.name.Replace("(Clone)", "").Trim();
+		string name = tower.name.Replace("(Clone)", "").Trim();
 
-        if (name == buildingPrefab1.name)
-        {
-            sellValue = Mathf.FloorToInt(100 / 2f);
-            towerPoints = 2;
-        }
-        else if (name == buildingPrefab2.name)
-        {
-            sellValue = Mathf.FloorToInt(150 / 2f);
-            towerPoints = 1;
-        }
-        else if (name == buildingPrefab3.name)
-        {
-            sellValue = Mathf.FloorToInt(200 / 2f);
-            towerPoints = 3;
-        }
-        else
-        {
-            return;
-        }
+		if (name == buildingPrefab1.name)
+		{
+			sellValue = Mathf.FloorToInt(100 / 2f);
+			towerPoints = 2;
+		}
+		else if (name == buildingPrefab2.name)
+		{
+			sellValue = Mathf.FloorToInt(150 / 2f);
+			towerPoints = 1;
+		}
+		else if (name == buildingPrefab3.name)
+		{
+			sellValue = Mathf.FloorToInt(200 / 2f);
+			towerPoints = 3;
+		}
+		else
+		{
+			return;
+		}
 
-        GameController.Instance.AddPoints(sellValue);
-        GameController.Instance.RemoveTower(towerPoints);
-        //AudioManager.PlaySound(  );
-        Destroy(tower);
-    }
+		GameController.Instance.AddPoints(sellValue);
+		GameController.Instance.RemoveTower(towerPoints);
+		//AudioManager.PlaySound(  );
+		Destroy(tower);
+	}
 
-    private void UpdateShopUI()
+	private void UpdateShopUI()
 	{
 		var gameController = GameController.Instance;
 		if (gameController == null) return;

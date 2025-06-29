@@ -102650,7 +102650,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53f9175c70b80544ca634f761960c771, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fpsLimit: 120
+  fpsLimit: 240
 --- !u!4 &1227871118
 Transform:
   m_ObjectHideFlags: 0
@@ -151894,7 +151894,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1835718460}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9adbd08b3186af04fb6f8e21e86fa4f9, type: 3}
   m_Name: 

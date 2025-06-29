@@ -47,13 +47,7 @@ public class PathHighlighter : MonoBehaviour
 	private void Start()
 	{
 		BuildTileLookup();
-		StartCoroutine(DelayedStart());
-	}
-
-	private IEnumerator DelayedStart()
-	{
-		yield return new WaitForSeconds(1f);
-		StartCoroutine(WaitUntilReadyAndHighlight());
+		StartCoroutine(WaitForTutorialEndThenHighlight());
 	}
 
 	private void BuildTileLookup()
@@ -70,7 +64,21 @@ public class PathHighlighter : MonoBehaviour
 		}
 	}
 
-	private IEnumerator WaitUntilReadyAndHighlight()
+	private IEnumerator WaitForTutorialEndThenHighlight()
+	{
+		yield return new WaitForSeconds(1f); // Początkowe lekkie opóźnienie
+
+		// Czekamy na koniec tutoriala
+		while (GameController.Instance.isTutorialActive)
+		{
+			yield return null;
+		}
+
+		// Dopiero teraz uruchamiamy highlightowanie ścieżki
+		StartCoroutine(HighlightPathLogic());
+	}
+
+	private IEnumerator HighlightPathLogic()
 	{
 		yield return new WaitForSeconds(0.5f);
 

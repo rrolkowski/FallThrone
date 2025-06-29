@@ -11920,6 +11920,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 566df885e4489704abb644a0cc3bfa20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isTutorialActive: 0
   currentLevel: 5
   starRating: 0
   maxHealth: 3
@@ -82255,7 +82256,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6245134262057179151, guid: c70257fa2a48fd943b4730dcc687f577, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6560205613461190961, guid: c70257fa2a48fd943b4730dcc687f577, type: 3}
       propertyPath: m_Mesh

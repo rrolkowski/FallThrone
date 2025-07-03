@@ -95,19 +95,35 @@ public class AudioManager : MonoBehaviour
 		audioSource = GetComponent<AudioSource>();
 	}
 
-	public static void PlaySound(SoundType sound, float overrideVolume = -1)
+    void Update()
+    {
+        //if (audioSource.isPlaying && audioSource.clip == null)
+        //{
+        //    Debug.LogWarning(" AudioSource is playing, but clip is null!");
+        //}
+    }
+
+
+    public static void PlaySound(SoundType sound, float overrideVolume = -1)
 	{
-		Debug.Log($"PlaySound {sound}");
+        //Debug.Log($"PlaySound {sound}");
+        Debug.Log($" PlaySound called with: {sound}\n{Environment.StackTrace}");
 
-		SoundList selectedSoundList = Instance.soundList[(int)sound];
+        SoundList selectedSoundList = Instance.soundList[(int)sound];
 		AudioClip[] clips = selectedSoundList.Sounds;
-		if (clips.Length == 0) return;
 
-		AudioClip randomClip = clips[UnityEngine.Random.Range(0, clips.Length)];
+        if (clips == null || clips.Length == 0)
+        {
+            Debug.LogWarning($" No clips assigned to {sound}");
+            return;
+        }
+
+        AudioClip randomClip = clips[UnityEngine.Random.Range(0, clips.Length)];
 
 		float volume = overrideVolume >= 0 ? overrideVolume : selectedSoundList.Volume;
 
-		Instance.audioSource.PlayOneShot(randomClip, volume);
+        Instance.audioSource.PlayOneShot(randomClip, volume);
+
 	}
 
 #if UNITY_EDITOR

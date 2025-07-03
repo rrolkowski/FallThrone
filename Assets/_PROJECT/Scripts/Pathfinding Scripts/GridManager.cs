@@ -18,7 +18,8 @@ public class GridManager : MonoBehaviour
 	public Tilemap tilemap;
 
 	private Dictionary<Vector3Int, TileNode> _nodes; // Stores each tile’s node data (position, cost, and obstacle status)
-	private List<Vector3Int> _spawnTilePositions = new List<Vector3Int>(); // Stores positions of spawn tiles  
+    private Dictionary<Vector3Int, Transform> _gridPositionToChild = new Dictionary<Vector3Int, Transform>();
+    private List<Vector3Int> _spawnTilePositions = new List<Vector3Int>(); // Stores positions of spawn tiles  
     private Vector3Int _endTilePosition;
     void Awake()
 	{
@@ -40,6 +41,7 @@ public class GridManager : MonoBehaviour
         {
             // Pobierz pozycjê w gridzie Tilemapy
             Vector3Int gridPosition = tilemap.WorldToCell(child.position);
+			_gridPositionToChild[gridPosition] = child;
 
             // Rozpoznaj typ obiektu na podstawie tagu
             int movementCost = int.MaxValue;
@@ -121,12 +123,8 @@ public class GridManager : MonoBehaviour
     }
     public Transform GetChildAtGridPosition(Vector3Int gridPosition)
     {
-        foreach (Transform child in tilemap.transform)
-        {
-            if (tilemap.WorldToCell(child.position) == gridPosition)
-                return child;
-        }
-        return null;
+        _gridPositionToChild.TryGetValue(gridPosition, out var child);
+        return child;
     }
 
     // Returns the node at a specific position if it exists in the grid

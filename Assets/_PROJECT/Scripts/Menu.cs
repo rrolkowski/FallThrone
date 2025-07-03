@@ -8,6 +8,7 @@ public class Menu : MonoBehaviour
 	public GameObject creditsCanvas;
 	public GameObject guideCanvas;
 	public GameObject levelSelectCanvas;
+	public GameObject optionsCanvas;
 
 	[SerializeField] private Button[] levelButtons;
 
@@ -54,6 +55,7 @@ public class Menu : MonoBehaviour
 		creditsCanvas.SetActive(false);
 		guideCanvas.SetActive(false);
 		levelSelectCanvas.SetActive(false);
+		optionsCanvas.SetActive(false);
 	}
 
 	private void UpdateLevelButtons()
@@ -149,6 +151,18 @@ public class Menu : MonoBehaviour
 		}
 	}
 
+	public void ShowOptions()
+	{
+		AudioManager.PlaySound (SoundType.MENU_Select_Button);
+		menuCanvas.SetActive(false);
+		optionsCanvas.SetActive(true);
+
+        if (animatedObject != null)
+        {
+            targetPosition = originalPosition + new Vector3(-3f, 0f, 0f);
+        }
+    }
+
 	public void ShowGuide()
 	{
 		AudioManager.PlaySound(SoundType.MENU_Select_Button);
@@ -166,6 +180,7 @@ public class Menu : MonoBehaviour
 		AudioManager.PlaySound(SoundType.MENU_Select_Button);
 		creditsCanvas.SetActive(false);
 		guideCanvas.SetActive(false);
+		optionsCanvas.SetActive(false);
 		levelSelectCanvas.SetActive(false);
 		menuCanvas.SetActive(true);
 

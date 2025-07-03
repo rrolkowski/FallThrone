@@ -43,8 +43,9 @@ public class StaminaSystem : MonoBehaviour
 	// NEW: Cooldown for stamina warning sound
 	private float _noStaminaSoundCooldown = 0f;
 	[SerializeField] private float _noStaminaSoundInterval = .5f;
+    private bool _hasPlayedNoStaminaSound = false;
 
-	void Start()
+    void Start()
 	{
 		_stamina = _maxStamina;
 
@@ -136,11 +137,11 @@ public class StaminaSystem : MonoBehaviour
 		if (staminaPercent <= colorChangeStartPercent)
 		{
 			// Play sound only if cooldown expired
-			if (_noStaminaSoundCooldown <= 0f)
+			if (!_hasPlayedNoStaminaSound)
 			{
 				AudioManager.PlaySound(SoundType.GAME_NoStamina);
-				_noStaminaSoundCooldown = _noStaminaSoundInterval;
-			}
+                _hasPlayedNoStaminaSound = true;
+            }
 
 			float t = Mathf.InverseLerp(colorChangeStartPercent, fullRedPercent, staminaPercent);
 			t = Mathf.Clamp01(t);
@@ -154,7 +155,8 @@ public class StaminaSystem : MonoBehaviour
 		else
 		{
 			ResetTextScale();
-		}
+            _hasPlayedNoStaminaSound = false;
+        }
 
 		_staminaFillImage.color = targetColor;
 

@@ -31,14 +31,15 @@ public class AudioSourceScanner : MonoBehaviour
 		}
 	}
 
-	void ScanForAudioSources()
+    void ScanForAudioSources()
 	{
 		AudioSource[] sources = FindObjectsOfType<AudioSource>(true); // true = tak¿e nieaktywne
 		foreach (var src in sources)
 		{
-			if (src.isPlaying && src.clip != null)
-			{
-				Debug.Log($"[AUDIO SCANNER] {src.clip.name} is playing on {src.gameObject.name}", src.gameObject);
+            if (src.isPlaying)
+            {
+                string clipName = src.clip != null ? src.clip.name : "NULL (PlayOneShot?)";
+                Debug.Log($"[AUDIO SCANNER] {src.clip.name} is playing on {src.gameObject.name}", src.gameObject);
 			}
 		}
 	}

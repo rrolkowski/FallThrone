@@ -11332,6 +11332,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 566df885e4489704abb644a0cc3bfa20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isTutorialActive: 0
   currentLevel: 3
   starRating: 0
   maxHealth: 3

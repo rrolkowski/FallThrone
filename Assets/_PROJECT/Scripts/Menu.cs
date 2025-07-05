@@ -218,9 +218,10 @@ public class Menu : MonoBehaviour
 		UpdateLevelButtons();
 		UpdateLevelButtons(); // tak - musi byc 2 razy bo jak jest raz to nie działa pozdrawiam
 
-		// 🔄 Force update stars display
-		LevelStarsDisplay starsDisplay = FindObjectOfType<LevelStarsDisplay>();
-		if (starsDisplay != null)
+        // 🔄 Force update stars display
+        //LevelStarsDisplay starsDisplay = FindObjectOfType<LevelStarsDisplay>();
+        LevelStarsDisplay starsDisplay = FindFirstObjectByType<LevelStarsDisplay>();
+        if (starsDisplay != null)
 		{
 			starsDisplay.ForceUpdateStars();
 		}

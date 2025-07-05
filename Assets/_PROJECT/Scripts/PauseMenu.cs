@@ -6,15 +6,24 @@ public class PauseMenu : MonoBehaviour
 	public static PauseMenu Instance;
 
 	public GameObject pauseMenuCanvas;
+	[SerializeField] GameObject _optionsMenu;
 
 	private void Awake()
 	{
 		Instance = this;
 	}
 
-	void Update()
+    private void Start()
+    {
+        _optionsMenu.SetActive(false);
+    }
+
+    void Update()
 	{
 		if (GameState.STATE_LoadingLevel) return;
+
+		if (_optionsMenu.activeInHierarchy == true)
+			return;
 
 		if (Input.GetKeyDown(KeyCode.Escape))
 		{
@@ -76,6 +85,20 @@ public class PauseMenu : MonoBehaviour
 		AudioManager.PlaySound(SoundType.MENU_Select_Button);
 		StartCoroutine(RestartAfterFadeOut());
 	}
+
+	public void Options()
+	{
+        AudioManager.PlaySound(SoundType.MENU_Select_Button);
+        pauseMenuCanvas.SetActive(false);
+		_optionsMenu.SetActive(true);
+    }
+
+	public void GoBack()
+	{
+        AudioManager.PlaySound(SoundType.MENU_Select_Button);
+        _optionsMenu.SetActive(false);
+        pauseMenuCanvas.SetActive(true);
+    }
 
 	private IEnumerator RestartAfterFadeOut()
 	{

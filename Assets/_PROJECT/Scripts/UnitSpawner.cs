@@ -144,7 +144,8 @@ public class UnitSpawner : MonoBehaviour
 		if (spawnIndex >= 0 && spawnIndex < _spawnIndicatorsUI.Count)
 		{
 			StartCoroutine(ShowIndicator(spawnIndex));
-		}
+            AudioManager.PlaySound(SoundType.GAME_INDICATOR);
+        }
 
 		Vector3 spawnPosition = PathFinderManager.Instance.gridManager.tilemap.GetCellCenterWorld(spawnPoint);
 		float yOffset = transform.localScale.y;
@@ -224,9 +225,47 @@ public class UnitSpawner : MonoBehaviour
 
 	private IEnumerator ShowIndicator(int index)
 	{
-		var go = _spawnIndicatorsUI[index];
-		go.SetActive(true);
-		yield return new WaitForSeconds(_indicatorDuration);
-		go.SetActive(false);
-	}
+        //var go = _spawnIndicatorsUI[index];
+        //go.SetActive(true);
+        //yield return new WaitForSeconds(_indicatorDuration);
+        //go.SetActive(false);
+
+        var go = _spawnIndicatorsUI[index];
+        go.SetActive(true);
+
+        float duration = _indicatorDuration;
+        float speed = 1.5f; // pulsów na sekundê
+        float fixedAlpha = 180f / 255f;
+
+        SpriteRenderer sr = null;
+        UnityEngine.UI.Image img = null;
+
+        if (!go.TryGetComponent<SpriteRenderer>(out sr))
+            go.TryGetComponent<UnityEngine.UI.Image>(out img);
+
+        for (float t = 0f; t < duration; t += Time.deltaTime)
+        {
+            float wave = (Mathf.Sin(t * speed * Mathf.PI * 2f) + 1f) / 2f;
+            Color lerped = Color.Lerp(Color.red, Color.white, wave);
+            lerped.a = fixedAlpha;
+
+            if (sr != null)
+                sr.color = lerped;
+            else if (img != null)
+                img.color = lerped;
+
+            yield return null;
+        }
+
+        // Reset kolor na bia³y z alf¹
+        Color finalColor = new Color(1f, 1f, 1f, fixedAlpha);
+
+        if (sr != null)
+            sr.color = finalColor;
+        else if (img != null)
+            img.color = finalColor;
+
+        go.SetActive(false);
+    }
 }
+

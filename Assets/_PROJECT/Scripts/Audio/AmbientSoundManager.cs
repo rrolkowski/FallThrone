@@ -10,14 +10,16 @@ public class AmbientSoundManager : MonoBehaviour
 	public AudioClip[] ambientClips;
 	public float minDelay = 5f;
 	public float maxDelay = 20f;
+    public AudioMixerGroup mixerGroup;
 
-	[Range(0f, 1f)]
+    [Range(0f, 1f)]
 	public float volume = 1f; // Dodane ustawienie głośności
 
 	void Start()
 	{
 		audioSource = gameObject.AddComponent<AudioSource>();
-		audioSource.loop = false;
+		audioSource.outputAudioMixerGroup = mixerGroup;
+        audioSource.loop = false;
 		audioSource.playOnAwake = false;
 		audioSource.volume = volume;
 

@@ -791,8 +791,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.25, y: 3, z: 1.25}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1.25, y: 4, z: 1.25}
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!54 &5055781812821200467
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -834,10 +834,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _shockwaveSpawnPoint: {fileID: 158992196165184248}
   _shockwaveEffect: {fileID: 4223703552941886654, guid: 5e234fbb280248b4183c48fc6755cac0, type: 3}
-  _fireRate: 1.5
+  _fireRate: 2
   _detectionRange: 8
   _shockwaveRadius: 10
-  _shockwaveDamage: 15
+  _shockwaveDamage: 10
   _shockwaveExpansionTime: 0.7
 --- !u!114 &4503458491919103147
 MonoBehaviour:
@@ -851,6 +851,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa47adfb43bd4084e9d5f71e5280da94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemymovement: {fileID: 0}
   objectType: 3
   maxHealth: 100
   currentHealth: 0

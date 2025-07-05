@@ -36,7 +36,7 @@ public class ButtonHighlightEffect : MonoBehaviour, IPointerEnterHandler, IPoint
 	private Color targetTextColor;
 	private Color currentTextColor;
 
-	private bool isHovered = false;
+	//private bool isHovered = false;
 
 	private void Awake()
 	{
@@ -89,7 +89,7 @@ public class ButtonHighlightEffect : MonoBehaviour, IPointerEnterHandler, IPoint
 
 		AudioManager.PlaySound(SoundType.MENU_Highlight_Button);
 
-		isHovered = true;
+		//isHovered = true;
 
 		if (soloText && targetText != null)
 		{
@@ -110,7 +110,7 @@ public class ButtonHighlightEffect : MonoBehaviour, IPointerEnterHandler, IPoint
 
 	public void OnPointerExit(PointerEventData eventData)
 	{
-		isHovered = false;
+		//isHovered = false;
 
 		if (soloText && targetText != null)
 		{

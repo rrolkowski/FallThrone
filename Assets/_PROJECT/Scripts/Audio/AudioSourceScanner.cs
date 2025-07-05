@@ -33,7 +33,7 @@ public class AudioSourceScanner : MonoBehaviour
 
     void ScanForAudioSources()
 	{
-		AudioSource[] sources = FindObjectsOfType<AudioSource>(true); // true = tak¿e nieaktywne
+		AudioSource[] sources = FindObjectsByType<AudioSource>(FindObjectsSortMode.None); // true = tak¿e nieaktywne
 		foreach (var src in sources)
 		{
             if (src.isPlaying)

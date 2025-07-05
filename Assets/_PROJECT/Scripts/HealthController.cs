@@ -154,8 +154,14 @@ public class HealthController : MonoBehaviour
 			case ObjectType.Enemy:
 				AudioManager.PlaySound(SoundType.GAME_Enemy_Death);
 				GameController.Instance.AddPoints(25);
+                ObjectGrabber.Instance?._rangeCircleController.DeactivateRangeCircle();
+                if (ObjectGrabber.Instance.currentlyGrabbedObject == gameObject)
+                {
+                    ObjectGrabber.Instance.currentlyGrabbedObject = null;
+                    transform.SetParent(null);
+                }
 
-				if (TryGetComponent<Unit>(out var unit))
+                if (TryGetComponent<Unit>(out var unit))
 				{
 					Debug.Log("Invoking ReturnToPool for: " + unit.name);
 					_returnToPool?.Invoke(unit);

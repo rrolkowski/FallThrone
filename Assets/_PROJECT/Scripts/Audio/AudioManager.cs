@@ -65,6 +65,8 @@ public enum SoundType
 	GAME_Win_3Star,
 
 	GAME_Health_Slimak,
+
+	GAME_INDICATOR,
 }
 
 [RequireComponent(typeof(AudioSource)), ExecuteInEditMode]
@@ -107,7 +109,7 @@ public class AudioManager : MonoBehaviour
     public static void PlaySound(SoundType sound, float overrideVolume = -1)
 	{
         //Debug.Log($"PlaySound {sound}");
-        Debug.Log($" PlaySound called with: {sound}\n{Environment.StackTrace}");
+        //Debug.Log($" PlaySound called with: {sound}\n{Environment.StackTrace}");
 
         SoundList selectedSoundList = Instance.soundList[(int)sound];
 		AudioClip[] clips = selectedSoundList.Sounds;
@@ -124,10 +126,27 @@ public class AudioManager : MonoBehaviour
 
         Instance.audioSource.PlayOneShot(randomClip, volume);
 
-	}
+    }
+
+    public static void ResetAudioSource()
+    {
+        if (Instance == null || Instance.audioSource == null)
+            return;
+
+        Instance.audioSource.Stop();
+        Instance.audioSource.clip = null;
+
+        var oldGroup = Instance.audioSource.outputAudioMixerGroup;
+        Destroy(Instance.audioSource);
+        Instance.audioSource = Instance.gameObject.AddComponent<AudioSource>();
+        Instance.audioSource.outputAudioMixerGroup = oldGroup;
+		Instance.audioSource.playOnAwake = false;
+
+    }
+
 
 #if UNITY_EDITOR
-	private void OnEnable()
+    private void OnEnable()
 	{
 		string[] names = Enum.GetNames(typeof(SoundType));
 		Array.Resize(ref soundList, names.Length);

@@ -239,7 +239,9 @@ public class GameController : MonoBehaviour
     #region Game Control
     private void GameOver()
 	{
-		MusicManager.StopMusic();
+        if (GameState.STATE_Lost || GameState.STATE_Won) return;
+
+        MusicManager.StopMusic();
 
 		GameState.STATE_Lost = true;
 		if (lostCanvas != null)
@@ -286,12 +288,21 @@ public class GameController : MonoBehaviour
 
 	public void CheckForWinCondition()
 	{
-		if (!GameState.STATE_Won && CheckWinCondition() && !localwincondition)
-		{
-			GameWin();
-			localwincondition = true;
-		}
-	}
+        if (GameState.STATE_Lost || GameState.STATE_Won || localwincondition)
+            return;
+
+        if (CheckWinCondition())
+        {
+			StartCoroutine(WinDelay());
+            localwincondition = true;
+        }
+    }
+
+	IEnumerator WinDelay()
+	{
+		yield return new WaitForSecondsRealtime(0.5f);
+        GameWin();
+    }
 
 	private bool CheckWinCondition()
 	{

@@ -37,7 +37,8 @@ public class SceneManagerScript : MonoBehaviour
 		{
 			SceneManager.LoadScene(menuScene);
 			UpdateGameState(menuScene);
-		}
+			AudioManager.ResetAudioSource();
+        }
 	}
 
 	public void LoadLevel(int levelIndex)
@@ -49,7 +50,8 @@ public class SceneManagerScript : MonoBehaviour
 			{
 				SceneManager.LoadScene(sceneName);
 				UpdateGameState(sceneName);
-			}
+                AudioManager.ResetAudioSource();
+            }
 		}
 	}
 
@@ -58,7 +60,8 @@ public class SceneManagerScript : MonoBehaviour
 		Scene currentScene = SceneManager.GetActiveScene();
 		SceneManager.LoadScene(currentScene.name);
 		UpdateGameState(currentScene.name);
-	}
+        AudioManager.ResetAudioSource();
+    }
 
 	private void UpdateGameState(string sceneName)
 	{
@@ -86,7 +89,8 @@ public class SceneManagerScript : MonoBehaviour
 			{
 				SceneManager.LoadScene(nextSceneName);
 				UpdateGameState(nextSceneName);
-			}
+                AudioManager.ResetAudioSource();
+            }
 		}
 	}
 

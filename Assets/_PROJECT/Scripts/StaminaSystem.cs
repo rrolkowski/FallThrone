@@ -42,7 +42,7 @@ public class StaminaSystem : MonoBehaviour
 
 	// NEW: Cooldown for stamina warning sound
 	private float _noStaminaSoundCooldown = 0f;
-	[SerializeField] private float _noStaminaSoundInterval = .5f;
+	//[SerializeField] private float _noStaminaSoundInterval = .5f;
     private bool _hasPlayedNoStaminaSound = false;
 
     void Start()

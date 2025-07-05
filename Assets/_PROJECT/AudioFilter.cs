@@ -13,7 +13,7 @@ public class AudioFilter : MonoBehaviour
 
         if (max > 0.01f)
         {
-            //Debug.Log($"[AUDIO SNIFFER] Active sound detected. Max amplitude: {max}");
+            //Debug.Log($"Active sound detected. Max amplitude: {max}");
         }
     }
 }

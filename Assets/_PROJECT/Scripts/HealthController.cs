@@ -154,9 +154,10 @@ public class HealthController : MonoBehaviour
 			case ObjectType.Enemy:
 				AudioManager.PlaySound(SoundType.GAME_Enemy_Death);
 				GameController.Instance.AddPoints(25);
-                ObjectGrabber.Instance?._rangeCircleController.DeactivateRangeCircle();
+
                 if (ObjectGrabber.Instance.currentlyGrabbedObject == gameObject)
                 {
+					ObjectGrabber.Instance?._rangeCircleController.DeactivateRangeCircle();
                     ObjectGrabber.Instance.currentlyGrabbedObject = null;
                     transform.SetParent(null);
                 }

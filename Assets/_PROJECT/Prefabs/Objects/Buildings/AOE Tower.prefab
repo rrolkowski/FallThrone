@@ -837,7 +837,7 @@ MonoBehaviour:
   _fireRate: 2
   _detectionRange: 8
   _shockwaveRadius: 10
-  _shockwaveDamage: 10
+  _shockwaveDamage: 15
   _shockwaveExpansionTime: 0.7
 --- !u!114 &4503458491919103147
 MonoBehaviour:
